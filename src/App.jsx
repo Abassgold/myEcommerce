@@ -5,6 +5,8 @@ import Homepage from './pages/Homepage';
 import Footer from './component/Navbar/Footer/Footer';
 import NewsLetter from './pages/NewsLetter';
 import Support from './component/Support/Support';
+import Signup from './component/Signupandsigin/Signup'
+import Signin from './component/Signupandsigin/Signin';
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <Route index element={<Homepage/>}/>
         <Route path='/newsletter' element={<NewsLetter/>}/>
         <Route path='/support' element={<Support/>}/>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/signin' element={<Signin/>}/>
       </Routes>
       <Footer/>
     </>
