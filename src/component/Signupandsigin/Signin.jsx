@@ -13,7 +13,10 @@ const Signin = () => {
         onSubmit: (values) => {
             console.log(values);
         },
-        validationSchema: Yup.object
+        validationSchema: Yup.object({
+            email: Yup.string().email('Email is invalid').required('Please enter your name'),
+            password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password')
+        })
     })
     return (
         <div>
@@ -28,12 +31,13 @@ const Signin = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='email' onBlur={formik.handleBlur}/>
+                                    <input type="email" placeholder='Your  email...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                 </div>
-                                    <label htmlFor="">{formik.email.error}</label>
+                                <label htmlFor="" className='text-red-600'>{formik.errors.email}</label>
                                 <div className="pb-2">
-                                    <input type="password" placeholder='Your password...' className='border-[1px] hover:border-[3px] border-black w-full ps-4 py-3' onChange={formik.handleChange} name='password' onBlur={formik.handleBlur}/>
+                                    <input type="password" placeholder='Your password...' className='border-[1px] hover:border-[3px] border-black w-full ps-4 py-3' onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                 </div>
+                                <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
                                 <div className="text-end mb-2 text-white">
                                     <button type='submit' className='bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
                                 </div>
@@ -45,7 +49,7 @@ const Signin = () => {
                                 </div>
                                 <div className='flex justify-between items-center px-10 mt-2'>
                                     <span className='font-[500]'>Don't have an account yet?</span>
-                                    <Link className='text-[#44DBBD] text-[17px] font-[600]'>SIGNUP</Link>
+                                    <Link to='/signup' className='text-[#44DBBD] text-[17px] font-[600]'>SIGNUP</Link>
                                 </div>
                             </div>
                         </form>

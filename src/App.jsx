@@ -7,6 +7,8 @@ import NewsLetter from './pages/NewsLetter';
 import Support from './component/Support/Support';
 import Signup from './component/Signupandsigin/Signup'
 import Signin from './component/Signupandsigin/Signin';
+import BuyNow from './pages/BuyNow';
+import Reviews from './pages/Reviews';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
         <Route path='/support' element={<Support/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/signin' element={<Signin/>}/>
+        <Route path='/buy-now' element={<BuyNow/>}/>
+        <Route path='/forum/*' element={<Reviews/>}/>
       </Routes>
       <Footer/>
     </>

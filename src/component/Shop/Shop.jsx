@@ -17,7 +17,7 @@ const Shop = () => {
                             </p>
                         </div>
                         <a href="" className='text-decoration-underline'>Learn More</a><br /><br />
-                        <Link className='p-3 text-white hover:bg-white hover:text-[#44dbbd] bg-[#44dbbd] border-2 border-[#44dbbd]'>Buy Now</Link>
+                        <Link to='/buy-now' className='p-3 text-white hover:bg-white hover:text-[#44dbbd] bg-[#44dbbd] border-2 border-[#44dbbd]'>Buy Now</Link>
                     </div>
                 </div>
             </div>

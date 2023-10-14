@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup'
 
 const Signup = () => {
 
@@ -12,7 +13,13 @@ const Signup = () => {
         },
         onSubmit: (values) => {
             console.log(values);
-        }
+        },
+        validationSchema: Yup.object({
+            firstName: Yup.string().required('Pls enter your first name'),
+            lastName:Yup.string().required('Please enter your last name'),
+            email: Yup.string().email('Email is invalid').required('Please enter your name'),
+            password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password')
+        })
     })
     return (
         <div>
@@ -27,16 +34,20 @@ const Signup = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="text" placeholder='Your first name...' className='w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='firstName' />
+                                    <input type="text" placeholder='Your first name...' className='w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='firstName' onBlur={formik.handleBlur}/>
+                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.errors.firstName}</label>
                                 </div>
                                 <div className="pb-2">
-                                    <input type="text" placeholder='Your last name...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='lastName' />
+                                    <input type="text" placeholder='Your last name...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='lastName' onBlur={formik.handleBlur} />
+                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.errors.lastName}</label>
                                 </div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='email' />
+                                    <input type="email" placeholder='Your  email...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='email' onBlur={formik.handleBlur}/>
+                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.errors.email}</label>
                                 </div>
                                 <div className="pb-2">
-                                    <input type="password" placeholder='Your password...' className='border-[1px] hover:border-[3px] border-black w-full ps-4 py-3' onChange={formik.handleChange} name='password' />
+                                    <input type="password" placeholder='Your password...' className='border-[1px] hover:border-[3px] border-black w-full ps-4 py-3' onChange={formik.handleChange} name='password' onBlur={formik.handleBlur}/>
+                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.errors.password}</label>
                                 </div>
                                 <div className="text-end mb-2 text-white">
                                     <button type='submit' className='bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
