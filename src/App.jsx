@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactNavbar from './component/Navbar/ReactNavbar';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Homepage from './pages/Homepage';
 import Footer from './component/Navbar/Footer/Footer';
 import NewsLetter from './pages/NewsLetter';
@@ -9,8 +9,10 @@ import Signup from './component/Signupandsigin/Signup'
 import Signin from './component/Signupandsigin/Signin';
 import BuyNow from './pages/BuyNow';
 import Reviews from './pages/Reviews';
+import Userdashboard from './pages/Userdashboard';
 
 const App = () => {
+  let token = localStorage.token
   return (
     <>
       <ReactNavbar/>
@@ -20,6 +22,7 @@ const App = () => {
         <Route path='/support' element={<Support/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/signin' element={<Signin/>}/>
+        <Route path='/dashboard' element={token? <Userdashboard/> : <Navigate to='/signin'/>}/>
         <Route path='/buy-now' element={<BuyNow/>}/>
         <Route path='/forum/*' element={<Reviews/>}/>
       </Routes>

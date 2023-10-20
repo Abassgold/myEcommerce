@@ -1,23 +1,34 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const Signin = () => {
-
+    const navigate = useNavigate()
+    let URI = `http://localhost:1466/user/signin`
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
         onSubmit: (values) => {
-            console.log(values);
+            axios.post(URI, values)
+            .then(res=>{
+                if(res.status === 200){
+                    localStorage.token = res.data.token
+                    navigate('/dashboard')
+                }
+            })
+            .catch(err=>console.log(err))
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email is invalid').required('Please enter your name'),
             password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password')
         })
-    })
+    });
+    let isValid = 'w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black';
+    let isInValid = 'w-full ps-4 py-3 border-[1px] hover:border-[3px] border-red-600'
     return (
         <div>
             <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
@@ -31,13 +42,13 @@ const Signin = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className='w-full ps-4 py-3 border-[1px] hover:border-[3px] border-black' onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
+                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && !formik.errors.email? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.email}</label>
                                 <div className="pb-2">
-                                    <input type="password" placeholder='Your password...' className='border-[1px] hover:border-[3px] border-black w-full ps-4 py-3' onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
+                                    <input type="password" placeholder='Your password...' className={formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                 </div>
-                                <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
+                                <label htmlFor="" className='text-red-600'>{formik.errors.password && formik.touched.password}</label>
                                 <div className="text-end mb-2 text-white">
                                     <button type='submit' className='bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
                                 </div>
@@ -48,7 +59,7 @@ const Signin = () => {
                                     </a>
                                 </div>
                                 <div className='flex justify-between items-center px-10 mt-2'>
-                                    <span className='font-[500]'>Don't have an account yet?</span>
+                                    <span className='font-[500]'>New to this site?</span>
                                     <Link to='/signup' className='text-[#44DBBD] text-[17px] font-[600]'>SIGNUP</Link>
                                 </div>
                             </div>
