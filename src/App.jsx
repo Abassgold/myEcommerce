@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactNavbar from './component/Navbar/ReactNavbar';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Homepage from './pages/Homepage';
@@ -10,23 +9,38 @@ import Signin from './component/Signupandsigin/Signin';
 import BuyNow from './pages/BuyNow';
 import Reviews from './pages/Reviews';
 import Userdashboard from './pages/Userdashboard';
+import Sidebar from './component/Sidebar';
+import clientSocket from 'socket.io-client'
+import { useRef, useEffect } from 'react';
+import Chat from './pages/Chat';
+
+
 
 const App = () => {
   let token = localStorage.token
+  let URI = `http://localhost:5000`
+  const socket = useRef()
+  useEffect(() => {
+    socket.current = clientSocket(URI)
+  }, []);
   return (
     <>
-      <ReactNavbar/>
+      <div className={`sticky top-0`}>
+        <ReactNavbar />
+      </div>
       <Routes>
-        <Route index element={<Homepage/>}/>
-        <Route path='/newsletter' element={<NewsLetter/>}/>
-        <Route path='/support' element={<Support/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/signin' element={<Signin/>}/>
-        <Route path='/dashboard' element={token? <Userdashboard/> : <Navigate to='/signin'/>}/>
-        <Route path='/buy-now' element={<BuyNow/>}/>
-        <Route path='/forum/*' element={<Reviews/>}/>
+        <Route index element={<Homepage />} />
+        <Route path='/newsletter' element={<NewsLetter />} />
+        <Route path='/support' element={<Support />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/dashboard' element={token ? <Userdashboard /> : <Navigate to='/signin' />} />
+        <Route path='/buy-now' element={<BuyNow />} />
+        <Route path='/forum/*' element={<Reviews />} />
+        <Route path='/sidebar' element={<Sidebar />} />
+        <Route path='/chat' element={<Chat socket={socket.current}/>}/>
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 }
