@@ -21,7 +21,7 @@ const App = () => {
   let URI = `http://localhost:5000`
   const socket = useRef()
   useEffect(() => {
-    socket.current = clientSocket(URI)
+    // socket.current = clientSocket(URI)
   }, []);
   return (
     <>

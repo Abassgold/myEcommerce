@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
 const Signin = () => {
+    const [message, setMessage] = useState('')
     const navigate = useNavigate()
-    let URI = `http://localhost:1466/user/signin`
+    let URI = `http://localhost:5000/user/signin`
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        onSubmit: (values) => {
-            axios.post(URI, values)
-            .then(res=>{
-                if(res.status === 200){
-                    localStorage.token = res.data.token
-                    navigate('/dashboard')
-                }
-            })
-            .catch(err=>console.log(err))
+        onSubmit: async (values) => {
+            try {
+                let response = await axios.post(URI, values)
+                cosole.log(response)
+            } catch (error) {
+                console.log(error)
+            }
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email is invalid').required('Please enter your name'),
@@ -32,6 +31,7 @@ const Signin = () => {
     return (
         <div>
             <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
+                <h1 className={`text-center text-[17px] text-red-600`}>{message}</h1>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-10 justify-center'>
                     <div className='sm:block hidden'>
                         <div className='h-full'>
@@ -42,7 +42,7 @@ const Signin = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && !formik.errors.email? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
+                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && !formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.email}</label>
                                 <div className="pb-2">

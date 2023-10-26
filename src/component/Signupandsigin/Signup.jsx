@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 const Signup = () => {
     const navigate = useNavigate()
-    let URI = `http://localhost:1466/user/signup`;
+    let URI = `http://localhost:5000/user/signup`;
     const handleFileChange = (e) => {
         let file = e.target.files[0]
         let reader = new FileReader()
