@@ -13,6 +13,7 @@ import Sidebar from './component/Sidebar';
 import clientSocket from 'socket.io-client'
 import { useRef, useEffect } from 'react';
 import Chat from './pages/Chat';
+import Test from './component/Test';
 
 
 
@@ -39,6 +40,7 @@ const App = () => {
         <Route path='/forum/*' element={<Reviews />} />
         <Route path='/sidebar' element={<Sidebar />} />
         <Route path='/chat' element={<Chat socket={socket.current}/>}/>
+        <Route path='/test' element={<Test/>}/>
       </Routes>
       <Footer />
     </>
