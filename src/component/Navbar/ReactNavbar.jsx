@@ -21,7 +21,7 @@ const ReactNavbar = () => {
                                 <li className='hover:text-[rgb(250,204,204)] py-4 md:my-0 order-4'><Link to='/forum'>Expert Reviews</Link></li>
                                 <li className='py-4 md:my-0 flex gap-2 text-[#44dbbd] md:order-5 -order-1'><Link>{token? <img className={`h-[1.7rem] w-[1.7rem] rounded-full`} src='https://staticimg.titan.co.in/Titan/Catalog/1805QM04_1.jpg?impolicy=pqmed&imwidth=640' alt="" />: <span className="material-symbols-outlined text-[#44dbbd]">account_circle</span>}</Link> {token ? <Link>azeez</Link> : <Link to='/signin'>Log In</Link>}</li>
                             </ul>
-                            <span className={`md:static md:left-auto md:right-auto absolute left-[50%] top-4`}>
+                            <span className={`md:static  absolute left-[40%] top-4`}>
                                 <span className={`me-5 text-white border-[2px] border-[#44dbbd] hover:bg-inherit hover:text-[#44dbbd] duration-[0.9s] p-2 bg-[#44dbbd]`}>
                                     <Link>Buy Now</Link>
                                 </span>
