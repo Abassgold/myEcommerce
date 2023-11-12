@@ -5,8 +5,8 @@ const CheckForum = () => {
     return (
         <div className='py-[5rem]'>
             <div className="text-center text-[#2f2e2e]">
-                <h1 className='sm:text-[2.6rem] font-[400]'>EXPERTS REVIEWS</h1><br />
-                <p className='sm:text-[20px]'>Check out our forum and find the answers you’ve been looking for.</p>
+                <h1 className='sm:text-[2.6rem] text-[1.6rem] font-[400]'>EXPERTS REVIEWS</h1><br />
+                <p className='sm:text-[20px] text-[15px]'>Check out our forum and find the answers you’ve been looking for.</p>
             </div>
             <div className="md:w-[70%] w-[90%] mx-auto mt-14">
                 <div className='border-[1px] border-black p-5'>
