@@ -2,10 +2,12 @@ import React from 'react';
 import Shop from '../component/Shop/Shop';
 import Service from '../component/Service/Service';
 import ShopExclusive from '../component/ShopExclusive/ShopExclusive';
+import CostumTitle from '../../CosutumTitle/CostumTitle';
 
 const Homepage = () => {
   return (
     <>
+    <CostumTitle title = 'My home'/>
       <Shop />
       <div className=' pt-[10rem] pb-[5rem]'>
         <Service/>

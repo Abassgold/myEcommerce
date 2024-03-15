@@ -25,7 +25,7 @@ const AdminPost = () => {
             }
             console.log(value);
 
-            axios.post()
+            axios.post('http://localhost:5000/admin/product', value)
         }
     })
     return (
@@ -37,7 +37,7 @@ const AdminPost = () => {
                 </div><br />
                 <div>
                     <label htmlFor="">Proudct Price</label><br />
-                    <input type="text"  className='mt-1 border-[2px] outline-none border-black w-full p-2' onChange={formik.handleChange} name='price'/>
+                    <input type="number"  className='mt-1 border-[2px] outline-none border-black w-full p-2' onChange={formik.handleChange} name='price'/>
                 </div><br />
                 <div>
                     <label htmlFor="">Proudct Picture</label><br />

@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 const ReactNavbar = () => {
     let token = localStorage.token
     const [open, setOpen] = useState(false)
+   const {cartItems} = useSelector(state=>state.cartReducer)
+   console.log(cartItems.length);
 
     return (
         <div>
@@ -25,7 +27,7 @@ const ReactNavbar = () => {
                                 <span className={`me-5 text-white border-[2px] border-[#44dbbd] hover:bg-inherit hover:text-[#44dbbd] duration-[0.9s] p-2 bg-[#44dbbd]`}>
                                     <Link>Buy Now</Link>
                                 </span>
-                                <button className='text-[13px] text-[#44dbbd]'>Cart <span className='bg-white text-[#44dbbd] p-[1px] rounded-full'>11</span></button>
+                                <button className='text-[13px] text-[#44dbbd]'>Cart <span className='bg-white text-[#44dbbd] p-[1px] rounded-full'>{cartItems.length}</span></button>
                             </span>
                         </div>
                     </div>

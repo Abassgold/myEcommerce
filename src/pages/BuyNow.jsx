@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ShopWithExclusive from '../component/ShopwithExclusive/ShopWithExclusive';
 import AddToCart from '../component/AddToCart/AddToCart';
 
 const BuyNow = () => {
   return (
     <div>
-      <ShopWithExclusive/>
+      <ShopWithExclusive />
       <div>
-        <AddToCart/>
+        <AddToCart />
       </div>
     </div>
   );

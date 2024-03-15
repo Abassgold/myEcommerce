@@ -17,17 +17,15 @@ import Test from './component/Test';
 import AdminPost from './pages/AdminPost';
 import SingleCart from './component/SingleCart/SingleCart';
 import MyCart from './pages/MyCart';
+import HomeBuynow from './component/HomeBuynow/HomeBuynow';
+import ProductDetails from './pages/ProductDetails';
 
 
 
 const App = () => {
-
   let token = localStorage.token
   let URI = `http://localhost:5000`
   const socket = useRef()
-  useEffect(() => {
-    // socket.current = clientSocket(URI)
-  }, []);
   return (
     <>
       <div>
@@ -41,13 +39,15 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/dashboard' element={token ? <Userdashboard /> : <Navigate to='/signin' />} />
-          <Route path='/buy-now' element={<BuyNow/>} />
+          <Route path='/buy-now' element={<BuyNow />} />
           <Route path='/forum/*' element={<Reviews />} />
           <Route path='/sidebar' element={<Sidebar />} />
           <Route path='/chat' element={<Chat socket={socket.current} />} />
           <Route path='/test' element={<Test />} />
           <Route path='/admin' element={<AdminPost />} />
-          <Route path='/buy-now/Mycart' element={<MyCart/>}/>
+          <Route path='/buy-now/Mycart' element={<MyCart />} />
+          <Route path='/product-page/:id' element={<HomeBuynow />} />
+          <Route path='/product-details/:id' element={<ProductDetails/>} />
         </Routes>
         <Footer />
       </div>
