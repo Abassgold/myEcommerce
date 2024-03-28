@@ -23,7 +23,15 @@ const SingleCart = ({ gettingValue, show, setShow }) => {
                                 <h1 className='text-[20px]'>${gettingValue.price}</h1><br />
                                 <small className='text-[#2f2e2e] font-[50]'>SKU: 002</small><br /><br />
                                 <small className='text-[#2f2e2e] font-[50]'>Quantity</small>
-                                <span>1</span>
+                                <div className={`flex items-center gap-2 text-[1.5rem]`}>
+                                    <span class="material-symbols-outlined  bg-yellow-700 text-white">
+                                        remove
+                                    </span>
+                                    <span className={`mb-[1px]`}>1</span>
+                                    <span class="material-symbols-outlined  bg-red-700 text-white">
+                                        add
+                                    </span>
+                                </div>
                                 <div className={`mt-6`}>
                                     <button className={`w-full p-[5px] bg-[#44dbbd] text-white hover:text-[#44dbbd] hover:bg-white duration-500 border-[2px] border-[#44dbbd]`}>Add to Cart</button>
                                 </div>
