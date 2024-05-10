@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios'
 import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { Alert } from 'flowbite-react';
+import AlertComponent from '../Alert/AlertComponent';
+import { searchContext } from '../../App';
+import { fetchUserInfo } from '../../Redux/signInSlice/signinSlce';
+import { useDispatch } from 'react-redux';
+const Signin = ({ his}) => {
+   const dispatch =  useDispatch()
 
-const Signin = () => {
-    const [message, setMessage] = useState('')
+    const context = useContext(searchContext)
+    const token = localStorage.userToken
+    const {getToken} = context;
+    const [isVisible, setIsVisible] = useState(false)
+    const [message, setmessage] = useState('')
     const navigate = useNavigate()
-    let URI = `http://localhost:5000/user/signin`
+    const location = useLocation()
+    let URI = `http://localhost:5000/user/signin`;
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -15,10 +26,20 @@ const Signin = () => {
         },
         onSubmit: async (values) => {
             try {
-                let response = await axios.post(URI, values)
-                cosole.log(response)
-            } catch (error) {
-                console.log(error)
+                const {data} = await axios.post(URI, values)
+                if (data?.success) {
+                    setTimeout(() => {
+                        dispatch(fetchUserInfo(data?.token))
+                    navigate(location?.state?.previousUrl ? location?.state?.previousUrl : '/');
+                    }, 1000);
+                    return;
+                }
+                setmessage(data?.msg)
+                setIsVisible(!isVisible)
+            } catch (err) {
+                console.log(err.message);
+                setmessage(err.message)
+                setIsVisible(!isVisible)
             }
         },
         validationSchema: Yup.object({
@@ -31,7 +52,6 @@ const Signin = () => {
     return (
         <div>
             <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
-                <h1 className={`text-center text-[17px] text-red-600`}>{message}</h1>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-10 justify-center'>
                     <div className='sm:block hidden'>
                         <div className='h-full'>
@@ -39,6 +59,13 @@ const Signin = () => {
                         </div>
                     </div>
                     <div className='rounded-e-[5px] bg-[#d9d9d9] pt-5 pb-3 px-2'>
+                        {
+                            message && (
+                                <div className='my-2'>
+                                    <AlertComponent message={message} isVisible={isVisible} setIsVisible={setIsVisible} />
+                                </div>
+                            )
+                        }
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
@@ -48,7 +75,7 @@ const Signin = () => {
                                 <div className="pb-2">
                                     <input type="password" placeholder='Your password...' className={formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                 </div>
-                                <label htmlFor="" className='text-red-600'>{formik.errors.password && formik.touched.password}</label>
+                                <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
                                 <div className="text-end mb-2 text-white">
                                     <button type='submit' className='bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
                                 </div>

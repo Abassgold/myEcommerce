@@ -3,13 +3,21 @@ import userSlice from './Action.jsx';
 import AllProductSlic from "./AllProductSlice/AllProductSlic.js";
 import cartReducer from "./CartSlice/Cartslice.jsx";
 import productSlice from "./AllProductSlice/productSlice.jsx";
-productSlice
+import signinSlce from "./signInSlice/signinSlce.jsx";
+import LoadUser from "./LoadUser/LoadUser.jsx";
+import Cartslice from "./CartSlice/Cartslice.jsx";
+import Slide from "./SlideSlice/Slide.jsx";
 const store = configureStore({
-    reducer:{
+    reducer: {
         userSlice,
         products: AllProductSlic,
         cartReducer,
-        productSlice
+        productSlice,
+        signinSlce,
+        LoadUser,
+        Cartslice,
+        Slide
+
     }
 })
 export default store;

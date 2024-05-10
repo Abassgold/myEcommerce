@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.parent{
+    color: red;
+    display: flex;
+}
+.firstChild{
+    flex-grow: 1;
+    height: 3.5rem;
+    background-color: #44dbbd;
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 48% 53%, 0% 0%);
+    z-index: -100;
+}
+.firstChild1{
+    flex-grow: 1;
+    height: 3.5rem;
+    background: RGB(210 210 210);
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 48% 53%, 0% 0%);
+    z-index: -100;
+}
+.secondChild {
+    flex-grow: 1;
+    color: aliceblue;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    background-color: #44dbbd;
+    display: flex; /* Add this line to make it a flex container */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    z-index: -100;
+}
+.secondChild1 {
+    flex-grow: 1;
+    color: aliceblue;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    background: RGB(210 210 210);
+    /* background: RGB(210 210 210); */
+    display: flex; /* Add this line to make it a flex container */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    z-index: -100;
+}
+
+.thirdChild{
+    flex-grow: 1;
+    height: 3.5rem;
+    background-color: #44dbbd;
+    clip-path: polygon(0% 0%, 56% 0, 100% 50%, 56% 100%, 0% 100%);
+    z-index: -100;
+}
+.thirdChild1{
+    flex-grow: 1;
+    height: 3.5rem;
+    background: RGB(210 210 210);
+    clip-path: polygon(0% 0%, 56% 0, 100% 50%, 56% 100%, 0% 100%);
+    z-index: -100;
+}

@@ -1,9 +1,17 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
+import AlertComponent from '../Alert/AlertComponent';
+
+
 
 const Signup = () => {
+    let avatarUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttE9sxpEu1EoZgU2lUF_HtygNLCaz2rZYHg&usqp=CAU`
+    const [message, setMessage] = useState('')
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isVisible, setIsVisible] = useState(false)
     const navigate = useNavigate()
     let URI = `http://localhost:5000/user/signup`;
     const handleFileChange = (e) => {
@@ -12,6 +20,7 @@ const Signup = () => {
         reader.readAsDataURL(file)
         reader.onload = () => {
             let result = reader.result
+            setSelectedImage(result)
             formik.setFieldValue('photo', result)
         }
     };
@@ -26,11 +35,16 @@ const Signup = () => {
         onSubmit: (values) => {
             axios.post(URI, values)
                 .then((res) => {
-                    if (!(res.status === 200)) return console.log(`Upload is not found`)
-                    console.log(res.data);
-                    return navigate('/signin')
+                    console.log(res);
+                    if (res?.data?.success) {
+                        navigate('/signin');
+                    } else {
+                        setMessage(res.data.msg);
+                        setIsVisible(!isVisible)
+
+                    }
                 })
-                .catch(err => console.log(`There is an err while uploading ${err}`))
+                .catch(err => console.log(`There is an error while uploading ${err}`));
         },
         validationSchema: Yup.object({
             firstName: Yup.string().required('Pls enter your first name'),
@@ -65,13 +79,19 @@ const Signup = () => {
                                 <div className="pb-2">
                                     <input type="email" placeholder='Your  email...' className={formik.touched.email && formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.email && formik.errors.email}</label>
+                                    {message && <AlertComponent message={message} isVisible={isVisible} setIsVisible={setIsVisible} />}
                                 </div>
                                 <div className="pb-2">
                                     <input type="password" placeholder='Your password...' className={formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.password && formik.errors.password}</label>
                                 </div>
                                 <div className="pb-2">
-                                    <input type="file" placeholder='Upload file' className={formik.touched.photo && formik.errors.photo ? isInValid : isValid} onChange={handleFileChange} name='photo' onBlur={formik.handleBlur} />
+                                    <div className={formik.touched.photo && formik.errors.photo ? isInValid : isValid}>
+                                        <div className={`flex items-center gap-5`}>
+                                            <img className={`h-[3rem] w-[3rem] rounded-full`} src={selectedImage? selectedImage : avatarUrl} alt="" />
+                                        <input type="file" accept='images/*' placeholder='Upload file'  onChange={handleFileChange} name='photo' onBlur={formik.handleBlur} />
+                                        </div>
+                                    </div>
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.photo && formik.errors.photo}</label>
                                 </div>
                                 <div className="text-end mb-2 text-white">

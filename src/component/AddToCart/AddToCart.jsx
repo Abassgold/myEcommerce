@@ -8,10 +8,12 @@ import { fetchProduct } from '../../Redux/AllProductSlice/AllProductSlic';
 import Loader from '../Loader/Loader';
 import { Pagination } from 'flowbite-react';
 import { searchContext } from '../../App';
-
+import { increment } from '../../Redux/Action';
+import { setSlide } from '../../Redux/SlideSlice/Slide';
 
 const AddToCart = () => {
     const {filter} = useContext(searchContext)
+    const [quantity, setQuantity] = useState(1)
     const [show, setshow] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +22,7 @@ const AddToCart = () => {
     
     const URI = `http://localhost:5000/admin/all-products?page=${currentPage}&filter=${filter}`
     const { isLoading, allProduct, totalPages, error } = useSelector((state) => state.products)
+    const { isOpen } = useSelector(state => state.Slide)
     const dispatch = useDispatch()
     const onPageChange = (page) => setCurrentPage(page);
     const operate = (a, b) => {
@@ -32,8 +35,14 @@ const AddToCart = () => {
     useEffect(() => {
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword, filter])
+    const addCart = (product) => {
+        dispatch(addToCart({newItems: product, itemQuantity: 1, price: product.price}))
+        if(isOpen) return;
+        dispatch(setSlide())
+    }
+    
 
-
+console.log(allProduct);
     return (
         <section className={`relative`}>
             {
@@ -68,7 +77,8 @@ const AddToCart = () => {
                                                         <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
                                                         <p className='text-[16px] font-[400] text-[#605e5e]'>${product.price}</p>
                                                     </div>
-                                                    <div className='transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => dispatch(addToCart({ name: 'Product A', quantity: 2, price: 10 }))}>
+                                                    <input type="text" value='1' className={`hidden count`}/>
+                                                    <div className='transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={()=>addCart(product)}>
                                                         Add to cart
                                                     </div>
                                                 </div>

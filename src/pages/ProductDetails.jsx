@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProduct } from '../Redux/AllProductSlice/productSlice';
 import Loader from '../component/Loader/Loader';
 import { Modal, Button } from 'flowbite-react';
+import { addToCart } from '../Redux/CartSlice/Cartslice';
 
 const ProductDetails = () => {
     const { id } = useParams()
     const URI = `http://localhost:5000/admin/product/${id}`
+    const [quantity, setQuantity] = useState(1)
     const [show, setShow] = useState(true)
     const [show1, setShow1] = useState(true)
     const [picarray, setPicArray] = useState(0)
@@ -24,6 +26,18 @@ const ProductDetails = () => {
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
     console.log(product);
+    const increaseQuantity = (stock)=>{
+        const count =  Number(document.querySelector('.count').value);
+        if (count >= stock) return
+        const qty = count + 1
+        setQuantity(qty)
+    }
+    const decreaseQuantity = (stock)=>{
+        const count = Number(document.querySelector('.count').value);
+        if (count <= 1) return
+        const qty = count - 1
+        setQuantity(qty)
+    }
     return (
         <div className='pt-[9rem]'>
             <div className={`mx-auto md:w-[60%] w-[90%]`}>
@@ -79,11 +93,12 @@ const ProductDetails = () => {
                                         <p>$ {product.price}</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
-                                            <span class="material-symbols-outlined  bg-yellow-700 text-white">
+                                            <span class="material-symbols-outlined  bg-yellow-700 text-white" onClick={()=>decreaseQuantity(product?.stock)}>
                                                 remove
                                             </span>
-                                            <span className={`mb-[1px]`}>1</span>
-                                            <span class="material-symbols-outlined  bg-red-700 text-white">
+                                            <input type="text" value={quantity} className='count hidden'/>
+                                            <span className={`mb-[1px]`} >{quantity}</span>
+                                            <span class="material-symbols-outlined  bg-red-700 text-white" onClick={()=>increaseQuantity(product?.stock)}>
                                                 add
                                             </span>
                                         </div>
