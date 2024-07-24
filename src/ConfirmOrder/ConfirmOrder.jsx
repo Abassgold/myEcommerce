@@ -19,11 +19,13 @@ const ConfirmOrder = () => {
             totalPrice
         }
         sessionStorage.setItem('orderInfo', JSON.stringify(data))
-        navigate('/')
+        navigate('/payment')
     }
     return (
         <div>
-            <CheckoutSteps Checkout ConfirmOrder/>
+            <div className='mx-auto md:w-[50%] w-[90%]'>
+            <CheckoutSteps checkout confirmOrder/>
+            </div>
         <div className={`md:w-[80%] w-[90%] mx-auto mb-[4rem]`}>
             <div className={`flex  xl:flex-row flex-col justify-between gap-[3rem]`}>
                 <div className=''>
@@ -79,8 +81,8 @@ const ConfirmOrder = () => {
                         <p>Total:</p>
                         <p className='font-[500]'>${totalPrice}</p>
                     </div>
-                    <div className={`text-[1.4rem] text-center font-[400] whitespace-nowrap`}>
-                        <button className='w-full text-center transform duration-[500ms] rounded-full  bg-[#44dbbd] hover:bg-[#13322c] text-white py-[.5rem]' onClick={proceedPayment}>Proceed to Payment</button>
+                    <div className={`text-[1.4rem] text-center font-[400] whitespace-nowrap `}>
+                        <button className='z-[-100] w-full transform duration-[500ms] rounded-full  bg-[#44dbbd] hover:bg-[#13322c] text-white py-[.5rem]' onClick={proceedPayment}>Proceed to Payment</button>
                     </div>
                 </div>
             </div>

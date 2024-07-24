@@ -6,7 +6,12 @@ export default {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'xs': '400px',
+      }
+    },
+    
   },
   plugins: [
     // require('flowbite/plugin')

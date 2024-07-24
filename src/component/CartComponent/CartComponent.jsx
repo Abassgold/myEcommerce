@@ -16,7 +16,6 @@ const CartComponent = () => {
      const decreaseQty = (product)=> {
          const count = 1;
          dispatch(decreaseQuantity({newItems:product, itemQuantity:count, price:product?.price}))
- 
      }
      const removeCart = function(product){
          dispatch(removeFromCart(product))
@@ -31,7 +30,6 @@ const CartComponent = () => {
                     <h1 className='text-center'>Cart</h1>
                 </div>
                 <div className={`px-[2rem] bg-[#ffffff]`}>
-
                     <div className={`text-[#7e756c]`}>
                         {cartItems?.length > 0 ?(<div className={` max-h-[27rem] overflow-y-scroll`}>
                             {cartItems.map(items => (

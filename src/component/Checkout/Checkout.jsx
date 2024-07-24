@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { addShippingInfo } from '../../Redux/CartSlice/Cartslice'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../CheckoutSteps/CheckoutSteps'
+import { useNavigate } from 'react-router-dom'
 const countrylist = Object.values(countries)
 const Checkout = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { shippingInfo } = useSelector(state => state.cartReducer)
 
@@ -16,13 +18,15 @@ const Checkout = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(addShippingInfo({ address, city, postalCode, phoneNo, country }))
+        navigate('/order/confirm')
+        
     }
 
     return (
         <div>
-            <CheckoutSteps Checkout />
-            <div className="mx-auto md:w-[50%] w-[90%] text-[#606a7d] shadow-lg p-6 rounded-[0.5rem] my-[2rem]">
-                <div>
+            <div className="mx-auto md:w-[50%] w-[90%] text-[#606a7d]  p-6 rounded-[0.5rem] my-[2rem]">
+                <CheckoutSteps checkout />
+                <div className='shadow-lg rounded-[0.5rem]'>
                     <h1 className='text-[2rem]'>Shipping Info</h1>
                     <div>
                         <form action="" onSubmit={handleSubmit}>

@@ -37,6 +37,8 @@ import ConfirmOrder from './ConfirmOrder/ConfirmOrder';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import StripePayment from './component/Payment/StripePayment';
+import MyOrder from './component/myOrder/MyOrder';
+import OrderDetails from './component/myOrder/OrderDetails';
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
@@ -86,7 +88,7 @@ const App = () => {
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
         <div>
-          <div className={`sticky top-0`}>
+          <div className={`sticky top-0 z-[500]`}>
             <ReactNavbar />
           </div>
           <div></div>
@@ -113,12 +115,12 @@ const App = () => {
               <Route path='/dashboard' element={<Userdashboard />} />
               <Route path='/forgot-password' element={<ForgotPassword />} />
               <Route path='/reset-password/:id/:token' element={<Reset />} />
-              <Route path='/order/confirm' element={<ConfirmOrder />} />
               <Route path='/forgot-password-email' element={<EmailLink />} />
               <Route path='/checkout' element={<Checkout />} />
-
-              <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey}/>}/>
-
+              <Route path='/order/confirm' element={<ConfirmOrder />} />
+              <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
+              <Route path='/order/me' element={<MyOrder />} />
+              <Route path='/order/details/:id' element={<OrderDetails/>} />
             </Route>
             {/* Protected Routes */}
             <Route path='/cart' element={<Carts />} />

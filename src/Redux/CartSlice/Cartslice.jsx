@@ -11,7 +11,6 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const { newItems, itemQuantity, price } = action.payload;
-      console.log(newItems._id);
       const existingItems = state.cartItems.find(item => item._id === newItems._id);
 
       if (existingItems) {
@@ -24,7 +23,6 @@ const cartSlice = createSlice({
           existingItems.qtyPrice += price
           state.cartItemsQuantity += 1;
           state.cartTotalAmount += price;
-          console.log('the items' + price);
         }
       } else {
         if (1 > newItems.stock) {
@@ -71,13 +69,10 @@ const cartSlice = createSlice({
       if (itemIndex !== -1) {
         const itemToRemove = state.cartItems[itemIndex];
         console.log(itemToRemove);
-        // Update total quantity and total amount
         state.cartItemsQuantity -= itemToRemove.quantity;
         state.cartTotalAmount -= itemToRemove.price * itemToRemove.quantity;
-        // Remove the item from the cart
         state.cartItems.splice(itemIndex, 1);
 
-        // Update localStorage after removing item
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         localStorage.setItem('cartItemsQuantity', state.cartItemsQuantity);
         localStorage.setItem('cartTotalAmount', state.cartTotalAmount);

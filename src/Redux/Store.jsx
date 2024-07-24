@@ -7,6 +7,7 @@ import signinSlce from "./signInSlice/signinSlce.jsx";
 import LoadUser from "./LoadUser/LoadUser.jsx";
 import Cartslice from "./CartSlice/Cartslice.jsx";
 import Slide from "./SlideSlice/Slide.jsx";
+import OrderSlice from "./orderSlice/OrderSlice.jsx";
 const store = configureStore({
     reducer: {
         userSlice,
@@ -16,7 +17,8 @@ const store = configureStore({
         signinSlce,
         LoadUser,
         Cartslice,
-        Slide
+        Slide,
+        allOrders: OrderSlice
 
     }
 })

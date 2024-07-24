@@ -1,34 +1,34 @@
 import React from 'react'
 import style from './Checkout.module.css'
 import { Link } from 'react-router-dom'
-const CheckoutSteps = ({ Checkout }) => {
+const CheckoutSteps = ({ checkout, confirmOrder, payment}) => {
   return (
-    <div>
+    <div className='my-[3rem]'>
       <div className='flex justify-between gap-1 items-center'>
         <div className='flex-1'>
-          <Link to={!Checkout ? '/' : '#3'} className='z-[-100]'>
+          <Link to={checkout ? '/checkout' : '#'} className='z-[-100]'>
             <div className={style.parent}>
-              <div className={Checkout ? style.firstChild : style.firstChild1}></div>
-              <div className={Checkout ? style.secondChild : style.secondChild1}>Shipping</div>
-              <div className={Checkout ? style.thirdChild : style.thirdChild1}></div>
+              <div className={checkout ? style.firstChild : style.firstChild1}></div>
+              <div className={checkout ? style.secondChild : style.secondChild1}>Shipping</div>
+              <div className={checkout ? style.thirdChild : style.thirdChild1}></div>
             </div>
           </Link>
         </div>
         <div className='flex-1'>
-          <Link to='' className='z-[-100]'>
+          <Link to={confirmOrder? '/order/confirm' : '#'} className='z-[-100]'>
             <div className={style.parent}>
-              <div className={style.firstChild}></div>
-              <div className={style.secondChild}>Confirm Order</div>
-              <div className={style.thirdChild}></div>
+              <div className={confirmOrder? style.firstChild : style.firstChild1}></div>
+              <div className={confirmOrder? style.secondChild: style.secondChild1}>Confirm Order</div>
+              <div className={confirmOrder? style.thirdChild : style.thirdChild1}></div>
             </div>
           </Link>
         </div>
         <div className='flex-1'>
-          <Link to='' className='z-[-100]'>
-            <div className={style.parent}>
-              <div className={style.firstChild}></div>
-              <div className={style.secondChild}>Payment</div>
-              <div className={style.thirdChild}></div>
+          <Link to={payment? '/payment' : '#'} className='z-[-100]'>
+            <div className={ style.parent}>
+              <div className={payment? style.firstChild:style.firstChild1}></div>
+              <div className={payment? style.secondChild: style.secondChild1}>Payment</div>
+              <div className={payment? style.thirdChild:style.thirdChild1}></div>
             </div>
           </Link>
         </div>

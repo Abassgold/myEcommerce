@@ -8,6 +8,9 @@ import { fetchSingleProduct } from '../Redux/AllProductSlice/productSlice';
 import Loader from '../component/Loader/Loader';
 import { Modal, Button } from 'flowbite-react';
 import { addToCart } from '../Redux/CartSlice/Cartslice';
+import { fetchReviews } from '../Redux/reviewSlice/Reviewslice';
+import { Alert } from "flowbite-react";
+import axios from 'axios';
 
 const ProductDetails = () => {
     const { id } = useParams()
@@ -17,7 +20,13 @@ const ProductDetails = () => {
     const [show1, setShow1] = useState(true)
     const [picarray, setPicArray] = useState(0)
     const [openModal, setOpenModal] = useState(false);
+    const [rating, setRating] = useState('');
     const dispatch = useDispatch()
+    const { user } = useSelector(state => state.signinSlce)
+    const style = {
+        clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+        width: '2rem',
+    }
     const changePic = function (b) {
         setPicArray(b)
     }
@@ -26,17 +35,27 @@ const ProductDetails = () => {
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
     console.log(product);
-    const increaseQuantity = (stock)=>{
-        const count =  Number(document.querySelector('.count').value);
+    const increaseQuantity = (stock) => {
+        const count = Number(document.querySelector('.count').value);
         if (count >= stock) return
         const qty = count + 1
         setQuantity(qty)
     }
-    const decreaseQuantity = (stock)=>{
+    const decreaseQuantity = (stock) => {
         const count = Number(document.querySelector('.count').value);
         if (count <= 1) return
         const qty = count - 1
         setQuantity(qty)
+    }
+    const sendRating = () => {
+        if (rating === '') return;
+        try {
+            const { data } = axios.patch()
+            if (!data?.success) return;
+            setOpenModal(false)
+        } catch (error) {
+            alert(error.message)
+        }
     }
     return (
         <div className='pt-[9rem]'>
@@ -93,12 +112,12 @@ const ProductDetails = () => {
                                         <p>$ {product.price}</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
-                                            <span class="material-symbols-outlined  bg-yellow-700 text-white" onClick={()=>decreaseQuantity(product?.stock)}>
+                                            <span class="material-symbols-outlined  bg-yellow-700 text-white" onClick={() => decreaseQuantity(product?.stock)}>
                                                 remove
                                             </span>
-                                            <input type="text" value={quantity} className='count hidden'/>
+                                            <input type="text" value={quantity} className='count hidden' />
                                             <span className={`mb-[1px]`} >{quantity}</span>
-                                            <span class="material-symbols-outlined  bg-red-700 text-white" onClick={()=>increaseQuantity(product?.stock)}>
+                                            <span class="material-symbols-outlined  bg-red-700 text-white" onClick={() => increaseQuantity(product?.stock)}>
                                                 add
                                             </span>
                                         </div>
@@ -131,19 +150,31 @@ const ProductDetails = () => {
                                             </p>
                                         </div>
                                         <div className='mt-2'>
-                                            <Button className='transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] text-white' onClick={() => setOpenModal(true)}>Submit Your Review</Button>
+                                            {user ? (
+                                                <Button className='transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] text-white' onClick={() => setOpenModal(true)}>Submit Your Review</Button>
+                                            ) : (
+                                                <Alert color="failure">
+                                                    <span className="font-medium text-[1.3rem]">Login to post your review</span>
+                                                </Alert>
+                                            )}
                                             <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
                                                 <Modal.Header>Terms of Service</Modal.Header>
                                                 <Modal.Body>
                                                     <div className="space-y-6">
-                                                        <textarea className='w-full outline-none border-[1px] p-2 border-black' name="" placeholder='Submit Your review...'></textarea>
+                                                        <div className='flex'>
+                                                            <div style={style} className='star'></div>
+                                                            <div style={style} className='star'>2</div>
+                                                            <div style={style} className='star'>3</div>
+                                                            <div style={style} className='star'>4</div>
+                                                            <div style={style} className='star'>5</div>
+                                                        </div>
+                                                        <textarea className='w-full outline-none border-[1px] p-2 border-black' name="" placeholder='Submit Your review...' onChange={e=>setRating(e.target.value)}></textarea>
                                                     </div>
                                                 </Modal.Body>
                                                 <Modal.Footer>
                                                     <div className='text-white'>
-                                                        <button className=' text-end transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] p-2 rounded-lg' onClick={() => setOpenModal(false)}>submit</button>
+                                                        <button className=' text-end transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] p-2 rounded-lg' onClick={() => sendRating()}>submit</button>
                                                     </div>
-
                                                 </Modal.Footer>
                                             </Modal>
                                         </div>
