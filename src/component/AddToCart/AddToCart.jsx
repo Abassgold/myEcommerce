@@ -98,7 +98,7 @@ const AddToCart = () => {
             {
                 !isLoading && !error && (
                     (
-                        <div className='pt-[3rem] pb-[3rem]'>
+                        <div className='py-[3rem]'>
                             <div className="mx-auto container px-[2rem]">
                                 <div className={`grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 justify-center gap-4`}>
                                     {
@@ -162,7 +162,7 @@ const AddToCart = () => {
                                     }
                                 </div>
                             </div>
-                            <div className="flex overflow-x-auto sm:justify-center">
+                            <div className="flex overflow-x-auto justify-center">
                                 {
                                     allProduct.totalPages && <Pagination currentPage={currentPage} totalPages={allProduct.totalPages} onPageChange={onPageChange} showIcons />
                                 }
