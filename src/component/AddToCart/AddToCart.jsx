@@ -10,12 +10,13 @@ import { Pagination, Spinner } from 'flowbite-react';
 import { searchContext } from '../../App';
 import { increment } from '../../Redux/Action';
 import { setSlide } from '../../Redux/SlideSlice/Slide';
-import { Box, Modal, Typography } from '@mui/material';
+import { Box, Modal, Slide, Typography } from '@mui/material';
 
 // import { Button, Modal } from "flowbite-react";
 
 const AddToCart = () => {
     const [openModal, setOpenModal] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [input, setInput] = useState('')
     const { filter } = useContext(searchContext)
     const [quantity, setQuantity] = useState(1)
@@ -28,21 +29,29 @@ const AddToCart = () => {
     const URI = `${import.meta.env.VITE_URI}/admin/all-products?page=${currentPage}&filter=${filter}`
     const IncreaseQty = (product) => {
         const count = 1;
+        dispatch(setSlide())
+        console.log(loader);
         setTimeout(() => {
             dispatch(addToCart({ newItems: product, itemQuantity: count, price: product?.price }))
-
-        }, 500);
+            dispatch(setSlide());
+        }, 200);
+        setLoader(false)
+        console.log(loader);
     }
     const decreaseQty = (product) => {
         const count = 1;
+        dispatch(setSlide())
         setTimeout(() => {
             dispatch(decreaseQuantity({ newItems: product, itemQuantity: count, price: product?.price }))
-        }, 500);
+            dispatch(setSlide());
+        }, 200);
     }
     const deleteCart = function (product) {
+        dispatch(setSlide())
         setTimeout(() => {
             dispatch(removeFromCart(product))
-        }, 500);
+            dispatch(setSlide())
+        }, 200);
     }
     const { isLoading, allProduct, totalPages, error } = useSelector((state) => state.products)
     const { cartItems } = useSelector(state => state.cartReducer)
@@ -53,15 +62,17 @@ const AddToCart = () => {
         setSelectedProduct(b)
         setTimeout(() => {
             setOpenModal(!openModal)
-        }, 500);
+        }, 200);
     }
     useEffect(() => {
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword])
     const addCart = (product) => {
+        dispatch(setSlide())
         setTimeout(() => {
             dispatch(addToCart({ newItems: product, itemQuantity: 1, price: product.price }))
-        }, 2000);
+            dispatch(setSlide())
+        }, 200);
         if (isOpen) return;
     }
     const style = {
@@ -127,39 +138,44 @@ const AddToCart = () => {
                                                             </div>
                                                             <input type="text" value='1' className={`hidden count`} />
                                                             <div>
-                                                                {cartQty <= 0 ? (
-                                                                    <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
-                                                                        Add to cart
+                                                                {
+                                                                isOpen ? (
+                                                                    <div className=' text-center text-[1.5rem]'>
+                                                                        <Spinner color="info" aria-label="Info spinner example" />
                                                                     </div>
-                                                                ) : (
-                                                                    <div>
-                                                                        {/* <div className="text-center">
-                                                                                                        <Spinner aria-label="Center-aligned spinner example" />
-                                                                                                    </div> */}
-                                                                        <div className='flex text-center'>
-                                                                            <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
+                                                                ) :
+                                                                    cartQty <= 0 ? (
+                                                                        <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
+                                                                            Add to cart
+                                                                        </div>
+                                                                    ) : (
+                                                                        <div>
+                                                                            <div className='flex text-center'>
+                                                                                <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
 
-                                                                                {
-                                                                                    cartQty !== 1 ? (<span class="material-symbols-outlined " onClick={() => decreaseQty(product)}>
-                                                                                        remove
-                                                                                    </span>) : (
-                                                                                        <span class="material-symbols-outlined cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                                    {
+                                                                                        cartQty !== 1 ? (<span class="material-symbols-outlined " onClick={() => decreaseQty(product)}>
                                                                                             remove
-                                                                                        </span>
-                                                                                    )
-                                                                                }
-                                                                            </div>
-                                                                            <div className='flex-[1] py-3 text-[1.3rem]'>
-                                                                                {cartQty}</div>
-                                                                            <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
-                                                                                <span class="material-symbols-outlined" onClick={() => IncreaseQty(product)}>
-                                                                                    add
-                                                                                </span>
+                                                                                        </span>) : (
+                                                                                            <span class="material-symbols-outlined cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                                                remove
+                                                                                            </span>
+                                                                                        )
+                                                                                    }
+                                                                                </div>
+                                                                                <div className='flex-[1] py-3 text-[1.3rem]'>
+                                                                                    {cartQty}</div>
+                                                                                <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
+                                                                                    <span class="material-symbols-outlined" onClick={() => IncreaseQty(product)}>
+                                                                                        add
+                                                                                    </span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                )}
+                                                                    )
+                                                                }
+
                                                             </div>
                                                         </div>
                                                     )
@@ -167,12 +183,11 @@ const AddToCart = () => {
                                             }
                                         </div>
                                     ) : (
-                                        <div className={`text-center text-[3rem] py-[3rem]`}>
+                                        <div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
                                             <p>No products found for your search: "{filter}"</p>
                                         </div>
                                     )
                                 }
-
                             </div>
                             {filteredProducts?.length > 0 && (
                                 <div className="flex overflow-x-auto justify-center">
