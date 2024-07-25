@@ -88,9 +88,6 @@ const App = () => {
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
         <div>
-          <h1>{import.meta.env.VITE_URI}</h1>
-        <h1>{import.meta.env.VITE_APP_NAME}</h1>
-            <p>API Base URL: {import.meta.env.VITE_API_BASE_URL}</p>
           <div className={`sticky top-0 z-[500]`}>
             <ReactNavbar />
           </div>
