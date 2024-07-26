@@ -75,6 +75,7 @@ const AddToCart = () => {
         }, 200);
         if (isOpen) return;
     }
+    console.log(isLoading, error, allProduct);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -115,7 +116,7 @@ const AddToCart = () => {
                         <div className='py-[3rem]'>
                             <div className="mx-auto container px-[2rem]">
                                 {
-                                    filteredProducts?.length ? (
+                                    filteredProducts?.length > 0 ? (
                                         <div className={`grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 justify-center gap-4`}>
                                             {
                                                 filteredProducts.map(product => {
@@ -184,7 +185,7 @@ const AddToCart = () => {
                                         </div>
                                     ) : (
                                         <div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
-                                            <p>No products found for your search: "{filter}"</p>
+                                            <p>We're restocking our shelves. Please check back soon!</p>
                                         </div>
                                     )
                                 }
