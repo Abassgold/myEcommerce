@@ -36,7 +36,6 @@ const AddToCart = () => {
             dispatch(setSlide());
         }, 200);
         setLoader(false)
-        console.log(loader);
     }
     const decreaseQty = (product) => {
         const count = 1;

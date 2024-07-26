@@ -87,6 +87,9 @@ const App = () => {
   return (
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
+        <div className='text-[1.5rem] font-[600] text-[red]'>
+          <marquee behavior="alternate" direction="left">Site under construction</marquee>
+        </div>
         <div>
           <div className={`sticky top-0 z-[500]`}>
             <ReactNavbar />
@@ -120,7 +123,7 @@ const App = () => {
               <Route path='/order/confirm' element={<ConfirmOrder />} />
               <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
               <Route path='/order/me' element={<MyOrder />} />
-              <Route path='/order/details/:id' element={<OrderDetails/>} />
+              <Route path='/order/details/:id' element={<OrderDetails />} />
             </Route>
             {/* Protected Routes */}
             <Route path='/cart' element={<Carts />} />
