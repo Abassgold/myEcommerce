@@ -76,7 +76,7 @@ const AddToCart = () => {
         if (isOpen) return;
     }
     console.log(isLoading, allProduct);
-    console.log(`the err is ${error}`)
+    console.log(`the err is ${import.meta.env.VITE_URI}`)
     const style = {
         position: 'absolute',
         top: '50%',
