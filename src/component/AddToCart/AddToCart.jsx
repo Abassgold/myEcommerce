@@ -75,7 +75,8 @@ const AddToCart = () => {
         }, 200);
         if (isOpen) return;
     }
-    console.log(isLoading, error, allProduct);
+    console.log(isLoading, allProduct);
+    console.log(`the err is ${error}`)
     const style = {
         position: 'absolute',
         top: '50%',
