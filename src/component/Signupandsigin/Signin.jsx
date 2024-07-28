@@ -8,7 +8,7 @@ import AlertComponent from '../Alert/AlertComponent';
 import { searchContext } from '../../App';
 import { fetchUserInfo } from '../../Redux/signInSlice/signinSlce';
 import { useDispatch } from 'react-redux';
-const Signin = ({ his }) => {
+const Signin = () => {
     const dispatch = useDispatch()
 
     const context = useContext(searchContext)
