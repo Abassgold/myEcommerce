@@ -28,6 +28,7 @@ const Signin = () => {
             try {
                 const { data } = await axios.post(URI, values)
                 if (data?.success) {
+                    console.log(data);
                     setTimeout(() => {
                         dispatch(fetchUserInfo(data?.token))
                         navigate(location?.state?.previousUrl ? location?.state?.previousUrl : '/');

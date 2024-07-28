@@ -42,7 +42,6 @@ import OrderDetails from './component/myOrder/OrderDetails';
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
-  let URI = `http://localhost:5000/user/dashboard`
   const { authToken } = useSelector(state => state.signinSlce)
   // let URI = `http://localhost:5000`
   const socket = useRef()
@@ -52,7 +51,7 @@ const App = () => {
   const [isAuth, setIsAuth] = useState(false)
   const getSripeapiKey = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/payment/stripeapi')
+      const { data } = await axios.get(`${import.meta.env.VITE_URI}/payment/stripeapi`)
       setStripeApiKey(data?.stripeApiKey)
       console.log(data?.stripeApiKey);
     } catch (err) {
@@ -62,7 +61,7 @@ const App = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const { data } = await axios.get(URI, {
+        const { data } = await axios.get(`${import.meta.env.VITE_URI}/user/dashboard`, {
           headers: {
             "Authorization": `Bearer ${authToken}`,
             "Content-Type": "application/json",

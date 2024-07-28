@@ -4,6 +4,7 @@ export const fetchInfo = createAsyncThunk('auth/loginUser', async ({ URI, values
     const { data } = await axios.post(URI, values)
     if (data?.success) {
         localStorage.setItem('userToken', data.token);
+        console.log(data)
     }
     else {
 
