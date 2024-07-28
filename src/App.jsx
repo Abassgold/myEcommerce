@@ -88,7 +88,7 @@ const App = () => {
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
         <div className='text-[1.5rem] font-[600] text-[red]'>
-          <marquee behavior="alternate" direction="left">Site under construction</marquee>
+          <marquee behavior="alternate" direction="left">Site under development</marquee>
         </div>
         <div>
           <div className={`sticky top-0 z-[500]`}>

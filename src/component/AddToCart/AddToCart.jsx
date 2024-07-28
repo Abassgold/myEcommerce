@@ -25,7 +25,6 @@ const AddToCart = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const { keyword } = useParams()
     const [category, setCategory] = useState('');
-
     const URI = `${import.meta.env.VITE_URI}/admin/all-products?page=${currentPage}&filter=${filter}`
     const IncreaseQty = (product) => {
         const count = 1;

@@ -13,7 +13,7 @@ const Signup = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isVisible, setIsVisible] = useState(false)
     const navigate = useNavigate()
-    let URI = `http://localhost:5000/user/signup`;
+    let URI = `${import.meta.env.VITE_URI}/user/signup`;
     const handleFileChange = (e) => {
         let file = e.target.files[0]
         let reader = new FileReader()

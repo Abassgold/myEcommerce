@@ -19,7 +19,7 @@ const ReactNavbar = () => {
     }
   
     return (
-        <div>            
+        <div>       
             <div className=' bg-[#2f2e2e] p-1'>
                 <Navbar fluid rounded className='bg-[#2f2e2e] container mx-auto'>
                     <Navbar.Brand>
