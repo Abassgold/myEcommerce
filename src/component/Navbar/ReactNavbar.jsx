@@ -54,7 +54,7 @@ const ReactNavbar = () => {
                             )}
                             <Dropdown.Item>{user ? <Link onClick={signOut}>SignOut</Link> : <Link to='/signin'>SignIn</Link>}</Dropdown.Item>
                         </Dropdown>
-                        <h1 className='text-[1.5rem] font-[600] ms-3 text-[#44dbbd]'>Cart</h1>
+                        <h1 className='text-[1.5rem] font-[600] cursor-pointer ms-3 text-[#44dbbd]' title='View Carts' onClick={e=>navigate('/cart')}>Cart</h1>
                         <Badge color="info" size="sm">
                             {cartItems.length}
                         </Badge>

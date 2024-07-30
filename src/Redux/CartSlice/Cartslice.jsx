@@ -21,7 +21,7 @@ const cartSlice = createSlice({
           // If adding one more doesn't exceed the stock, increment the quantity
           existingItems.quantity += itemQuantity;
           existingItems.qtyPrice += price
-          state.cartItemsQuantity += 1;
+          // state.cartItemsQuantity += 1;
           state.cartTotalAmount += price;
         }
       } else {
