@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useContext, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import SingleCart from '../SingleCart/SingleCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, decreaseQuantity, removeFromCart } from '../../Redux/CartSlice/Cartslice';
@@ -26,6 +26,7 @@ const AddToCart = () => {
     const { keyword } = useParams()
     const [category, setCategory] = useState('');
     const URI = `${import.meta.env.VITE_URI}/admin/all-products?page=${currentPage}&filter=${filter}`
+    const navigate = useNavigate()
     const IncreaseQty = (product) => {
         const count = 1;
         dispatch(setSlide())
@@ -123,7 +124,7 @@ const AddToCart = () => {
                                                         <div className='mb-[5rem] p-2 bg-[#ffff] shadow-lg' key={product._id}>
                                                             <div className={`cursor-pointer`}>
                                                                 <div className={`flex flex-col justify-end h-[15rem] sm:h-[30rem] bg-[url('https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/96/7057222/1.jpg?9360')] bg-no-repeat bg-center  bg-contain`}>
-
+                                                                
                                                                     <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
                                                                         Quick view
                                                                     </div>
@@ -134,6 +135,9 @@ const AddToCart = () => {
                                                                 <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
                                                                 <p className='text-[16px] font-[400] text-[#605e5e]'>${product.price}</p>
                                                             </div>
+                                                            <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={()=>navigate(`/product-details/${product._id}`)}>
+                                                                        View details
+                                                                    </div>
                                                             <input type="text" value='1' className={`hidden count`} />
                                                             <div>
                                                                 {

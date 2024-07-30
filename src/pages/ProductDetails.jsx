@@ -14,7 +14,7 @@ import axios from 'axios';
 
 const ProductDetails = () => {
     const { id } = useParams()
-    const URI = `http://localhost:5000/admin/product/${id}`
+    const URI = `${import.meta.env.VITE_URI}/admin/product/${id}`
     const [quantity, setQuantity] = useState(1)
     const [show, setShow] = useState(true)
     const [show1, setShow1] = useState(true)
@@ -47,6 +47,9 @@ const ProductDetails = () => {
         const qty = count - 1
         setQuantity(qty)
     }
+    function addCart(){
+ dispatch(addToCart( {newItems: product, itemQuantity: quantity, price: (product?.price * quantity)}))
+    }
     const sendRating = () => {
         if (rating === '') return;
         try {
@@ -70,9 +73,6 @@ const ProductDetails = () => {
                     {
                         !isLoading && !error && (
                             <div>
-                                <h1>
-                                    {product?.reviews?.[0]?.name}
-                                </h1>
                                 <div className={`my-6 px-[1rem]`}>
                                     <span>Home / Buy now / {product.product}</span>
                                 </div>
@@ -112,21 +112,25 @@ const ProductDetails = () => {
                                         <p>$ {product.price}</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
-                                            <span class="material-symbols-outlined  bg-yellow-700 text-white" onClick={() => decreaseQuantity(product?.stock)}>
+                                            <span class="material-symbols-outlined  bg-yellow-700 cursor-pointer text-white" onClick={() => decreaseQuantity(product?.stock)}>
                                                 remove
                                             </span>
                                             <input type="text" value={quantity} className='count hidden' />
                                             <span className={`mb-[1px]`} >{quantity}</span>
-                                            <span class="material-symbols-outlined  bg-red-700 text-white" onClick={() => increaseQuantity(product?.stock)}>
+                                            <span class="material-symbols-outlined  bg-red-700 text-white cursor-pointer" onClick={() => increaseQuantity(product?.stock)}>
                                                 add
                                             </span>
                                         </div>
-                                        <div className={`my-3 transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white  py-2`}>
-                                            <Link>Add to Cart</Link>
-                                        </div>
-                                        <div className={`transform duration-[500ms] text-center bg-[black] hover:bg-[#6a6f6e] text-white  py-2`}>
-                                            <Link>Buy Now</Link>
-                                        </div>
+                                        <Link onClick={addCart}>
+                                            <div className={`my-3 transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white  py-2`}>
+                                                Add to Cart
+                                            </div>
+                                        </Link>
+                                        <Link>
+                                            <div className={`transform duration-[500ms] text-center bg-[black] hover:bg-[#6a6f6e] text-white  py-2`}>
+                                                Buy Now
+                                            </div>
+                                        </Link>
                                         <div className={`my-[3rem]`}>
                                             <div className={`flex justify-between items-center text-[12px] text-[#484747] cursor-pointer mb-2`} onClick={e => setShow(!show)}>
                                                 <p>PRDUCT INFO</p>
@@ -168,7 +172,7 @@ const ProductDetails = () => {
                                                             <div style={style} className='star'>4</div>
                                                             <div style={style} className='star'>5</div>
                                                         </div>
-                                                        <textarea className='w-full outline-none border-[1px] p-2 border-black' name="" placeholder='Submit Your review...' onChange={e=>setRating(e.target.value)}></textarea>
+                                                        <textarea className='w-full outline-none border-[1px] p-2 border-black' name="" placeholder='Submit Your review...' onChange={e => setRating(e.target.value)}></textarea>
                                                     </div>
                                                 </Modal.Body>
                                                 <Modal.Footer>

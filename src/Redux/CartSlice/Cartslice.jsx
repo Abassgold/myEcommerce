@@ -14,7 +14,7 @@ const cartSlice = createSlice({
       const existingItems = state.cartItems.find(item => item._id === newItems._id);
 
       if (existingItems) {
-        if (existingItems.quantity >= newItems.stock) {
+        if ( existingItems.quantity  >= newItems.stock) {
           // If the stock limit is reached, don't add the item
           return state;
         } else {
