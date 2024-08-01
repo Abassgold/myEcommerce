@@ -39,6 +39,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import StripePayment from './component/Payment/StripePayment';
 import MyOrder from './component/myOrder/MyOrder';
 import OrderDetails from './component/myOrder/OrderDetails';
+import PrimarySearchAppBar from './component/Navbar/Nabvvba';
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
@@ -92,6 +93,7 @@ const App = () => {
         <div>
           <div className={`sticky top-0 z-[500]`}>
             <ReactNavbar />
+            {/* <PrimarySearchAppBar/> */}
           </div>
           <div></div>
           <Routes>

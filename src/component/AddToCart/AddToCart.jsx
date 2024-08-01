@@ -33,7 +33,6 @@ const AddToCart = () => {
         console.log(loader);
         setTimeout(() => {
             dispatch(addToCart({ newItems: product, itemQuantity: count, price: product?.price }))
-            dispatch(setSlide());
         }, 200);
         setLoader(false)
     }

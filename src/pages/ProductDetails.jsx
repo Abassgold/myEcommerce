@@ -34,9 +34,13 @@ const ProductDetails = () => {
         dispatch(fetchSingleProduct(URI))
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
-    console.log(product);
+    const { cartItems } = useSelector(state => state.cartReducer)
+    const findIndex =  cartItems?.find((cartItem) => cartItem._id === id)
+    const  qnty = findIndex ? findIndex.quantity : 0;
+    console.log(qnty);
     const increaseQuantity = (stock) => {
         const count = Number(document.querySelector('.count').value);
+        const  qnty = findIndex ? findIndex.quantity : 0;
         if (count >= stock) return
         const qty = count + 1
         setQuantity(qty)
@@ -47,8 +51,12 @@ const ProductDetails = () => {
         const qty = count - 1
         setQuantity(qty)
     }
-    function addCart(){
- dispatch(addToCart( {newItems: product, itemQuantity: quantity, price: (product?.price * quantity)}))
+    function addCart(stock) {
+        const count = Number(document.querySelector('.count').value);
+        if(findIndex){
+            if((count + findIndex.quantity) >= stock) return alert('cart exceeded quantity')
+        }
+        dispatch(addToCart({ newItems: product, itemQuantity: quantity, price: (product?.price * quantity) }))
     }
     const sendRating = () => {
         if (rating === '') return;
@@ -81,6 +89,7 @@ const ProductDetails = () => {
                                         <div className={`border-[#484747] border-[1px] p-2 cursor-crosshair`}>
                                             <img src={product?.images?.[picarray].url} alt="" />
                                         </div>
+                                        <input type="text" name="" id="count" value={quantity} className='hidden text-red-700'/>
                                         <div className='my-2'>
                                             <div className={`flex`}>
                                                 <div className={`border-[#484747] border-[1px] p-[1px]`}>
@@ -121,7 +130,7 @@ const ProductDetails = () => {
                                                 add
                                             </span>
                                         </div>
-                                        <Link onClick={addCart}>
+                                        <Link onClick={()=>addCart(product.stock)}>
                                             <div className={`my-3 transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white  py-2`}>
                                                 Add to Cart
                                             </div>
