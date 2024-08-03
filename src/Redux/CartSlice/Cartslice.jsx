@@ -6,7 +6,7 @@ const cartSlice = createSlice({
     shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
     cartItemsQuantity: localStorage.getItem('cartItemsQuantity') ? parseInt(localStorage.getItem('cartItemsQuantity')) : 0,
-    cartTotalAmount: localStorage.getItem('cartTotalAmount') ? parseFloat(localStorage.getItem('cartTotalAmount')) : 0,
+    cartTotalAmount: parseFloat(localStorage.getItem('cartTotalAmount')) || 0,
   },
   reducers: {
     addToCart: (state, action) => {

@@ -27,30 +27,7 @@ const AddToCart = () => {
     const [category, setCategory] = useState('');
     const URI = `${import.meta.env.VITE_URI}/admin/all-products?page=${currentPage}&filter=${filter}`
     const navigate = useNavigate()
-    const IncreaseQty = (product) => {
-        const count = 1;
-        dispatch(setSlide())
-        console.log(loader);
-        setTimeout(() => {
-            dispatch(addToCart({ newItems: product, itemQuantity: count, price: product?.price }))
-        }, 200);
-        setLoader(false)
-    }
-    const decreaseQty = (product) => {
-        const count = 1;
-        dispatch(setSlide())
-        setTimeout(() => {
-            dispatch(decreaseQuantity({ newItems: product, itemQuantity: count, price: product?.price }))
-            dispatch(setSlide());
-        }, 200);
-    }
-    const deleteCart = function (product) {
-        dispatch(setSlide())
-        setTimeout(() => {
-            dispatch(removeFromCart(product))
-            dispatch(setSlide())
-        }, 200);
-    }
+
     const { isLoading, allProduct, totalPages, error } = useSelector((state) => state.products)
     const { cartItems } = useSelector(state => state.cartReducer)
     const { isOpen } = useSelector(state => state.Slide)
@@ -71,7 +48,31 @@ const AddToCart = () => {
             dispatch(addToCart({ newItems: product, itemQuantity: 1, price: product.price }))
             dispatch(setSlide())
         }, 200);
-        if (isOpen) return;
+        // if (isOpen) return;
+    }
+    const IncreaseQty = (product) => {
+        const count = 1;
+        dispatch(setSlide())
+        console.log(loader);
+        setTimeout(() => {
+            dispatch(addToCart({ newItems: product, itemQuantity: count, price: product?.price }))
+            dispatch(setSlide())
+        }, 200);
+    }
+    const decreaseQty = (product) => {
+        const count = 1;
+        dispatch(setSlide())
+        setTimeout(() => {
+            dispatch(decreaseQuantity({ newItems: product, itemQuantity: count, price: product?.price }))
+            dispatch(setSlide());
+        }, 200);
+    }
+    const deleteCart = function (product) {
+        dispatch(setSlide())
+        setTimeout(() => {
+            dispatch(removeFromCart(product))
+            dispatch(setSlide())
+        }, 200);
     }
     const style = {
         position: 'absolute',
@@ -111,24 +112,21 @@ const AddToCart = () => {
                 !isLoading && !error && (
                     (
                         <div className='py-[3rem]'>
-                            <div className="mx-auto container px-[2rem]">
+                            <div className="mx-auto container px-2">
                                 {
                                     filteredProducts?.length > 0 ? (
-                                        <div className={`grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 justify-center gap-4`}>
+                                        <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
                                             {
                                                 filteredProducts.map(product => {
                                                     const cartItem = cartItems?.find((item) => item?._id === product._id);
                                                     const cartQty = cartItem ? cartItem?.quantity : 0;
                                                     return (
-                                                        <div className='mb-[5rem] p-2 bg-[#ffff] shadow-lg' key={product._id}>
+                                                        <div className='mb-[1rem] p-2 bg-[#ffff] border-[#837F78] border-[0.5px] shadow-md rounded-md' key={product._id}>
                                                             <div className={`cursor-pointer`}>
-                                                                <div className={`flex flex-col justify-end h-[15rem] sm:h-[30rem] bg-[url('https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/96/7057222/1.jpg?9360')] bg-no-repeat bg-center  bg-contain`}>
-                                                                
+                                                                <img src={product?.images[0].url} alt="" />
                                                                     <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
                                                                         Quick view
                                                                     </div>
-                                                                </div>
-
                                                             </div>
                                                             <div className='py-2'>
                                                                 <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
