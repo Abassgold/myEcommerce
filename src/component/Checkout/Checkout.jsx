@@ -19,7 +19,6 @@ const Checkout = () => {
         e.preventDefault()
         dispatch(addShippingInfo({ address, city, postalCode, phoneNo, country }))
         navigate('/order/confirm')
-        
     }
 
     return (

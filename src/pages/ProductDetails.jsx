@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { IoLogoWhatsapp } from "react-icons/io";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa";
@@ -14,6 +14,7 @@ import axios from 'axios';
 
 const ProductDetails = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const URI = `${import.meta.env.VITE_URI}/admin/product/${id}`
     const [quantity, setQuantity] = useState(1)
     const [show, setShow] = useState(true)
@@ -23,6 +24,7 @@ const ProductDetails = () => {
     const [rating, setRating] = useState('');
     const dispatch = useDispatch()
     const { user } = useSelector(state => state.signinSlce)
+    const {authToken} = useSelector(state=>state.signinSlce)
     const style = {
         clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
         width: '2rem',
@@ -54,7 +56,7 @@ const ProductDetails = () => {
     function addCart(stock) {
         const count = Number(document.querySelector('.count').value);
         if(findIndex){
-            if((count + findIndex.quantity) >= stock) return alert('cart exceeded quantity')
+            if((count + findIndex.quantity) > stock) return alert('cart exceeded quantity')
         }
         dispatch(addToCart({ newItems: product, itemQuantity: quantity, price: (product?.price * quantity) }))
     }
@@ -67,6 +69,9 @@ const ProductDetails = () => {
         } catch (error) {
             alert(error.message)
         }
+    }
+    const postReview = function(){
+        authToken ? navigate('/buy-now') : navigate('/signin', { state: { previousUrl: `/product-details/${id}`}})
     }
     return (
         <div className='pt-[9rem]'>
@@ -166,8 +171,8 @@ const ProductDetails = () => {
                                             {user ? (
                                                 <Button className='transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] text-white' onClick={() => setOpenModal(true)}>Submit Your Review</Button>
                                             ) : (
-                                                <Alert color="failure">
-                                                    <span className="font-medium text-[1.3rem]">Login to post your review</span>
+                                                <Alert color="failure" className='cursor-pointer' onClick={postReview}>
+                                                    <span className="font-medium text-[1.3rem] ">Login to post your review</span>
                                                 </Alert>
                                             )}
                                             <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>

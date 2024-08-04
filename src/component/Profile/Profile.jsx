@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { searchContext } from '../../App'
+import { useSelector } from 'react-redux'
 
 
 const Profile = () => {
     const context = useContext(searchContext)
-    const { user } = context
-    
+    const { user } = useSelector(state => state.signinSlce)
+
     console.log(user);
     return (
         <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
@@ -16,18 +17,20 @@ const Profile = () => {
                     <div className={`object-contain py-3`}>
                         <img src={user?.photo.url} alt="" className={` mx-auto rounded-full w-72 h-72 object-cover`} />
                     </div>
-                    <div className=' transition-all duration-[500ms] bg-[#44dbbd] py-2 text-white hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm text-[1.2rem] text-center'>
-                        <Link to='/profile/me/edit'>Edit Profile</Link>
-                    </div>
+                    <Link to='/profile/me/edit'>
+                        <div className=' transition-all duration-[500ms] bg-[#44dbbd] py-2 text-white hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm text-[1.2rem] text-center'>
+                            Edit Profile
+                        </div>
+                    </Link>
                 </div>
                 <div className={`flex-1 mb-4`}>
                     <div className='my-2'>
                         <label htmlFor="" className={`text-[2rem]`}>First Name</label>
-                        <p className={`text-[1.5rem]`}>{user?.firstName}</p>
+                        <p className={`text-[1.5rem] capitalize`}>{user?.firstName}</p>
                     </div>
                     <div className='my-2'>
                         <label htmlFor="" className={`text-[2rem]`}>Last Name</label>
-                        <p className={`text-[1.5rem]`}>{user?.lastName}</p>
+                        <p className={`text-[1.5rem] capitalize`}>{user?.lastName}</p>
                     </div>
                     <div className='my-2'>
                         <label htmlFor="" className={`text-[2rem]`}>Email Address</label>
@@ -38,12 +41,16 @@ const Profile = () => {
                         <p className={`text-[1.5rem]`}>{new Date(user?.createdAt).toLocaleDateString()}</p>
                     </div>
                     {user?.role !== 'admin' &&
-                        (<div className={`text-[1.5rem] bg-orange-500 py-2 text-center text-white`}>
-                            <Link to='/Oders/me' className={``}>Orders</Link>
-                        </div>)}
-                    <div className={`bg-blue-950 text-center text-white text-[1.2rem] mt-2 py-2 transition-all duration-[500ms] hover:bg-slate-800`}>
-                        <Link to="/password/edit" className='w-full'>Change Password</Link>
-                    </div>
+                        (<Link to='/Oders/me' className={``}>
+                            <div className={`text-[1.5rem] bg-orange-500 py-2 text-center text-white`}>
+                                Orders
+                            </div>
+                        </Link>)}
+                    <Link to="/password/edit" className='w-full'>
+                        <div className={`bg-blue-950 text-center text-white text-[1.2rem] mt-2 py-2 transition-all duration-[500ms] hover:bg-slate-800`}>
+                            Change Password
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

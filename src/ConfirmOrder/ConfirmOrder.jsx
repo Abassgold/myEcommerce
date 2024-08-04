@@ -33,7 +33,7 @@ const ConfirmOrder = () => {
                         <h1 className={`text-[2rem] my-[1rem]`}>Shipping Info</h1>
                         <div className={`text-[1.2rem] font-[400] px-3`}>
                             <p className={`my-3 capitalize`}><span className='font-[500]'>Name:</span > <span>{user?.firstName} {user?.lastName}</span></p>
-                            <p className={`my-3`}><span className='font-[500]'>Phone:</span> 08103875405</p>
+                            <p className={`my-3`}><span className='font-[500]'>Phone:</span> {shippingInfo?.address}</p>
                             <p className={`my-3 capitalize`}><span className='font-[500]'>Address:</span> <span>{shippingInfo?.address}, {shippingInfo?.city}, {shippingInfo?.
                                 postalCode}, {shippingInfo?.country}</span></p>
                         </div>

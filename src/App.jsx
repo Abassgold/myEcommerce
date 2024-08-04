@@ -54,7 +54,6 @@ const App = () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_URI}/payment/stripeapi`)
       setStripeApiKey(data?.stripeApiKey)
-      console.log(data?.stripeApiKey);
     } catch (err) {
       console.log(err.message);
     }

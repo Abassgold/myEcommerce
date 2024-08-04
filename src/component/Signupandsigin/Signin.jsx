@@ -18,6 +18,7 @@ const Signin = () => {
     const [message, setmessage] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
+    console.log(location)
     let URI = `${import.meta.env.VITE_URI}/user/signin`;
     const formik = useFormik({
         initialValues: {
@@ -28,11 +29,10 @@ const Signin = () => {
             try {
                 const { data } = await axios.post(URI, values)
                 if (data?.success) {
-                    console.log(data);
                     setTimeout(() => {
                         dispatch(fetchUserInfo(data?.token))
                         navigate(location?.state?.previousUrl ? location?.state?.previousUrl : '/');
-                    }, 500);
+                    }, 100);
                     return;
                 }
                 setmessage(data?.msg)
@@ -48,8 +48,8 @@ const Signin = () => {
             password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password')
         })
     });
-    let isValid = 'w-full ps-4 py-3 border-[2px] hover:border-[3px] border-black outline-none';
-    let isInValid = 'w-full ps-4 py-3 border-[2px] hover:border-[3px] border-red-600 outline-none'
+let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
+    let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
     return (
         <div>
             <div className='container px-[1rem] mx-auto mt-[5rem] mb-[3rem]'>
@@ -70,7 +70,7 @@ const Signin = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && formik.values.email && !formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
+                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.email}</label>
                                 <div className="pb-2">
