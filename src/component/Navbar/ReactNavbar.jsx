@@ -21,9 +21,9 @@ const ReactNavbar = () => {
     }
 
     return (
-        <div>
-            <nav class="bg-gray-800">
-                <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className='bg-[#2f2e2e] py-2'>
+            <nav>
+                <div class="mx-auto max-w-[90rem] px-2 sm:px-6 lg:px-8">
                     <div class="relative flex h-16 items-center justify-between">
                         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                             {/* <!-- Mobile menu button--> */}
@@ -53,9 +53,10 @@ const ReactNavbar = () => {
 
                             </button>
                         </div>
-                        <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                            <div className="flex flex-shrink-0 items-center">
+                        <div className="flex flex-1 items-center justify-center gap-[10rem] sm:items-stretch sm:justify-start">
+                            <div className="flex flex-shrink-0 gap-2 cursor-pointer" onClick={e => navigate('/')}>
                                 <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                                <h1 className='text-white text-[1.5rem]'>Exclusive</h1>
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
@@ -67,15 +68,17 @@ const ReactNavbar = () => {
                             </div>
                         </div>
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                            <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                <span className="absolute -inset-1.5"></span>
-                                <span className="sr-only">View notifications</span>
-                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                            <span className={` cursor-pointer xs:block hidden mx-[0.63rem] text-white border-[2px] border-[#44dbbd] hover:bg-inherit hover:text-[#44dbbd] duration-[0.9s] p-2 bg-[#44dbbd]`} onClick={e => navigate('/buy-now')}>
+                                Buy Now
+                            </span>
+                            <div class="relative py-2 me-3 cursor-pointer" onClick={e => navigate('/cart')}>
+                                <div class="t-0 absolute left-3">
+                                    <p class="flex h-2 w-2 items-center justify-center rounded-full p-3 text-xs text-white text-[1.5rem]">{cartItems?.length}</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="file: mt-4 h-6 w-6 text-[#44dbbd]">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                 </svg>
-                            </button>
-
-                            {/* <!-- Profile dropdown --> */}
+                            </div>
                             <div className="relative ml-3">
                                 <div>
                                     <button onClick={e => setDropdown(!dropdown)} type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -98,23 +101,25 @@ const ReactNavbar = () => {
                                 {dropdown && (
                                     <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         {user && (
-                                            <div className='border-b pb-2'>
-                                                <span className="block px-4 pt-2 text-sm text-gray-700 capitalize">{user?.firstName} {user?.lastName}</span>
-                                                <span className="block px-4 text-sm text-gray-700 font-medium">{user?.email}</span>
-                                            </div>
+                                            <div>
+                                                <div className='border-b pb-2'>
+                                                    <span className="block px-4 pt-2 text-sm text-gray-700 capitalize">{user?.firstName} {user?.lastName}</span>
+                                                    <span className="block px-4 text-sm text-gray-700 font-medium">{user?.email}</span>
+                                                </div>
+                                                <div className='border-b mb-2'>
+                                                    <Link to="/profile/me" className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profile </Link>
+                                                    {user?.role === 'admin' && (
+                                                        <Link className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" to='/dashboard'>Dashboard</Link>
+                                                    )}
 
+                                                    <Link to='/orders/me' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700">Orders</Link>
+                                                    <Link to='/settings' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</Link>
+                                                </div>
+                                            </div>
                                         )}
                                         {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-                                        <div className='border-b mb-2'>
-                                        <Link to="/profile/me" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profile </Link>
-                                        {user?.role ==='admin' && (
-                                            <Link className="block px-4 py-2 text-sm text-gray-700" to='/dashboard'>Dashboard</Link>
-                                        )}
-                                        
-                                        <Link to='/orders/me' className="block px-4 py-2 text-sm text-gray-700">Orders</Link>
-                                        <Link to='/settings' className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</Link>
-                                        </div>
-                                        {user ? <Link onClick={signOut} className='block px-4 pb-2 text-sm text-gray-700'>SignOut</Link> : <Link to='/signin' className='block px-4 py-2 text-sm text-gray-700'>SignIn</Link>}
+
+                                        {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700'>SignIn</Link>}
                                     </div>
                                 )}
                             </div>
@@ -134,61 +139,7 @@ const ReactNavbar = () => {
                         </div>
                     </div>
                 )}
-
             </nav>
-
-
-
-            <div className=' bg-[#2f2e2e] p-1'>
-                <Navbar fluid rounded className='bg-[#2f2e2e] container mx-auto'>
-                    <Navbar.Brand>
-                        <h1 className='text-white text-[1.5rem]'><Link to='/'>Exclusive</Link></h1>
-                    </Navbar.Brand>
-                    <div className="flex md:order-2 ">
-                        <span className={` xs:block hidden mx-[0.63rem] text-white border-[2px] border-[#44dbbd] hover:bg-inherit hover:text-[#44dbbd] duration-[0.9s] p-2 bg-[#44dbbd]`}>
-                            <Link to='/buy-now'>Buy Now</Link>
-                        </span>
-                        <Dropdown
-                            arrowIcon={true}
-                            inline
-                            label={
-                                <Avatar alt="User settings" title={user?.firstName} img={user ? user?.photo?.url : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} rounded />
-                            }
-                        >
-                            {user && (
-                                <div>
-                                    <Dropdown.Header>
-                                        <span className="block text-sm capitalize">{user?.firstName} {user?.lastName}</span>
-                                        <span className="block truncate text-sm font-medium">{user?.email}</span>
-                                    </Dropdown.Header>
-                                    <Dropdown.Item><Link to="/profile/me">Profile</Link></Dropdown.Item>
-                                    {user?.role === 'admin' && (
-                                        <Dropdown.Item> <Link to='/dashboard'>Dashboard</Link></Dropdown.Item>
-                                    )}
-                                    <Dropdown.Item><Link to='/orders/me'>Orders</Link></Dropdown.Item>
-                                    <Dropdown.Item><Link to="/settings">Settings</Link></Dropdown.Item>
-                                    <Dropdown.Item>Earnings</Dropdown.Item>
-                                    <Dropdown.Divider />
-                                </div>
-                            )}
-                            <Dropdown.Item>{user ? <Link onClick={signOut}>SignOut</Link> : <Link to='/signin'>SignIn</Link>}</Dropdown.Item>
-                        </Dropdown>
-                        <h1 className='text-[1.5rem] font-[600] cursor-pointer ms-3 text-[#44dbbd]' title='View Carts' onClick={e => navigate('/cart')}>Cart</h1>
-                        <Badge color="info" size="sm">
-                            {cartItems.length}
-                        </Badge>
-                        <Navbar.Toggle />
-                    </div>
-                    <Navbar.Collapse>
-                        <Navbar.Link active className='hover:text-[rgb(250,204,204)] text-white text-[1.1rem]'>
-                            <Link to='/'>Home</Link>
-                        </Navbar.Link>
-                        <Navbar.Link className='hover:text-[rgb(250,204,204)] text-white text-[1.1rem]'><Link to='/newsletter'>News Letter</Link></Navbar.Link>
-                        <Navbar.Link className='hover:text-[rgb(250,204,204)] text-white text-[1.1rem]'><Link to='/support'>Support</Link></Navbar.Link>
-                        <Navbar.Link className='hover:text-[rgb(250,204,204)] text-white text-[1.1rem]'><Link to='/forum'>Expert Reviews</Link></Navbar.Link>
-                    </Navbar.Collapse>
-                </Navbar>
-            </div>
         </div>
     );
 }
