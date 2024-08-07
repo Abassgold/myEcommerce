@@ -53,7 +53,7 @@ const ReactNavbar = () => {
 
                             </button>
                         </div>
-                        <div className="flex flex-1 items-center justify-center gap-[10rem] sm:items-stretch sm:justify-start">
+                        <div className="flex flex-1 items-center justify-center gap-[3rem] sm:items-stretch sm:justify-start">
                             <div className="flex flex-shrink-0 gap-2 cursor-pointer" onClick={e => navigate('/')}>
                                 <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                                 <h1 className='text-white text-[1.5rem]'>Exclusive</h1>
