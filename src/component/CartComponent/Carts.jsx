@@ -41,24 +41,24 @@ const Carts = () => {
                                                 <div className={`flex gap-4`}>
                                                     <img className={`border-[1px] w-[7rem]`} src={items?.images[0].url} alt="" />
                                                     <div>
-                                                        <h1 className={`text-[1.4rem] mb-2`}>
+                                                        <h1 className={`text-[1.2rem] mb-2`}>
                                                             {items?.product}
                                                         </h1>
-                                                        <p className={`text-[1.1rem]`}>${items?.price.toFixed(2)}</p>
+                                                        <p className={`text-[1rem]`}>${items?.price.toFixed(2)}</p>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div className={`flex justify-between gap-[4rem]`}>
                                                         <div className={`flex items-center p-1 border-[1px] border-[black]`}>
-                                                            <span class="material-symbols-outlined text-[1.1rem] cursor-pointer" onClick={() => decreaseQty(items)}>
+                                                            <span class="material-symbols-outlined text-[1rem] cursor-pointer" onClick={() => decreaseQty(items)}>
                                                                 remove
                                                             </span>
                                                             <span className={`mx-3`}>{items?.quantity}</span>
-                                                            <span class="material-symbols-outlined text-[1.1rem] cursor-pointer" onClick={() => IncreaseQty(items)}>
+                                                            <span class="material-symbols-outlined text-[1rem] cursor-pointer" onClick={() => IncreaseQty(items)}>
                                                                 add
                                                             </span>
                                                         </div>
-                                                        <div className={`text-[1.2rem]`}>
+                                                        <div className={`text-[1rem]`}>
                                                             <p>${items?.qtyPrice.toFixed(2)}</p>
                                                         </div>
                                                     </div>
@@ -77,22 +77,22 @@ const Carts = () => {
                             </div>
                         </div>
                         <div className='flex-[0.8]'>
-                            <div className={`py-[2rem] text-[1.3rem] border-b-[px]`}>
+                            <div className={`py-[2rem] text-[1.2rem] border-b-[px]`}>
                                 <h1>Order Summary</h1>
                             </div>
                             <div>
                                 <div className={`border-y-[1px] px-2 py-4 border-[#a29d93] mb-[2rem]`}>
-                                    <div className={`flex justify-between items-center text-[1.3rem] font-[100] mb-4`}>
+                                    <div className={`flex justify-between items-center text-[1.2rem] font-[100] mb-4`}>
                                         <p>Subtotal:</p>
-                                        <p>{cartItemsQuantity}(units)</p>
+                                        <p>{Number(cartItemsQuantity)}(units)</p>
                                     </div>
-                                    <div className={`flex justify-between items-center text-[1.5rem] font-[100]`}>
+                                    <div className={`flex justify-between items-center text-[1.3rem] font-[100]`}>
                                         <p>Est. total:</p>
                                         <p>${cartTotalAmount.toFixed(2)}</p>
                                     </div>
                                 </div>
 
-                                <div className={`text-center text-[1.5rem] font-[300]`}>
+                                <div className={`text-center text-[1.3rem] font-[200]`}>
                                     <div className='transform duration-[500ms] rem]  bg-[#44dbbd] hover:bg-[#13322c] text-white py-2' onClick={checkout}>
                                         Check out
                                     </div>

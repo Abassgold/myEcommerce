@@ -16,16 +16,17 @@ const ReactNavbar = () => {
     const signOut = () => {
         setTimeout(() => {
             dispatch(logOut())
+            setDropdown(!dropdown)
             navigate('/')
-        }, (1000));
+        }, (100));
     }
 
     return (
-        <div className='bg-[#2f2e2e] py-2'>
+        <div className='bg-[#2f2e2e] py-1'>
             <nav>
                 <div class="mx-auto max-w-[90rem] px-2 sm:px-6 lg:px-8">
                     <div class="relative flex h-16 items-center justify-between">
-                        <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
+                        <div class=" inset-y-0 left-0 flex items-center md:hidden">
                             {/* <!-- Mobile menu button--> */}
                             <button onClick={e => setOpen(!Open)} type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
@@ -53,7 +54,7 @@ const ReactNavbar = () => {
 
                             </button>
                         </div>
-                        <div className="flex flex-1 items-center justify-center md:gap-[10rem] sm:items-stretch sm:justify-start">
+                        <div className="flex  flex-1 items-center  md:gap-[10rem] sm:items-stretch justify-start">
                             <div className="flex flex-shrink-0 gap-2 cursor-pointer" onClick={e => navigate('/')}>
                                 <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                                 <h1 className='text-white text-[1.5rem]'>Exclusive</h1>
@@ -107,19 +108,19 @@ const ReactNavbar = () => {
                                                     <span className="block px-4 text-sm text-gray-700 font-medium">{user?.email}</span>
                                                 </div>
                                                 <div className='border-b mb-2'>
-                                                    <Link to="/profile/me" className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profile </Link>
+                                                    <Link to="/profile/me" className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" onClick={e=>setDropdown(!dropdown)}>Profile </Link>
                                                     {user?.role === 'admin' && (
-                                                        <Link className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" to='/dashboard'>Dashboard</Link>
+                                                        <Link className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" to='/dashboard' onClick={e=>setDropdown(!dropdown)}>Dashboard</Link>
                                                     )}
 
-                                                    <Link to='/orders/me' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700">Orders</Link>
-                                                    <Link to='/settings' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</Link>
+                                                    <Link to='/orders/me' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" onClick={e=>setDropdown(!dropdown)}>Orders</Link>
+                                                    <Link to='/settings' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1" onClick={e=>setDropdown(!dropdown)}>Settings</Link>
                                                 </div>
                                             </div>
                                         )}
                                         {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
 
-                                        {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700'>SignIn</Link>}
+                                        {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700' onClick={e=>setDropdown(!dropdown)}>SignIn</Link>}
                                     </div>
                                 )}
                             </div>

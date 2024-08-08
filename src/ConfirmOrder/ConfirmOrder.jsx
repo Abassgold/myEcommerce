@@ -26,7 +26,7 @@ const ConfirmOrder = () => {
             <div className='mx-auto md:w-[50%] w-[90%]'>
             <CheckoutSteps checkout confirmOrder/>
             </div>
-        <div className={`md:w-[80%] w-[90%] mx-auto mb-[4rem]`}>
+        <div className={`container px-[1rem] mx-auto mb-[4rem]`}>
             <div className={`flex  xl:flex-row flex-col justify-between gap-[3rem]`}>
                 <div className=''>
                     <div>
@@ -44,7 +44,7 @@ const ConfirmOrder = () => {
                             <div>
                                 {cartItems && cartItems?.map((items, index) => (
                                     <div className={`py-[1rem] px-3 border-b border-[RGB(210 210 210)] text-[1.2rem]`} key={index}>
-                                        <div className={`flex md:gap-[5rem] gap-[4rem] items-center `}>
+                                        <div className={`flex md:gap-[5rem] justify-between items-center `}>
                                             <img className={`w-[5rem] p-1 border border-[RGB(210 210 210)]`} src={items?.images[0].url} alt="" />
                                             <div className={`flex justify-between gap-[3rem]  lg:flex-row flex-col`}>
                                                 <Link to={`/product-details/${items?._id}`} className={`underline text-[black] hover:text-[#606A7D]`}>
@@ -77,7 +77,7 @@ const ConfirmOrder = () => {
                             <p className='font-[500]'>${taxPrice}</p>
                         </div>
                     </div>
-                    <div className={`flex justify-between items-center gap-[10rem] border-b border-[RGB(210 210 210)] p-3 mb-[1.5rem] text-[1.7rem]`}>
+                    <div className={`flex justify-between items-center gap-[3rem] border-b border-[RGB(210 210 210)] p-3 mb-[1.5rem] text-[1.7rem]`}>
                         <p>Total:</p>
                         <p className='font-[500]'>${totalPrice}</p>
                     </div>

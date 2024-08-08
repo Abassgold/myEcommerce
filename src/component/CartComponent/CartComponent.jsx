@@ -31,7 +31,7 @@ const CartComponent = () => {
                 </div>
                 <div className={`px-[2rem] bg-[#ffffff]`}>
                     <div className={`text-[#7e756c]`}>
-                        {cartItems?.length > 0 ?(<div className={` max-h-[27rem] overflow-y-scroll`}>
+                        {cartItems?.length > 0 ?(<div className={`max-h-[27rem] overflow-y-scroll`}>
                             {cartItems.map(items => (
                             < div className='flex items-center gap-3 py-4 border-b-[1px] border-[black]' key={items?._id}>
                                 <div className={`flex-1 p-2`}>

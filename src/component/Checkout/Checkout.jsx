@@ -22,32 +22,32 @@ const Checkout = () => {
     }
 
     return (
-        <div>
-            <div className="mx-auto md:w-[50%] w-[90%] text-[#606a7d]  p-6 rounded-[0.5rem] my-[2rem]">
+        <div className=''>
+            <div className="mx-auto md:max-w-[50%]  text-[#606a7d]  p-6 rounded-[0.5rem] my-[2rem]">
                 <CheckoutSteps checkout />
-                <div className='shadow-lg rounded-[0.5rem]'>
+                <div className='rounded-[0.5rem]'>
                     <h1 className='text-[2rem]'>Shipping Info</h1>
                     <div>
                         <form action="" onSubmit={handleSubmit}>
                             <div className={`my-1`}>
                                 <label htmlFor="address" className={`mb-2 text-[1.3rem]`}>Address</label>
-                                <input required type="text" className={`w-full border-[1px] border-[#606a7d] rounded-[0.2rem] p-2`} onChange={e => setAddress(e.target.value)} value={address} />
+                                <input required type="text" className={ `focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-md p-2`} onChange={e => setAddress(e.target.value)} value={address} />
                             </div>
                             <div className={`my-1`}>
                                 <label htmlFor="City" className={`mb-2 text-[1.3rem]`}>City</label>
-                                <input required type="text" className={`w-full border-[1px] border-[#606a7d] rounded-[0.2rem] p-2`} onChange={e => setCity(e.target.value)} value={city} />
+                                <input required type="text" className={`focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-[0.2rem] p-2`} onChange={e => setCity(e.target.value)} value={city} />
                             </div>
                             <div className={`my-1`}>
                                 <label htmlFor="Phone No" className={`mb-2 text-[1.3rem]`}>Phone No</label>
-                                <input required type="number" className={`w-full border-[1px] border-[#606a7d] rounded-[0.2rem] p-2`} onChange={e => setPhoneNo(e.target.value)} value={phoneNo} />
+                                <input required type="number" className={` focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-[0.2rem] p-2`} onChange={e => setPhoneNo(e.target.value)} value={phoneNo} />
                             </div>
                             <div className={`my-1`}>
                                 <label htmlFor="Postal Code" className={`mb-2 text-[1.3rem]`}>Postal Code</label>
-                                <input required type="number" className={`w-full border-[1px] border-[#606a7d] rounded-[0.2rem] p-2`} onChange={e => setPostalCode(e.target.value)} value={postalCode} />
+                                <input required type="number" className={`focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-[0.2rem] p-2`} onChange={e => setPostalCode(e.target.value)} value={postalCode} />
                             </div>
                             <div className={`my-1`}>
                                 <label htmlFor="Country" className={`mb-2 text-[1.3rem]`}>Country</label>
-                                <select required name="country" value={country} id="country" className='w-full p-2 outline-none border-[1px] border-[#606a7d] rounded-[0.2rem]' onChange={e => setCountry(e.target.value)}>
+                                <select required name="country" value={country} id="country" className='w-full p-2 focus:bg-[#ffff] bg-[#E5E5E5] border-[#d1d5db] outline-[#44dbbd] border-[1px] rounded-[0.2rem]' onChange={e => setCountry(e.target.value)}>
                                     {countrylist.map((country, index) => (
                                         <option value={country.name} key={index}>{country.name}</option>
                                     ))}
