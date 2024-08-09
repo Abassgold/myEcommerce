@@ -3,18 +3,19 @@ import axios from 'axios'
 import { useFormik } from 'formik';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { Alert } from 'flowbite-react';
+import { Alert, Spinner } from 'flowbite-react';
 import AlertComponent from '../Alert/AlertComponent';
 import { searchContext } from '../../App';
 import { fetchUserInfo } from '../../Redux/signInSlice/signinSlce';
 import { useDispatch } from 'react-redux';
+import Loader from '../Loader/Loader';
 const Signin = () => {
     const dispatch = useDispatch()
 
     const context = useContext(searchContext)
     const token = localStorage.userToken
-    const { getToken } = context;
     const [isVisible, setIsVisible] = useState(false)
+    const [loader, setLoader] = useState(false)
     const [message, setmessage] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
@@ -26,7 +27,9 @@ const Signin = () => {
             password: ''
         },
         onSubmit: async (values) => {
+            setLoader(!loader)
             try {
+                
                 const { data } = await axios.post(URI, values)
                 if (data?.success) {
                     setTimeout(() => {
@@ -42,6 +45,7 @@ const Signin = () => {
                 setmessage(err.message)
                 setIsVisible(!isVisible)
             }
+            setLoader(!loader)
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email is invalid').required('Please enter your email'),
@@ -77,8 +81,11 @@ let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] bor
                                     <input type="password" placeholder='Your password...' className={formik.values.password && formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
-                                <div className="text-end mb-2 text-white">
-                                    <button type='submit' className='bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
+                                <div className="text-center mb-2 text-white">
+                                    {/* {!loader && } */}
+                                    <button disabled={loader} type='submit' className=' w-full bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>{loader ?(<Spinner color="info" aria-label="Info spinner example" />):(
+                                        <span>Submit</span>
+                                    )}</button>
                                 </div>
                                 <div>
                                     <a href="" className='flex gap-3 ps-10 py-3 items-center bg-white rounded-[3px]'>

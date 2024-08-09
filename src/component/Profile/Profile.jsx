@@ -2,13 +2,13 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { searchContext } from '../../App'
 import { useSelector } from 'react-redux'
+import Loader from '../Loader/Loader'
 
 
 const Profile = () => {
     const context = useContext(searchContext)
     const { user } = useSelector(state => state.signinSlce)
-
-    console.log(user);
+    if (!user) return <Loader/> 
     return (
         <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
             <div className={` md:flex justify-center gap-[10rem] align-center`}>

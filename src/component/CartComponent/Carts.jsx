@@ -92,8 +92,8 @@ const Carts = () => {
                                     </div>
                                 </div>
 
-                                <div className={`text-center text-[1.3rem] font-[200]`}>
-                                    <div className='transform duration-[500ms] rem]  bg-[#44dbbd] hover:bg-[#13322c] text-white py-2' onClick={checkout}>
+                                <div className={`text-center text-[1.3rem] font-[200] cursor-pointer`} onClick={checkout}>
+                                    <div className='transform duration-[500ms] rem]  bg-[#44dbbd] hover:bg-[#13322c] text-white py-2'>
                                         Check out
                                     </div>
                                 </div>
