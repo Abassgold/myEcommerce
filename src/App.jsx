@@ -83,6 +83,11 @@ const App = () => {
     fetchUserData();
     getSripeapiKey();
   }, [authToken])
+  
+// const geninput = ()=>{
+// const fileInput = document.getElementById('file-input');
+//   fileInput.click();
+// }
   return (
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>

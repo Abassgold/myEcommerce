@@ -28,7 +28,7 @@ const ReactNavbar = () => {
                     <div class="relative flex h-16 items-center justify-between">
                         <div class=" inset-y-0 left-0 flex items-center md:hidden">
                             {/* <!-- Mobile menu button--> */}
-                            <button onClick={e => setOpen(!Open)} type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                            <button onClick={e => setOpen(!Open)} type="button" className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span class="absolute -inset-0.5"></span>
                                 <span class="sr-only">Open main menu</span>
                                 {Open ? (
@@ -59,7 +59,7 @@ const ReactNavbar = () => {
                                 <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                                 <h1 className='text-white text-[1.5rem]'>Exclusive</h1>
                             </div>
-                            <div className="hidden sm:ml-6 md:block">
+                            <div className="sm:ml-6 hidden md:block">
                                 <div className="flex space-x-4">
                                     <Link to='/' className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</Link>
                                     <Link to='/newsletter' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">News Letter</Link>
@@ -130,7 +130,7 @@ const ReactNavbar = () => {
 
                 {/* <!-- Mobile menu, show/hide based on menu state. --> */}
                 {Open && (
-                    <div className="sm:hidden" id="mobile-menu">
+                    <div className="md:hidden" id="mobile-menu">
                         <div className="space-y-1 px-2 pb-3 pt-2">
                             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                             <Link to='/' className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</Link>
