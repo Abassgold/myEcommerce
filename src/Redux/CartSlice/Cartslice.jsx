@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
     cartItemsQuantity: localStorage.getItem('cartItemsQuantity') ? parseInt(localStorage.getItem('cartItemsQuantity')) : 0,
-    cartTotalAmount: parseFloat(localStorage.getItem('cartTotalAmount')) || 0,
+    cartTotalAmount: parseFloat(localStorage.getItem('cartTotalAmount')) || 0.00,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -16,27 +17,34 @@ const cartSlice = createSlice({
       if (existingItems) {
         if ( existingItems.quantity  >= newItems.stock) {
           // If the stock limit is reached, don't add the item
-          toast.error(`${newItems?.product} cannot be added`, {position: 'top-center'})
+          toast.warning(`${existingItems.product} limited is reached`, {
+            position: 'top-right'
+          })
           return state;
         } else {
           // If adding one more doesn't exceed the stock, increment the quantity
-          toast.success(`${newItems?.product} updated succesfully`, {position: 'top-center'})
-
           existingItems.quantity += itemQuantity;
           existingItems.qtyPrice += price
           state.cartTotalAmount += price;
+          toast.success(`${existingItems.productName} updated successfully`,{
+            position: 'top-right'
+          })
         }
       } else {
         if (1 > newItems.stock) {
           // If the stock limit is reached, don't add the item
-          toast.error(`${newItems.product} is out of stock`, {position: 'top-center'})
+          toast.warning(`${existingItems.product} cannot be added`, {
+            position: 'top-right'
+          })
           return state;
         } else {
           // If adding one item doesn't exceed the stock, add the item to the cart
-          toast.success(`${newItems.product} has been added to cart`, {position: 'top-center'})
           state.cartItems.push({ ...newItems, quantity: itemQuantity, qtyPrice: price });
           state.cartItemsQuantity += 1;
           state.cartTotalAmount += price;
+          toast.success(`${newItems.product} added to cart`, {
+            position: 'top-right'
+          });
         }
       }
 
@@ -52,12 +60,9 @@ const cartSlice = createSlice({
       if (existingItems) {
         if (existingItems.quantity <= itemQuantity) {
           // If the stock limit is reached, don't add the item
-          toast.warning(`${existingItems.product} cannot be be updated`, {position: 'top-center'})
           return state;
         } else {
           // If adding one more doesn't exceed the stock, increment the quantity
-          toast.warning(`${existingItems.product} updated to the cart`, {position: 'top-center'})
-
           existingItems.quantity -= itemQuantity;
           existingItems.qtyPrice -= price
           state.cartTotalAmount -= price;
@@ -78,7 +83,6 @@ const cartSlice = createSlice({
         state.cartItemsQuantity -= itemToRemove.quantity;
         state.cartTotalAmount -= itemToRemove.price * itemToRemove.quantity;
         state.cartItems.splice(itemIndex, 1);
-        toast.warning(`${itemIndex.product} is removed from cart`, {position: 'top-center'})
 
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         localStorage.setItem('cartItemsQuantity', state.cartItemsQuantity);
