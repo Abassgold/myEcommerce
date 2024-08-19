@@ -56,7 +56,7 @@ const ReactNavbar = () => {
                         </div>
                         <div className="flex  flex-1 items-center  md:gap-[10rem] sm:items-stretch justify-start">
                             <div className="flex flex-shrink-0 gap-2 cursor-pointer" onClick={e => navigate('/')}>
-                                <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                                <img className="h-8 p-[0.12rem] bg-[#44dbbd] w-auto" src="https://res.cloudinary.com/abasskola/image/upload/v1724107912/Preview_b8xkcn.jpg" alt="Your Company" />
                                 <h1 className='text-white text-[1.5rem]'>Exclusive</h1>
                             </div>
                             <div className="sm:ml-6 hidden md:block">
