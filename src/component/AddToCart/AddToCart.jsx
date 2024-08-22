@@ -11,6 +11,7 @@ import { searchContext } from '../../App';
 import { increment } from '../../Redux/Action';
 import { setSlide } from '../../Redux/SlideSlice/Slide';
 import { Box, Modal, Slide, Typography } from '@mui/material';
+import SearchFilter from '../utils/SearchFilter';
 
 // import { Button, Modal } from "flowbite-react";
 
@@ -87,7 +88,8 @@ const AddToCart = () => {
     const filteredProducts = allProduct && allProduct.result && allProduct.result.filter(val => {
         return (filter === '' && val) || (val.product && val.product.toLocaleLowerCase().includes(filter.toLowerCase()) && val)
     })
-
+    const searchFilterData = SearchFilter();
+        console.log(searchFilterData?.price);
     return (
         <section className={`relative`}>
             <Modal
@@ -103,7 +105,7 @@ const AddToCart = () => {
                 </Box>
             </Modal>
             {
-                isLoading && <Loader />
+                isLoading && <Loader msg='Fetching...' />
             }
             {
                 !isLoading && error && <h1 className='text-center text-[3rem]'>Error: {error}</h1>
@@ -119,71 +121,94 @@ const AddToCart = () => {
                                 )}
                                 {
                                     filteredProducts?.length > 0 ? (
-                                        <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
-                                            {
-                                                filteredProducts.map(product => {
-                                                    const cartItem = cartItems?.find((item) => item?._id === product._id);
-                                                    const cartQty = cartItem ? cartItem?.quantity : 0;
-                                                    return (
-                                                        <div className='mb-[1rem] p-2 bg-[#ffff] border-[#837F78] border-[0.5px] shadow-md rounded-md' key={product._id}>
-                                                            <div className={`cursor-pointer`}>
-                                                                <img src={product?.images[0].url} alt="" />
-                                                                <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
-                                                                    Quick view
-                                                                </div>
-                                                            </div>
-                                                            <div className='py-2'>
-                                                                <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
-                                                                <p className='text-[16px] font-[400] text-[#605e5e]'>${product.price}</p>
-                                                            </div>
-                                                            <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>
-                                                                View details
-                                                            </div>
-                                                            <input type="text" value='1' className={`hidden count`} />
-                                                            <div>
-                                                                {
-                                                                    isOpen ? (
-                                                                        <div className=' text-center text-[1.5rem]'>
-                                                                            <Spinner color="info" aria-label="Info spinner example" />
-                                                                        </div>
-                                                                    ) :
-                                                                        cartQty <= 0 ? (
-                                                                            <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
-                                                                                Add to cart
-                                                                            </div>
-                                                                        ) : (
-                                                                            <div>
-                                                                                <div className='flex text-center'>
-                                                                                    <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
+                                        <div>
+                                            <div className='flex gap-4 mb-4 justify-between items-center'>
 
-                                                                                        {
-                                                                                            cartQty !== 1 ? (<span class="material-symbols-outlined " onClick={() => decreaseQty(product)}>
-                                                                                                remove
-                                                                                            </span>) : (
-                                                                                                <span class="material-symbols-outlined cursor-pointer" onClick={() => deleteCart(product)}>
+                                                <form class=" flex-1">
+                                                    <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-[1.2rem]">
+                                                        <option selected>Chose Category</option>
+                                                        {searchFilterData?.filter.map((item, index)=>(
+                                                           <option value={item} key={index}>{item}</option> 
+                                                        ))}
+                                                    </select>
+                                                </form>
+                                                <form class=" flex-1">
+                                                    <select id="priceFilter" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+                                                        <option selected>Price filter</option>
+                                                    {searchFilterData?.price.map((item, index)=>(
+                                                           <option value={item} key={index}>{item}</option> 
+                                                        ))}
+                                                    </select>
+                                                </form>
+                                            </div>
+
+
+                                            <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
+                                                {
+                                                    filteredProducts.map(product => {
+                                                        const cartItem = cartItems?.find((item) => item?._id === product._id);
+                                                        const cartQty = cartItem ? cartItem?.quantity : 0;
+                                                        return (
+                                                            <div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] border-[0.5px] shadow-md rounded-md' key={product._id}>
+                                                                <div className={`cursor-pointer`}>
+                                                                    <img src={product?.images[0].url} alt="" />
+                                                                    <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
+                                                                        Quick view
+                                                                    </div>
+                                                                </div>
+                                                                <div className='py-2'>
+                                                                    <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
+                                                                    <p className='text-[16px] font-[400] text-[#605e5e]'>${product.price}</p>
+                                                                </div>
+                                                                <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>
+                                                                    View details
+                                                                </div>
+                                                                <input type="text" value='1' className={`hidden count`} />
+                                                                <div>
+                                                                    {
+                                                                        isOpen ? (
+                                                                            <div className=' text-center text-[1.5rem]'>
+                                                                                <Spinner color="info" aria-label="Info spinner example" />
+                                                                            </div>
+                                                                        ) :
+                                                                            cartQty <= 0 ? (
+                                                                                <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
+                                                                                    Add to cart
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div>
+                                                                                    <div className='flex text-center'>
+                                                                                        <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
+
+                                                                                            {
+                                                                                                cartQty !== 1 ? (<span class="material-symbols-outlined " onClick={() => decreaseQty(product)}>
                                                                                                     remove
-                                                                                                </span>
-                                                                                            )
-                                                                                        }
-                                                                                    </div>
-                                                                                    <div className='flex-[1] py-3 text-[1.3rem]'>
-                                                                                        {cartQty}</div>
-                                                                                    <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
-                                                                                        <span class="material-symbols-outlined" onClick={() => IncreaseQty(product)}>
-                                                                                            add
-                                                                                        </span>
+                                                                                                </span>) : (
+                                                                                                    <span class="material-symbols-outlined cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                                                        remove
+                                                                                                    </span>
+                                                                                                )
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className='flex-[1] py-3 text-[1.3rem]'>
+                                                                                            {cartQty}</div>
+                                                                                        <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
+                                                                                            <span class="material-symbols-outlined" onClick={() => IncreaseQty(product)}>
+                                                                                                add
+                                                                                            </span>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
 
-                                                                        )
-                                                                }
+                                                                            )
+                                                                    }
 
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                                        )
+                                                    })
+                                                }
+                                            </div>
                                         </div>
                                     ) :
                                         (

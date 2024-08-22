@@ -1,6 +1,5 @@
-import { Link } from '@mui/material';
 import { BiLogoFacebook, BiLogoTwitter, BiLogoYoutube } from 'react-icons/bi'
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -9,10 +8,10 @@ const Footer = () => {
                 <div className='grid md:grid-cols-3 sm:grid-cols-2 justify-center gap-5'>
                     <div className=' md:col-span-1'>
                         <div>
-                            <Link underline="always" href='#' color="#787878">FAQ</Link><br />
-                            <Link underline="always" href='#' color='#787878'>CONTACT</Link><br />
-                            <Link underline="always" href='#' color='#787878'>SHOP</Link><br />
-                            <Link underline="always" href='#' color='#787878'>EXPERT REVIEWS</Link><br /><br /><br /><br />
+                            <Link className='underline underline-offset-2 text-[#787878]' to='#'>FAQ</Link><br />
+                            <Link className='underline underline-offset-2 text-[#787878]' to='#'>CONTACT</Link><br />
+                            <Link className='underline underline-offset-2 text-[#787878]' to='/buy-now'>SHOP</Link><br />
+                            <Link className='underline underline-offset-2 text-[#787878]' to='/support'>EXPERT REVIEWS</Link><br /><br /><br /><br />
                             <div className='flex gap-5 items-center text-[#787878] font-[500] text-[25px]'>
                                 <a href="">
                                     <BiLogoFacebook />
@@ -28,14 +27,14 @@ const Footer = () => {
                     </div>
                     <div className='md:col-span-1'>
                         <div>
-                            <Link underline="always" href='#' color='#787878'>ABOUT US</Link>
-                            <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font. Feel free to drag and drop me anywhere.</p>
+                            <Link className='underline underline-offset-2 text-[#787878]' to='#'>ABOUT US</Link>
+                            <p>We’re more than just a store; we’re a community of passionate individuals who believe in the power of [mention your products or services]. Whether you’re a seasoned enthusiast or just starting your journey, we’re here to help you find the perfect products to inspire and empower you.</p>
                         </div>
                     </div>
                     <div className=' md:col-span-1'>
                         <div>
-                            <Link underline="always" href='#' color='#787878'>NEW RELEASES</Link>
-                            <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add your own content and make changes to the font.</p>
+                            <Link className='underline underline-offset-2 text-[#787878]' to='#'>NEW RELEASES</Link>
+                            <p>Our newest arrivals are here! Explore a curated selection of fresh products, handpicked to elevate your lifestyle. From trendy fashion to innovative items, discover the latest must-haves. Don't miss out on these limited-time offers. Shop now and experience the excitement of our new releases!</p>
                             <div className='mt-3'>
                                 <input placeholder='Enter your email here*' type="text" className='outline-none p-2 w-[100%] border-[1px] border-black' /><br />
                                 <button className='mt-2 w-[100%] py-1 text-white bg-green-600 hover:bg-white hover:text-green-600 border-2 border-green-600'>Subscribe Now</button>
@@ -45,7 +44,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className='text-center mt-7'>
-                <small>© 2035 BY EZ ELECTRONICS. Powered and secured by Abass</small>
+                <small>© 2035 BY EXCLUSVE STORE. All rights reserved. Powered by Abass</small>
             </div>
         </footer>
     );
