@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HowToShop from '../Howtoshop/HowToShop';
+import { motion } from 'framer-motion';
 
 const Shop = () => {
     return (
         <section className='mx-auto md:w-[70%] w-[90%]'>
-            <div className='py-[10rem]'>
+            <motion.div className='py-[10rem]'
+            initial={{x: '100vw'}}
+            animate={{x: 0}}
+            transition={{delay: 0.1, duration: 0.3, type: 'spring', stiffness:  130}}
+            >
                 <div className=''>
                     <div>
                         <div className='md:w-[35rem]'>
@@ -17,10 +22,10 @@ const Shop = () => {
                             </p>
                         </div>
                         <a href="" className='text-decoration-underline'>Learn More</a><br /><br />
-                        <Link to='/buy-now' className='p-3 text-white hover:bg-white hover:text-[#44dbbd] bg-[#44dbbd] border-2 border-[#44dbbd]'>Buy Now</Link>
+                        <Link to='/buy-now' className='p-3 text-white hover:bg-white hover:text-[#44dbbd] bg-[#44dbbd] border-2 border-[#44dbbd] transition-all duration-500 '>Buy Now</Link>
                     </div>
                 </div>
-            </div>
+            </motion.div>
             <HowToShop />
         </section>
 

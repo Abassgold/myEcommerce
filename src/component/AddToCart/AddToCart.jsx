@@ -12,6 +12,7 @@ import { increment } from '../../Redux/Action';
 import { setSlide } from '../../Redux/SlideSlice/Slide';
 import { Box, Modal, Slide, Typography } from '@mui/material';
 import SearchFilter from '../utils/SearchFilter';
+import { motion } from 'framer-motion';
 
 // import { Button, Modal } from "flowbite-react";
 
@@ -89,7 +90,7 @@ const AddToCart = () => {
         return (filter === '' && val) || (val.product && val.product.toLocaleLowerCase().includes(filter.toLowerCase()) && val)
     })
     const searchFilterData = SearchFilter();
-        console.log(searchFilterData?.price);
+    console.log(searchFilterData?.price);
     return (
         <section className={`relative`}>
             <Modal
@@ -127,16 +128,16 @@ const AddToCart = () => {
                                                 <form class=" flex-1">
                                                     <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
                                                         <option selected>Chose Category</option>
-                                                        {searchFilterData?.filter.map((item, index)=>(
-                                                           <option value={item} key={index}>{item}</option> 
+                                                        {searchFilterData?.filter.map((item, index) => (
+                                                            <option value={item} key={index}>{item}</option>
                                                         ))}
                                                     </select>
                                                 </form>
                                                 <form class=" flex-1">
                                                     <select id="priceFilter" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
                                                         <option selected>Price filter</option>
-                                                    {searchFilterData?.price.map((item, index)=>(
-                                                           <option value={item} key={index}>{item}</option> 
+                                                        {searchFilterData?.price.map((item, index) => (
+                                                            <option value={item} key={index}>{item}</option>
                                                         ))}
                                                     </select>
                                                 </form>
@@ -149,7 +150,9 @@ const AddToCart = () => {
                                                         const cartItem = cartItems?.find((item) => item?._id === product._id);
                                                         const cartQty = cartItem ? cartItem?.quantity : 0;
                                                         return (
-                                                            <div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] border-[0.5px] shadow-md rounded-md' key={product._id}>
+                                                            <motion.div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] border-[0.5px] shadow-md rounded-md' key={product._id}
+                                                            whileHover={{scale: 1.02}}
+                                                            >
                                                                 <div className={`cursor-pointer`}>
                                                                     <img src={product?.images[0].url} alt="" />
                                                                     <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
@@ -204,7 +207,7 @@ const AddToCart = () => {
                                                                     }
 
                                                                 </div>
-                                                            </div>
+                                                            </motion.div>
                                                         )
                                                     })
                                                 }
