@@ -21,7 +21,7 @@ const Carts = () => {
         dispatch(removeFromCart(product))
     }
     const checkout = function () {
-        authToken ? navigate('/checkout') : navigate('/signin', { state: { previousUrl: '/checkout' } });
+         navigate('/checkout', { state: { previousUrl: '/checkout' } });
     }
     return (
         <div>

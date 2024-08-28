@@ -19,6 +19,7 @@ const signIn = createSlice({
         isAuthenticated: false,
         error: null,
         authToken: localStorage.getItem('userToken') ? localStorage?.userToken : null,
+        previousUrl: null,
     },
     reducers: {
         logOut(state) {
@@ -31,7 +32,10 @@ const signIn = createSlice({
         },
         addUser: (state, action) => {
             state.user = action.payload;
-        }
+        },
+        setPreviousUrl: (state, action) => {
+            state.previousUrl = action.payload;
+          },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchInfo.pending, (state, action) => {
@@ -46,5 +50,5 @@ const signIn = createSlice({
     },
 
 })
-export const {logOut, fetchUserInfo, addUser} = signIn.actions;
+export const {logOut, fetchUserInfo, addUser, setPreviousUrl} = signIn.actions;
 export default signIn.reducer;
