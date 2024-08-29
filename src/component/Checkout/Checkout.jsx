@@ -9,7 +9,7 @@ const Checkout = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { shippingInfo } = useSelector(state => state.cartReducer)
-
+const [name, steName] = useState(shippingInfo.name)
     const [address, setAddress] = useState(shippingInfo.address)
     const [city, setCity] = useState(shippingInfo.city)
     const [postalCode, setPostalCode] = useState(shippingInfo.postalCode)
@@ -17,8 +17,8 @@ const Checkout = () => {
     const [country, setCountry] = useState(shippingInfo.country)
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addShippingInfo({ address, city, postalCode, phoneNo, country }))
-        navigate('/order/confirm')
+        dispatch(addShippingInfo({name, address, city, postalCode, phoneNo, country }))
+        navigate('/order/confirm', { state: { previousUrl: '/order/confirm' } });
     }
 
     return (
@@ -29,6 +29,10 @@ const Checkout = () => {
                     <h1 className='text-[2rem]'>Shipping Info</h1>
                     <div>
                         <form action="" onSubmit={handleSubmit}>
+                        <div className={`my-1`}>
+                                <label htmlFor="address" className={`mb-2 text-[1.3rem]`}>Full Name</label>
+                                <input required type="text" className={ `focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-md p-2`} onChange={e => steName(e.target.value)} value={name} />
+                            </div>
                             <div className={`my-1`}>
                                 <label htmlFor="address" className={`mb-2 text-[1.3rem]`}>Address</label>
                                 <input required type="text" className={ `focus:bg-[#ffff] bg-[#E5E5E5] w-full border-[1px] border-[#d1d5db] outline-[#44dbbd] rounded-md p-2`} onChange={e => setAddress(e.target.value)} value={address} />
@@ -48,11 +52,11 @@ const Checkout = () => {
                             <div className={`my-1`}>
                                 <label htmlFor="Country" className={`mb-2 text-[1.3rem]`}>Country</label>
                                 <select required name="country" value={country} id="country" className='w-full p-2 focus:bg-[#ffff] bg-[#E5E5E5] border-[#d1d5db] outline-[#44dbbd] border-[1px] rounded-[0.2rem]' onChange={e => setCountry(e.target.value)}>
+                                    <option selected disabled className='bg-[#CCA9C9]'>Select country</option>
                                     {countrylist.map((country, index) => (
                                         <option value={country.name} key={index}>{country.name}</option>
                                     ))}
                                 </select>
-
                             </div>
                             <div className='my-3 text-[1.2rem]'>
                                 <button className='w-full text-center transform duration-[500ms]  bg-[#44dbbd] hover:bg-[#13322c] text-white px-[4rem] py-3' type='submit'>CONTINUE</button>

@@ -21,6 +21,7 @@ const Payment = () => {
         amount: orderinfo?.totalPrice
     }
     let url = `${import.meta.env.VITE_URI}/payment/process`
+
     const handleSubmit = async function (e) {
         e.preventDefault();
         if (!(stripe || element)) return;

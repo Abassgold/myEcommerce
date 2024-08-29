@@ -17,7 +17,6 @@ const ReactNavbar = () => {
         setTimeout(() => {
             dispatch(logOut())
             setDropdown(!dropdown)
-            navigate('/')
         }, (100));
     }
 
@@ -41,15 +40,6 @@ const ReactNavbar = () => {
                                     </svg>
                                 )}
                                 {/* <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          --> */}
-
-                                {/* <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
           --> */}
 
                             </button>
