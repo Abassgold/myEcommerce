@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import CheckoutSteps from '../component/CheckoutSteps/CheckoutSteps'
-import { usePaystackPayment } from 'react-paystack';
+import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 
 
@@ -13,7 +13,7 @@ const ConfirmOrder = () => {
     console.log(location);
     const { user } = useSelector(state => state.signinSlce)
     const { shippingInfo, cartItems, cartTotalAmount } = useSelector(state => state.cartReducer)
-    
+
     const shippingPrice = cartTotalAmount > 300 ? 0 : 25;
     const taxPrice = Number((0.03 * cartTotalAmount).toFixed(2))
     const totalPrice = Number((cartTotalAmount + shippingPrice + taxPrice).toFixed(2))
@@ -31,30 +31,30 @@ const ConfirmOrder = () => {
     const config = {
         reference: (new Date()).getTime().toString(),
         email: user?.email,
-        amount: (totalPrice * 1000).toFixed(2), 
+        amount: (totalPrice * 100).toFixed(0),
         publicKey: import.meta.env.VITE_PUBLICKEY,
     };
-
-    const onSuccess = (reference) => {
-    let info = {...shippingInfo,cartItems,taxPrice, itemsPrice: cartTotalAmount, taxPrice, shippingPrice, paidAt: {date:  new Date().toLocaleDateString(),  time: new Date().toLocaleTimeString()}, user}
-    const response = axios.post(`${import.meta.env.VITE_URI}/new-order`, info)
-        console.log(reference);
-        console.log('it succeeded');
-        
+    const handlePaystackSuccessAction = async (reference) => {
+        let paymentInfo = { ...shippingInfo, ...reference, cartItems, taxPrice, itemsPrice: cartTotalAmount, taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
+        try {
+            const { data } = await axios.post(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
+            if (!data.success) return
+            const keysToRemove = ['cartItems', 'cartItemsQuantity', 'cartTotalAmount', shippingInfo];
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            navigate('/buy-now')
+        } catch (error) {
+            console.log(error?.message);
+        }
     };
 
-    const onClose = () => {
-        console.log('closed')
+    const handlePaystackCloseAction = () => {
     }
-    const PaystackHookExample = () => {
-        const initializePayment = usePaystackPayment(config);
-        return (
-            <div>
-                <button  className={`w-full transform duration-[500ms] rounded-sm  bg-[#44dbbd] hover:bg-[#13322c] text-white p-2`} onClick={() => {
-                    initializePayment(onSuccess, onClose)
-                }}>Proceed to Payment</button>
-            </div>
-        );
+
+    const componentProps = {
+        ...config,
+        text: 'Proceed to Payment',
+        onSuccess: (reference) => handlePaystackSuccessAction(reference),
+        onClose: handlePaystackCloseAction,
     };
     return (
         <div>
@@ -116,13 +116,8 @@ const ConfirmOrder = () => {
                             <p>Total:</p>
                             <p className='font-[500]'>${totalPrice}</p>
                         </div>
-                        <div className={`text-[1.4rem] text-center font-[400] whitespace-nowrap `}>
-                            <PaystackHookExample />
-
-                            {/* <button onClick={proceedPayment}>
-                                Proceed to Payment
-                            </button> */}
-
+                        <div className={`w-full transform duration-[500ms] rounded-sm  bg-[#44dbbd] hover:bg-[#13322c] text-white p-2  text-center text-[1.5rem] whitespace-nowrap`}>
+                            <PaystackButton {...componentProps} />
                         </div>
                     </div>
                 </div>
