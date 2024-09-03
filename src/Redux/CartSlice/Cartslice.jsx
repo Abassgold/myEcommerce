@@ -15,7 +15,7 @@ const cartSlice = createSlice({
       const existingItems = state.cartItems.find(item => item._id === newItems._id);
 
       if (existingItems) {
-        if ( existingItems.quantity  >= newItems.stock) {
+        if (existingItems.quantity >= newItems.stock) {
           // If the stock limit is reached, don't add the item
           toast.warning(`${existingItems.product} limited is reached`, {
             position: 'top-right'
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
           existingItems.quantity += itemQuantity;
           existingItems.qtyPrice += price
           state.cartTotalAmount += price;
-          toast.success(`${existingItems.productName} updated successfully`,{
+          toast.success(`${existingItems.productName} updated successfully`, {
             position: 'top-right'
           })
         }
@@ -92,9 +92,19 @@ const cartSlice = createSlice({
     addShippingInfo: (state, action) => {
       state.shippingInfo = action.payload
       localStorage.setItem('shippingInfo', JSON.stringify(state.shippingInfo))
+    },
+    clearCart: (state, action) => {
+      state.cartItems = [];
+      state.cartItemsQuantity = 0;
+      state.cartTotalAmount = 0.00;
+
+              localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        localStorage.setItem('cartItemsQuantity', state.cartItemsQuantity);
+        localStorage.setItem('cartTotalAmount', state.cartTotalAmount);
     }
+    
   },
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, decreaseQuantity, addShippingInfo } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseQuantity, addShippingInfo, clearCart } = cartSlice.actions;

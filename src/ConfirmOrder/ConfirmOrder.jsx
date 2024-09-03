@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import CheckoutSteps from '../component/CheckoutSteps/CheckoutSteps'
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
+import { clearCart } from '../Redux/CartSlice/Cartslice';
 
 
 const ConfirmOrder = () => {
@@ -12,7 +13,7 @@ const ConfirmOrder = () => {
     const location = useLocation()
     console.log(location);
     const { user } = useSelector(state => state.signinSlce)
-    const { shippingInfo, cartItems, cartTotalAmount } = useSelector(state => state.cartReducer)
+    const { shippingInfo, cartItems, cartTotalAmount, cartItemsQuantity } = useSelector(state => state.cartReducer)
 
     const shippingPrice = cartTotalAmount > 300 ? 0 : 25;
     const taxPrice = Number((0.03 * cartTotalAmount).toFixed(2))
@@ -35,13 +36,12 @@ const ConfirmOrder = () => {
         publicKey: import.meta.env.VITE_PUBLICKEY,
     };
     const handlePaystackSuccessAction = async (reference) => {
-        let paymentInfo = { ...shippingInfo, ...reference, cartItems, taxPrice, itemsPrice: cartTotalAmount, taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
+        let paymentInfo = { ...shippingInfo, ...reference, cartItems,cartTotalAmount, taxPrice, itemsPrice: Number(cartTotalAmount.toFixed(2)), taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
         try {
             const { data } = await axios.post(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
             if (!data.success) return
-            const keysToRemove = ['cartItems', 'cartItemsQuantity', 'cartTotalAmount', shippingInfo];
-            keysToRemove.forEach(key => localStorage.removeItem(key));
-            navigate('/buy-now')
+            dispatch(clearCart())
+            navigate('/')
         } catch (error) {
             console.log(error?.message);
         }

@@ -57,7 +57,7 @@ const AddToCart = () => {
         dispatch(setSlide())
         console.log(loader);
         setTimeout(() => {
-            dispatch(addToCart({ newItems: product, itemQuantity: count, price: product?.price }))
+            dispatch(addToCart({ newItems: product, itemQuantity: Number(count), price: Number(product?.price) }))
             dispatch(setSlide())
         }, 200);
     }
@@ -65,7 +65,7 @@ const AddToCart = () => {
         const count = 1;
         dispatch(setSlide())
         setTimeout(() => {
-            dispatch(decreaseQuantity({ newItems: product, itemQuantity: count, price: product?.price }))
+            dispatch(decreaseQuantity({ newItems: product, itemQuantity: Number(count), price: Number(product?.price) }))
             dispatch(setSlide());
         }, 200);
     }
