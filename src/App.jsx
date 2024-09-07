@@ -91,7 +91,7 @@ const App = () => {
   return (
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
-        <div className='text-[1.5rem] font-[600] text-[red]'>
+        <div className='text-[1.1rem] font-[600] text-[red]'>
           <marquee behavior="alternate" direction="left">Site under development</marquee>
         </div>
         <div>
@@ -115,6 +115,7 @@ const App = () => {
               <Route path='/buy-now/Mycart' element={<MyCart />} />
               <Route path='/product-page/:id' element={<HomeBuynow />} />
               <Route path='/product-details/:id' element={<ProductDetails />} />
+              <Route path='/order/me' element={<MyOrder/>} />
               {/* Protected Routes */}
               <Route element={<ProtectedRoutes />}>
                 <Route path='/profile/me/edit' element={<EditProfile />} />

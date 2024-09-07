@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllOrders } from '../../Redux/orderSlice/OrderSlice';
 import { Table } from 'flowbite-react';
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
+import { fetchMyOrders } from '../../Redux/orderSlice/MyOderslice';
 
 const MyOrder = () => {
     const navigate = useNavigate();
@@ -14,19 +14,25 @@ const MyOrder = () => {
         let url =`/order/details/${id}`
         navigate(url)
     }
+    
+    console.log(user?._id);
+    
     useEffect(() => {
-        dispatch(fetchAllOrders())
+        if (user) {
+            dispatch(fetchMyOrders(user?._id));
+        }
         if (error) {
             return alert(error.message)
         }
-    }, [dispatch, error])
+    }, [user, error])
+    
     const myOrder = allOrders.filter(order => order.user === user?._id)
     return (
         <div>
             {isLoading ? <Loader /> : (
-                <div className='mx-auto md:w-[70%] w-[90%]'>
+                <div className='mx-auto container'>
                     <div>
-                        <h1 className='text-[3rem] font-[500] mt-6'>My Orders</h1>
+                        <h1 className='text-[2.5rem] font-[500] mt-6 px-4'>My Orders</h1>
                         <div className="overflow-x-auto">
                             {allOrders && myOrder?.length > 0 ? (
                                 <div className={`my-[5rem]`}>
@@ -68,11 +74,10 @@ const MyOrder = () => {
                                             </Table.Body>
                                         ))}
                                     </Table>
-
                                 </div>
                             ) : (
-                                <div className='text-center py-[10rem] text-[3rem] font-[500]'>
-                                    <h1>You don't have any order currently</h1>
+                                <div className='text-center py-[5rem] text-[2rem] font-[500]'>
+                                    <h1>You currently don't have any order</h1>
                                 </div>
                             )}
                         </div>

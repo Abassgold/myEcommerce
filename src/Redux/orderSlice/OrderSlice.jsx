@@ -2,12 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAllOrders = createAsyncThunk('fetchAllorders', async () => {
-    let url = `http://localhost:5000/orders/all-orders`
+    let url = `${import.meta.env.VITE_URI}/orders/all-orders`
     const { data } = await axios.get(url)
     console.log(data?.result);
     return data?.result;
 })
-
 const allOrderSlice = createSlice({
     name: 'orders',
     initialState: {

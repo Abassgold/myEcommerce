@@ -11,24 +11,11 @@ const ConfirmOrder = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location);
     const { user } = useSelector(state => state.signinSlce)
     const { shippingInfo, cartItems, cartTotalAmount, cartItemsQuantity } = useSelector(state => state.cartReducer)
-
     const shippingPrice = cartTotalAmount > 300 ? 0 : 25;
     const taxPrice = Number((0.03 * cartTotalAmount).toFixed(2))
     const totalPrice = Number((cartTotalAmount + shippingPrice + taxPrice).toFixed(2))
-
-    const proceedPayment = function () {
-        const data = {
-            itemsPrice: cartTotalAmount.toFixed(2),
-            shippingPrice,
-            taxPrice,
-            totalPrice
-        }
-        sessionStorage.setItem('orderInfo', JSON.stringify(data))
-        navigate('/payment', { state: { previousUrl: '/payment' } })
-    }
     const config = {
         reference: (new Date()).getTime().toString(),
         email: user?.email,
@@ -36,20 +23,18 @@ const ConfirmOrder = () => {
         publicKey: import.meta.env.VITE_PUBLICKEY,
     };
     const handlePaystackSuccessAction = async (reference) => {
-        let paymentInfo = { ...shippingInfo, ...reference, cartItems,cartTotalAmount, taxPrice, itemsPrice: Number(cartTotalAmount.toFixed(2)), taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
+        let paymentInfo = { ...shippingInfo, ...reference, userId: user?._id, cartItems, cartTotalAmount, taxPrice, itemsPrice: Number(cartTotalAmount.toFixed(2)), taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
+            const { data } = await axios.patch(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
             if (!data.success) return
             dispatch(clearCart())
-            navigate('/')
+            navigate('/buy-now')
         } catch (error) {
             console.log(error?.message);
         }
     };
-
     const handlePaystackCloseAction = () => {
     }
-
     const componentProps = {
         ...config,
         text: 'Proceed to Payment',
@@ -126,5 +111,4 @@ const ConfirmOrder = () => {
 
     )
 }
-
 export default ConfirmOrder

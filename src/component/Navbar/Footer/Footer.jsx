@@ -28,7 +28,7 @@ const Footer = () => {
                     <div className='md:col-span-1'>
                         <div>
                             <Link className='underline underline-offset-2 text-[#787878]' to='#'>ABOUT US</Link>
-                            <p>We’re more than just a store; we’re a community of passionate individuals who believe in the power of [mention your products or services]. Whether you’re a seasoned enthusiast or just starting your journey, we’re here to help you find the perfect products to inspire and empower you.</p>
+                            <p>We’re more than just a store; we’re a community of passionate individuals who believe in the power of self-expression through fashion. Whether you’re a seasoned enthusiast or just starting your journey, we’re here to help you find the perfect products to inspire and empower you.</p>
                         </div>
                     </div>
                     <div className=' md:col-span-1'>

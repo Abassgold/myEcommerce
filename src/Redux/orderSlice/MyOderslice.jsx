@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 export const fetchMyOrders = createAsyncThunk('fetchMyOrders', async (id) => {
-    let url = `http://localhost:5000/orders/single-order/${id}`
+    console.log(id);
+    let url = `${import.meta.env.VITE_URI}/orders/order/me/${id}`
     const { data } = await axios.get(url)
     console.log(data);
     return data;
@@ -25,3 +26,4 @@ const myOrderSlice = createSlice({
         })
     }
 })
+export default myOrderSlice.reducer;
