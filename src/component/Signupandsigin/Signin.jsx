@@ -11,15 +11,12 @@ import { useDispatch } from 'react-redux';
 import Loader from '../Loader/Loader';
 const Signin = () => {
     const dispatch = useDispatch()
-
     const context = useContext(searchContext)
-    const token = localStorage.userToken
     const [isVisible, setIsVisible] = useState(false)
     const [loader, setLoader] = useState(false)
-    const [message, setmessage] = useState('')
+    const [message, setmessage] = useState('Signing in')
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location)
     let URI = `${import.meta.env.VITE_URI}/user/signin`;
     const formik = useFormik({
         initialValues: {
@@ -27,10 +24,11 @@ const Signin = () => {
             password: ''
         },
         onSubmit: async (values) => {
-            setLoader(!loader)
+            setLoader(true)
             try {
-                
                 const { data } = await axios.post(URI, values)
+                console.log(data);
+                
                 if (data?.success) {
                     setTimeout(() => {
                         dispatch(fetchUserInfo(data?.token))
@@ -44,18 +42,25 @@ const Signin = () => {
                 console.log(err.message);
                 setmessage(err.message)
                 setIsVisible(!isVisible)
+            } finally {
+                setLoader(false)
             }
-            setLoader(!loader)
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email is invalid').required('Please enter your email'),
             password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password')
         })
     });
-let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
+    let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
     let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
     return (
         <div>
+            
+            {/* {loader && (
+                <section>
+                    <Loader msg={message}/>
+                </section>
+                )} */}
             <div className='container px-[1rem] mx-auto mt-[5rem] mb-[3rem]'>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-10 justify-center'>
                     <div className='sm:block hidden'>
@@ -83,7 +88,7 @@ let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] bor
                                 <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
                                 <div className="text-center mb-2 text-white">
                                     {/* {!loader && } */}
-                                    <button disabled={loader} type='submit' className=' w-full bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>{loader ?(<Spinner color="info" aria-label="Info spinner example" />):(
+                                    <button disabled={loader} type='submit' className=' w-full bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>{loader ? (<Spinner color="info" aria-label="Info spinner example" />) : (
                                         <span>Submit</span>
                                     )}</button>
                                 </div>

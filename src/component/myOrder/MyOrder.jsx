@@ -14,9 +14,6 @@ const MyOrder = () => {
         let url =`/order/details/${id}`
         navigate(url)
     }
-    
-    console.log(user?._id);
-    
     useEffect(() => {
         if (user) {
             dispatch(fetchMyOrders(user?._id));
@@ -25,7 +22,6 @@ const MyOrder = () => {
             return alert(error.message)
         }
     }, [user, error])
-    
     const myOrder = allOrders.filter(order => order.user === user?._id)
     return (
         <div>

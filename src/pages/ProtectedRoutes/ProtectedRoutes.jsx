@@ -8,7 +8,6 @@ const ProtectedRoutes = () => {
   const { authToken } = useSelector(state => state.signinSlce)
   const location = useLocation()
   const navigate = useNavigate()
-  console.log(location?.pathname);
   const dispatch = useDispatch()
   const { cartItems } = useSelector(state => state.cartReducer)
 

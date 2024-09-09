@@ -2,8 +2,6 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 const AddCartRequired = () => {
     const location = useLocation()
-    console.log(location);
-
     const navigate = useNavigate()
     const goToCart = () => {
         navigate('/buy-now');

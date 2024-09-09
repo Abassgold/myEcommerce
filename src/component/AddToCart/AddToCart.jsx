@@ -90,7 +90,6 @@ const AddToCart = () => {
         return (filter === '' && val) || (val.product && val.product.toLocaleLowerCase().includes(filter.toLowerCase()) && val)
     })
     const searchFilterData = SearchFilter();
-    console.log(searchFilterData?.price);
     return (
         <section className={`relative`}>
             <Modal
@@ -124,7 +123,6 @@ const AddToCart = () => {
                                     filteredProducts?.length > 0 ? (
                                         <div>
                                             <div className='flex gap-4 mb-4 justify-between items-center'>
-
                                                 <form class=" flex-1">
                                                     <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
                                                         <option selected>Chose Category</option>

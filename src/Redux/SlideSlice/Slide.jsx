@@ -8,7 +8,6 @@ const slideSlide =  createSlice({
     reducers: {
         setSlide(state) {
             state.isOpen = !state.isOpen;
-            console.log(state.isOpen);
           },
     },
 })

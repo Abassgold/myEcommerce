@@ -30,6 +30,7 @@ const Signup = () => {
             lastName: '',
             email: '',
             password: '',
+            confirmPassword: '',
             photo: ''
         },
         onSubmit: (values) => {
@@ -47,12 +48,16 @@ const Signup = () => {
                 .catch(err => console.log(`There is an error while uploading ${err}`));
         },
         validationSchema: Yup.object({
-            firstName: Yup.string().required('Pls enter your first name'),
+            firstName: Yup.string().required('Please enter your first name'),
             lastName: Yup.string().required('Please enter your last name'),
-            email: Yup.string().email('Email is invalid').required('Please enter your name'),
-            password: Yup.string().min(4, 'Password must not less than 4 characters').max(12, 'Password must not exceed 12 characters').required('Please enter your password'),
-            photo: Yup.string().required('Pls upload your file')
-        })
+            email: Yup.string().email('Email is invalid').required('Please enter your email'),
+            password: Yup.string()
+            .min(4, 'Password must not be less than 4 characters')
+            .max(12, 'Password must not exceed 12 characters')
+            .required('Please enter your password'),
+            confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Please confirm your password'),
+            photo: Yup.string().required('Please upload your file')
+            })
     });
     let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
     let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
@@ -60,12 +65,12 @@ const Signup = () => {
         <div>
             <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-10 justify-center'>
-                    <div className='sm:block hidden h-[30rem]'>
+                    <div className='sm:block hidden '>
                         <div className='h-full'>
                             <img src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className='rounded-s-[5px] object-cover h-full w-full' />
                         </div>
                     </div>
-                    <div className='rounded-e-[5px] bg-[#d9d9d9] h-[30rem] pt-5 pb-3 px-2'>
+                    <div className='rounded-e-[5px] bg-[#d9d9d9]  pt-5 pb-3 px-2'>
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
@@ -84,6 +89,10 @@ const Signup = () => {
                                 <div className="pb-2">
                                     <input type="password" placeholder='Your password...' className={formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.password && formik.errors.password}</label>
+                                </div>
+                                <div className="pb-2">
+                                    <input type="password" placeholder='Confirm your password...' className={formik.touched.confirmPassword && formik.errors.confirmPassword ? isInValid : isValid} onChange={formik.handleChange} name='confirmPassword' onBlur={formik.handleBlur} />
+                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.confirmPassword && formik.errors.confirmPassword}</label>
                                 </div>
                                 <div className="pb-2">
                                     <div className={formik.touched.photo && formik.errors.photo ? isInValid : isValid}>
