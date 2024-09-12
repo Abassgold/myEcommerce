@@ -4,7 +4,7 @@ export const fetchMyOrders = createAsyncThunk('fetchMyOrders', async (id) => {
     let url = `${import.meta.env.VITE_URI}/orders/order/me/${id}`
     const { data } = await axios.get(url)
     console.log(data);
-    return data;
+    return data?.msg;
 });
 const myOrderSlice = createSlice({
     name: 'my-order',
@@ -18,7 +18,7 @@ const myOrderSlice = createSlice({
             state.isLoading = true;
         }).addCase(fetchMyOrders.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.myOrders = [...action.payload]
+            state.myOrders = [...action.payload];
         }).addCase(fetchMyOrders.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error.message

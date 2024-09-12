@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 import axios from "axios";
 export const fetchProduct = createAsyncThunk('fetchProduct', async(URI)=>{
     let response = await axios.get(URI)

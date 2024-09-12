@@ -8,6 +8,8 @@ import LoadUser from "./LoadUser/LoadUser.jsx";
 import Cartslice from "./CartSlice/Cartslice.jsx";
 import Slide from "./SlideSlice/Slide.jsx";
 import OrderSlice from "./orderSlice/OrderSlice.jsx";
+import MyOrderSlice from "./orderSlice/MyOderslice.jsx";
+
 const store = configureStore({
     reducer: {
         userSlice,
@@ -18,8 +20,8 @@ const store = configureStore({
         LoadUser,
         Cartslice,
         Slide,
-        allOrders: OrderSlice
-
+        allOrders: OrderSlice,
+        MyOrderSlice
     }
 })
 export default store;

@@ -40,6 +40,7 @@ import StripePayment from './component/Payment/StripePayment';
 import MyOrder from './component/myOrder/MyOrder';
 import OrderDetails from './component/myOrder/OrderDetails';
 import PrimarySearchAppBar from './component/Navbar/Nabvvba';
+import Dashboard from './Admin/Dashboard';
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
@@ -133,6 +134,7 @@ const App = () => {
               </Route>
               {/* Protected Routes */}
               <Route path='/cart' element={<Carts />} />
+              <Route path='/admins' element={<Dashboard/>} />
             </Routes>
           </div>
           <Footer />
