@@ -76,10 +76,10 @@ const MyOrder = () => {
                                 </div>
                             </div>
 
-                            <div className="relative w-full max-h-[30rem] overflow-auto shadow-sm sm:rounded-sm">
+                            <div className="relative w-full max-h-[30rem] overflow-auto shadow-sm sm:rounded-sm border rounded-md p-2">
 
                                 {/* table */}
-                                <table className="w-full whitespace-nowrap text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <table className="w-full whitespace-nowrap text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border">
                                     <thead className="text-xs text-[#ffff] uppercase bg-[#16a34a] dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="p-4">
