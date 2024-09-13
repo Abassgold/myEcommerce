@@ -116,7 +116,7 @@ const App = () => {
               <Route path='/buy-now/Mycart' element={<MyCart />} />
               <Route path='/product-page/:id' element={<HomeBuynow />} />
               <Route path='/product-details/:id' element={<ProductDetails />} />
-              <Route path='/order/me' element={<MyOrder/>} />
+              <Route path='/orders/me' element={<MyOrder/>} />
               {/* Protected Routes */}
               <Route element={<ProtectedRoutes />}>
                 <Route path='/profile/me/edit' element={<EditProfile />} />
