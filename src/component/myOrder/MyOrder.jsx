@@ -4,7 +4,7 @@ import { Table } from 'flowbite-react';
 import Loader from '../Loader/Loader';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchMyOrders } from '../../Redux/orderSlice/MyOderslice';
-import { AiOutlineDelete } from "react-icons/ai"
+import { RiDeleteBin6Line } from "react-icons/ri"
 import { GoDotFill, GoClockFill } from "react-icons/go";
 
 const MyOrder = () => {
@@ -14,7 +14,6 @@ const MyOrder = () => {
     const { user } = useSelector(state => state.signinSlce)
     const [checkedItems, setCheckedItems] = useState({});
     const [drop, setDrop] = useState(false)
-    console.log(myOrders)
     // Handle checkbox change
     const handleCheckboxChange = (e) => {
         const { id, checked } = e.target;
@@ -31,6 +30,7 @@ const MyOrder = () => {
             return alert(error.message)
         }
     }, [user, error])
+    console.log(myOrders)
     return (
         <>
             <section className=' py-[5rem] px-2'>
@@ -121,7 +121,9 @@ const MyOrder = () => {
                                                 <td className="px-6 py-4 capitalize">
                                                     <span className={` inline-flex  text-[1.1rem] gap-1 items-center ${item.orderStatus === 'delivered' ? 'border-[#16a34a] text-[#16a34a]' : 'border-[#FC5807] text-[#FC5807]'} border-[3px] rounded-[0.7rem] p-[0.4rem]`}>
                                                         <GoDotFill />
+                                                        <span className={`text-[1rem]`}>
                                                         {item?.orderStatus}
+                                                        </span>
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
@@ -136,7 +138,7 @@ const MyOrder = () => {
                                                 <td className="px-6 py-4">
                                                     <div className='flex gap-2 items-center'>
                                                         <Link to='#' className="font-medium text-blue-600  hover:underline me-2">View Details</Link>
-                                                        <AiOutlineDelete className='text-[red] text-[1.5rem] cursor-pointer' title='Delete' />
+                                                        <RiDeleteBin6Line className='text-[red] text-[1.5rem] cursor-pointer' title='Delete' />
                                                     </div>
                                                 </td>
                                             </tr>

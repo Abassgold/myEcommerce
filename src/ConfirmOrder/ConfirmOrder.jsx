@@ -23,6 +23,7 @@ const ConfirmOrder = () => {
         publicKey: import.meta.env.VITE_PUBLICKEY,
     };
     const handlePaystackSuccessAction = async (reference) => {
+        console.log(reference)
         let paymentInfo = { ...shippingInfo, ...reference, userId: user?._id, cartItems, cartTotalAmount, itemsPrice: Number(cartTotalAmount.toFixed(2)), taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
         try {
             const { data } = await axios.patch(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
