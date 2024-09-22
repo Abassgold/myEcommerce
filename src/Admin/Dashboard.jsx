@@ -10,10 +10,10 @@ import { SiZerodha } from "react-icons/si";
 import AddProducts from "./AddProducts";
 import Users from "./Users/Users";
 import Category from "./Category/Category";
-import Size from "./Sizes/sizes";
 import ProductOrders from "./Orders/ProductOrders";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMenues } from "../Redux/AllProductSlice/productSlice";
+import ProductSize from "./productSize/ProductSize";
 
 
 const Dashboard = () => {
@@ -35,7 +35,7 @@ const Dashboard = () => {
     <Users />,
     <Category />,
     <AddProducts />,
-    <Size />,
+    <ProductSize/>,
     <ProductOrders />
   ]
   return (
