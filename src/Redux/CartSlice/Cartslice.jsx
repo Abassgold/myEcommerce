@@ -79,7 +79,6 @@ const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(item => item._id === itemId._id);
       if (itemIndex !== -1) {
         const itemToRemove = state.cartItems[itemIndex];
-        console.log(itemToRemove);
         state.cartItemsQuantity -= itemToRemove.quantity;
         state.cartTotalAmount -= itemToRemove.price * itemToRemove.quantity;
         state.cartItems.splice(itemIndex, 1);

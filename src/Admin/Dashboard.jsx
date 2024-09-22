@@ -41,8 +41,9 @@ const Dashboard = () => {
   return (
     <>
       <section className="">
-        <div className="flex ">
-          <aside className={`h-screen bg-[#D8DBE0] duration-700  ${isOpen ? 'w-[18rem]' : 'w-16'} p-2 relative`}>
+        <div className="md:flex ">
+
+          <aside className={`md:block hidden h-screen bg-[#D8DBE0] duration-700  ${isOpen ? 'w-[18rem]' : 'w-16'} p-2 relative`}>
             <FaRegArrowAltCircleRight className={`absolute ${!isOpen && ' rotate-180 cursor-pointer duration-1000'} right-[-0.8rem] top-[2.5rem] bg-slate-50 rounded-full  text-[#16a34a] text-[1.5rem]`} onClick={e => setIsOpen(!isOpen)} />
             <div className="text-[3rem]  flex items-center gap-x-2 my-2 mb-[3rem]">
               <div>
@@ -70,9 +71,9 @@ const Dashboard = () => {
               </ul>
             </div>
           </aside>
-          <div className="p-7 text-2xl font-semibold bg-[#ffff] flex-1 h-screen overflow-auto">
+          <div className="p-2 text-2xl font-semibold bg-[#ffff] flex-1 h-screen overflow-auto">
             <h1>Container</h1>
-            <section>
+            <section className=" mt-[2rem]">
               {components[arrMenue]}
             </section>
           </div>

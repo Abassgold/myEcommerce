@@ -23,7 +23,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
     'Outdoor',
     'Home'
   ]
-  const URI = `${import.meta.env.VITE_URI}/admin/all-products`
+  const URI = `${import.meta.env.VITE_URI}/admin/products`
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files); // Support for multiple files
     const promises = files.map((file) => {
@@ -57,6 +57,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
         const { data } = await axios.post(`${import.meta.env.VITE_URI}/admin/product`, values)
         if (data?.success) {
           dispatch(fetchProduct(URI))
+          setSelectedImages([])
           onClose()
         }
       } catch (error) {

@@ -156,7 +156,7 @@ const AddToCart = () => {
                                                                     </div>
                                                                 </div>
                                                                 <div className='py-2'>
-                                                                    <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
+                                                                    <p className=' truncate text-[18px] font-[600] text-[#2f2e2e]'>{product.product} </p>
                                                                     <p className='text-[16px] font-[400] text-[#605e5e]'>₦{product.price.toLocaleString()}.00</p>
                                                                 </div>
                                                                 <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>

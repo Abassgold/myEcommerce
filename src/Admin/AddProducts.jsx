@@ -7,14 +7,13 @@ import { fetchProduct } from "../Redux/AllProductSlice/AllProductSlic";
 import Loader from "../component/Loader/Loader";
 const AddProducts = () => {
     const dispatch = useDispatch()
-    const URI = `${import.meta.env.VITE_URI}/admin/all-products`
+    const URI = `${import.meta.env.VITE_URI}/admin/products`
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { isLoading, allProduct, error } = useSelector((state) => state.products)
-    console.log(allProduct);
     useEffect(() => {
-        // if (allProduct) return;
+        if (allProduct) return;
         dispatch(fetchProduct(URI))
-    }, [])
+    }, [allProduct])
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -24,7 +23,7 @@ const AddProducts = () => {
     return (
         <>
             <section>
-                {/* {isLoading && <Loader/>} */}
+                {isLoading && <Loader/>}
                 <div className="mb-4">
                     <div className="relative w-full max-h-[30rem] overflow-auto shadow-sm sm:rounded-sm border rounded-md p-2">
                         <table className="w-full whitespace-nowrap text-sm text-left rtl:text-right text-gray-500 border">
@@ -55,8 +54,8 @@ const AddProducts = () => {
                                     </th>
                                 </tr>
                             </thead>
-                            {/* <tbody>
-                                {allProduct && allProduct?.result.map((items, index) => (
+                            <tbody>
+                                {Array.isArray(allProduct?.result) && allProduct?.result.map((items, index) => (
                                     <tr className="bg-white whitespace-normal border-b hover:bg-[#E4E5E7]">
                                         <td className="w-4 p-4">
                                             <div className="flex items-center">
@@ -67,7 +66,7 @@ const AddProducts = () => {
                                             {items.product}
                                         </th>
                                         <td className="px-6 py-4 capitalize">
-                                            <img src={items.images[0].url} alt="" className="w-[15rem] rounded-md object-cover" />
+                                            <img src={items.images[0].url} alt="" className="w-[3rem] rounded-md object-cover" />
                                         </td>
                                         <td className="px-6 py-4 capitalize">
                                             usdy
@@ -86,7 +85,7 @@ const AddProducts = () => {
                                         </td>
                                     </tr>
                                 ))}
-                            </tbody> */}
+                            </tbody>
                         </table>
                     </div>
                 </div>

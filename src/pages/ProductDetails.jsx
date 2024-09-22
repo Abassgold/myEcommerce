@@ -24,7 +24,7 @@ const ProductDetails = () => {
     const [rating, setRating] = useState('');
     const dispatch = useDispatch()
     const { user } = useSelector(state => state.signinSlce)
-    const {authToken} = useSelector(state=>state.signinSlce)
+    const { authToken } = useSelector(state => state.signinSlce)
     const style = {
         clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
         width: '2rem',
@@ -36,13 +36,14 @@ const ProductDetails = () => {
         dispatch(fetchSingleProduct(URI))
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
+    console.log(product)
     const { cartItems } = useSelector(state => state.cartReducer)
-    const findIndex =  cartItems?.find((cartItem) => cartItem._id === id)
-    const  qnty = findIndex ? findIndex.quantity : 0;
+    const findIndex = cartItems?.find((cartItem) => cartItem._id === id)
+    const qnty = findIndex ? findIndex.quantity : 0;
     console.log(qnty);
     const increaseQuantity = (stock) => {
         const count = Number(document.querySelector('.count').value);
-        const  qnty = findIndex ? findIndex.quantity : 0;
+        const qnty = findIndex ? findIndex.quantity : 0;
         if (count >= stock) return
         const qty = count + 1
         setQuantity(qty)
@@ -55,8 +56,8 @@ const ProductDetails = () => {
     }
     function addCart(stock) {
         const count = Number(document.querySelector('.count').value);
-        if(findIndex){
-            if((count + findIndex.quantity) > stock) return alert('cart exceeded quantity')
+        if (findIndex) {
+            if ((count + findIndex.quantity) > stock) return alert('cart exceeded quantity')
         }
         dispatch(addToCart({ newItems: product, itemQuantity: quantity, price: (product?.price * quantity) }))
     }
@@ -70,8 +71,8 @@ const ProductDetails = () => {
             alert(error.message)
         }
     }
-    const postReview = function(){
-        authToken ? navigate('/buy-now') : navigate('/signin', { state: { previousUrl: `/product-details/${id}`}})
+    const postReview = function () {
+        authToken ? navigate('/buy-now') : navigate('/signin', { state: { previousUrl: `/product-details/${id}` } })
     }
     return (
         <div className='pt-[9rem]'>
@@ -94,19 +95,21 @@ const ProductDetails = () => {
                                         <div className={`border-[#484747] border-[1px] p-2 cursor-crosshair`}>
                                             <img src={product?.images?.[picarray].url} alt="" />
                                         </div>
-                                        <input type="text" name="" id="count" value={quantity} className='hidden text-red-700'/>
+                                        <input type="text" name="" id="count" value={quantity} className='hidden text-red-700' />
                                         <div className='my-2'>
                                             <div className={`flex`}>
                                                 <div className={`border-[#484747] border-[1px] p-[1px]`}>
                                                     <img src={product?.images?.[0].url} alt="" className={`w-[50px] h-[3rem]`} onClick={e => changePic(0)} />
                                                 </div>
-                                                <div className={`border-[#484747] border-[1px] p-[1px]`}>
+                                                {product?.images?.length > 2 && (
+                                                    <div className={`border-[#484747] border-[1px] p-[1px]`}>
                                                     <img src={product?.images?.[1].url} alt="" className={`w-[50px] h-[3rem]`} onClick={e => changePic(1)} />
                                                 </div>
+                                                )}
                                             </div>
                                         </div>
                                         <div className={`mb-[1rem]`}>
-                                            <small>I'm a product detail. I'm a great place to add more details about your product such as sizing, material, care instructions and cleaning instructions.</small>
+                                            <small>{product?.description}</small>
                                         </div>
                                         <div>{product.numOfReviews} Reviews</div>
                                         <h2 className='mt-1'>Star Rating</h2>
@@ -123,7 +126,7 @@ const ProductDetails = () => {
                                         <h1 className='mb-[7px]'>{product.product}</h1>
                                         <p>Status: <span className={`font-[500]`}>{product.stock > 0 ? 'in Stock' : 'Out of Stock'}</span></p><br />
                                         <p>Sold by : <span className='font-[500]'>{product.seller}</span></p>
-                                        <p>$ {product.price}</p><br />
+                                        <p>₦{product.price.toLocaleString()}.00</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
                                             <span class="material-symbols-outlined  bg-yellow-700 cursor-pointer text-white" onClick={() => decreaseQuantity(product?.stock)}>
@@ -135,7 +138,7 @@ const ProductDetails = () => {
                                                 add
                                             </span>
                                         </div>
-                                        <Link onClick={()=>addCart(product.stock)}>
+                                        <Link onClick={() => addCart(product.stock)}>
                                             <div className={`my-3 transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white  py-2`}>
                                                 Add to Cart
                                             </div>
