@@ -4,26 +4,12 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import AlertComponent from '../Alert/AlertComponent';
-
-
-
 const Signup = () => {
     let avatarUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttE9sxpEu1EoZgU2lUF_HtygNLCaz2rZYHg&usqp=CAU`
     const [message, setMessage] = useState('')
-    const [selectedImage, setSelectedImage] = useState(null);
     const [isVisible, setIsVisible] = useState(false)
     const navigate = useNavigate()
     let URI = `${import.meta.env.VITE_URI}/user/signup`;
-    const handleFileChange = (e) => {
-        let file = e.target.files[0]
-        let reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-            let result = reader.result
-            setSelectedImage(result)
-            formik.setFieldValue('photo', result)
-        }
-    };
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -31,18 +17,15 @@ const Signup = () => {
             email: '',
             password: '',
             confirmPassword: '',
-            photo: ''
         },
         onSubmit: (values) => {
             axios.post(URI, values)
                 .then((res) => {
-                    console.log(res);
                     if (res?.data?.success) {
                         navigate('/signin');
                     } else {
                         setMessage(res.data.msg);
                         setIsVisible(!isVisible)
-
                     }
                 })
                 .catch(err => console.log(`There is an error while uploading ${err}`));
@@ -56,7 +39,6 @@ const Signup = () => {
             .max(12, 'Password must not exceed 12 characters')
             .required('Please enter your password'),
             confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Please confirm your password'),
-            photo: Yup.string().required('Please upload your file')
             })
     });
     let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
@@ -71,7 +53,7 @@ const Signup = () => {
                         </div>
                     </div>
                     <div className='rounded-e-[5px] bg-[#d9d9d9]  pt-5 pb-3 px-2'>
-                        <form action="" onSubmit={formik.handleSubmit}>
+                        <form  onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
                                     <input type="text" placeholder='Your first name...' className={formik.touched.firstName && formik.errors.firstName ? isInValid : isValid} onChange={formik.handleChange} name='firstName' onBlur={formik.handleBlur} />
@@ -93,15 +75,6 @@ const Signup = () => {
                                 <div className="pb-2">
                                     <input type="password" placeholder='Confirm your password...' className={formik.touched.confirmPassword && formik.errors.confirmPassword ? isInValid : isValid} onChange={formik.handleChange} name='confirmPassword' onBlur={formik.handleBlur} />
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.confirmPassword && formik.errors.confirmPassword}</label>
-                                </div>
-                                <div className="pb-2">
-                                    <div className={formik.touched.photo && formik.errors.photo ? isInValid : isValid}>
-                                        <div className={`flex items-center gap-5`}>
-                                            <img className={`h-[3rem] w-[3rem] rounded-full`} src={selectedImage? selectedImage : avatarUrl} alt="" />
-                                        <input type="file" accept='images/*' placeholder='Upload file'  onChange={handleFileChange} name='photo' onBlur={formik.handleBlur} />
-                                        </div>
-                                    </div>
-                                    <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.photo && formik.errors.photo}</label>
                                 </div>
                                 <div className="text-end mb-2 text-white">
                                     <button type='submit' className=' transition-all duration-[500ms] bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>

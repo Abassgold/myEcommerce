@@ -9,7 +9,14 @@ const product = createSlice({
     initialState:{
         isLoading: false,
         product: '',
-        error: ''
+        error: '',
+        arrMenue: sessionStorage.getItem('arrMenue') ? parseInt(sessionStorage.getItem('arrMenue')) : 0,
+    },
+    reducers:{
+        changeMenues:(state, action)=>{
+            state.arrMenue = action.payload;
+            sessionStorage.setItem('arrMenue', state.arrMenue)
+        }
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchSingleProduct.pending,(state)=>{
@@ -24,3 +31,4 @@ const product = createSlice({
     }
 })
 export default product.reducer;
+export const { changeMenues } = product.actions;

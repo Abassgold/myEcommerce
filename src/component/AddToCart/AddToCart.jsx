@@ -140,26 +140,24 @@ const AddToCart = () => {
                                                     </select>
                                                 </form>
                                             </div>
-
-
                                             <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
                                                 {
                                                     filteredProducts.map(product => {
                                                         const cartItem = cartItems?.find((item) => item?._id === product._id);
                                                         const cartQty = cartItem ? cartItem?.quantity : 0;
                                                         return (
-                                                            <motion.div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] border-[0.5px] shadow-md rounded-md' key={product._id}
-                                                            whileHover={{scale: 1.02}}
+                                                            <motion.div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] max-h-[34rem]  border-[0.5px] shadow-md rounded-md' key={product._id}
+                                                                whileHover={{ scale: 1.02 }}
                                                             >
                                                                 <div className={`cursor-pointer`}>
-                                                                    <img src={product?.images[0].url} alt="" />
+                                                                    <img src={product?.images[0].url} alt="" className='w-full md:h-[20rem]  h-[10rem] object-cover' />
                                                                     <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
                                                                         Quick view
                                                                     </div>
                                                                 </div>
                                                                 <div className='py-2'>
                                                                     <p className='text-[18px] font-[400] text-[#2f2e2e]'>{product.product}</p>
-                                                                    <p className='text-[16px] font-[400] text-[#605e5e]'>${product.price}</p>
+                                                                    <p className='text-[16px] font-[400] text-[#605e5e]'>₦{product.price.toLocaleString()}.00</p>
                                                                 </div>
                                                                 <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>
                                                                     View details

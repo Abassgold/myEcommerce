@@ -23,7 +23,6 @@ const ConfirmOrder = () => {
         publicKey: import.meta.env.VITE_PUBLICKEY,
     };
     const handlePaystackSuccessAction = async (reference) => {
-        console.log(reference)
         let paymentInfo = { ...shippingInfo, ...reference, userId: user?._id, cartItems, cartTotalAmount, itemsPrice: Number(cartTotalAmount.toFixed(2)), taxPrice, shippingPrice, date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString(), user }
         try {
             const { data } = await axios.patch(`${import.meta.env.VITE_URI}/orders/new-order`, paymentInfo)
@@ -80,29 +79,29 @@ const ConfirmOrder = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`border-[2px] border-[RGB(210 210 210)] rounded-lg p-3 h-[25rem]`}>
+                    <div className={`max-w-[30rem] border-[2px] border-[RGB(210 210 210)] rounded-lg p-3 h-[25rem]`}>
                         <div className={`text-[2rem] my-[1rem]`}>
                             <h1>Order Summary</h1>
                         </div>
                         <div className={`text-[1.2rem] border-y border-[RGB(210 210 210)] p-3`}>
                             <div className={`flex justify-between items-center `}>
                                 <p>Subtotal:</p>
-                                <p className='font-[500]'>{cartTotalAmount.toFixed(2)}</p>
+                                <p className='font-[500]'>{cartTotalAmount.toFixed(0)}</p>
                             </div>
                             <div className={`flex justify-between items-center my-3`}>
                                 <p>Shipping:</p>
-                                <p className='font-[500]'>${shippingPrice}</p>
+                                <p className='font-[500]'>₦{shippingPrice}</p>
                             </div>
                             <div className={`flex justify-between items-center`}>
                                 <p>Tax:</p>
-                                <p className='font-[500]'>${taxPrice}</p>
+                                <p className='font-[500]'>₦{taxPrice}</p>
                             </div>
                         </div>
-                        <div className={`flex justify-between items-center gap-[3rem] border-b border-[RGB(210 210 210)] p-3 mb-[1.5rem] text-[1.7rem]`}>
+                        <div className={`flex justify-between text-[poppins]  items-center gap-[3rem] border-b border-[RGB(210 210 210)] p-3 mb-[1.2rem] text-[1.7rem] font-[500]`}>
                             <p>Total:</p>
-                            <p className='font-[500]'>${totalPrice}</p>
+                            <p className=''>₦{totalPrice.toFixed(0).toLocaleString()}.00</p>
                         </div>
-                        <div className={`w-full transform duration-[500ms] rounded-sm  bg-[#44dbbd] hover:bg-[#13322c] text-white p-2  text-center text-[1.5rem] whitespace-nowrap`}>
+                        <div className={`w-full transform duration-[500ms]   bg-[#44dbbd] hover:bg-[#13322c] text-white p-2  text-center text-[1.5rem] whitespace-nowrap rounded-md`}>
                             <PaystackButton {...componentProps} />
                         </div>
                     </div>

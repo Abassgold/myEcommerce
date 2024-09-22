@@ -27,7 +27,6 @@ const Signin = () => {
             setLoader(true)
             try {
                 const { data } = await axios.post(URI, values)
-                console.log(data);
                 
                 if (data?.success) {
                     setTimeout(() => {

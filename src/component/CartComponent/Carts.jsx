@@ -44,7 +44,7 @@ const Carts = () => {
                                                         <h1 className={`text-[1.2rem] mb-2`}>
                                                             {items?.product}
                                                         </h1>
-                                                        <p className={`text-[1rem]`}>${items?.price.toFixed(2)}</p>
+                                                        <p className={`text-[1rem]`}>₦{items?.price.toFixed(2)}</p>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -59,7 +59,7 @@ const Carts = () => {
                                                             </span>
                                                         </div>
                                                         <div className={`text-[1rem]`}>
-                                                            <p>${items?.qtyPrice.toFixed(2)}</p>
+                                                            <p>₦{items?.qtyPrice.toFixed(2)}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -88,7 +88,7 @@ const Carts = () => {
                                     </div>
                                     <div className={`flex justify-between items-center text-[1.3rem] font-[100]`}>
                                         <p>Est. total:</p>
-                                        <p>${cartTotalAmount.toFixed(2)}</p>
+                                        <p>₦{cartTotalAmount.toFixed(2)}</p>
                                     </div>
                                 </div>
 

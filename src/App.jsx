@@ -84,61 +84,64 @@ const App = () => {
     fetchUserData();
     getSripeapiKey();
   }, [authToken])
-  
-// const geninput = ()=>{
-// const fileInput = document.getElementById('file-input');
-//   fileInput.click();
-// }
+
+  // const geninput = ()=>{
+  // const fileInput = document.getElementById('file-input');
+  //   fileInput.click();
+  // }
   return (
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
-        <div className='text-[1.1rem] font-[600] text-[red]'>
-          <marquee behavior="alternate" direction="left">Site under development</marquee>
-        </div>
-        <div>
-          <div className={`sticky top-0 z-[500]`}>
-            <ReactNavbar />
-            {/* <PrimarySearchAppBar/> */}
+        <section className=' relative'>
+          <div className='text-[1.1rem] font-[600] text-[red]'>
+            <marquee behavior="alternate" direction="left">Site under development</marquee>
           </div>
-          <div className='bg-[#ffffff]'>
-            <Routes>
-              <Route index element={<Homepage />} />
-              <Route path='/newsletter' element={<NewsLetter />} />
-              <Route path='/support' element={<Support />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/signin' element={!isAuth ? <Signin /> : <Navigate to='/' />} />
-              <Route path='/buy-now' element={<BuyNow />} />
-              <Route path='/forum/*' element={<Reviews />} />
-              <Route path='/sidebar' element={<Sidebar />} />
-              <Route path='/chat' element={<Chat socket={socket.current} />} />
-              <Route path='/test' element={<Test />} />
-              <Route path='/admin' element={<AdminPost />} />
-              <Route path='/buy-now/Mycart' element={<MyCart />} />
-              <Route path='/product-page/:id' element={<HomeBuynow />} />
-              <Route path='/product-details/:id' element={<ProductDetails />} />
-              <Route path='/orders/me' element={<MyOrder/>} />
-              {/* Protected Routes */}
-              <Route element={<ProtectedRoutes />}>
-                <Route path='/profile/me/edit' element={<EditProfile />} />
-                <Route path='/profile/me' element={<Profile />} />
-                <Route path='/password/edit' element={<ChangePassword />} />
-                <Route path='/dashboard' element={<Userdashboard />} />
-                <Route path='/forgot-password' element={<ForgotPassword />} />
-                <Route path='/reset-password/:id/:token' element={<Reset />} />
-                <Route path='/forgot-password-email' element={<EmailLink />} />
-                <Route path='/checkout' element={<Checkout />} />
-                <Route path='/order/confirm' element={<ConfirmOrder />} />
-                <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
-                <Route path='/order/me' element={<MyOrder />} />
-                <Route path='/order/details/:id' element={<OrderDetails />} />
-              </Route>
-              {/* Protected Routes */}
-              <Route path='/cart' element={<Carts />} />
-              <Route path='/admins' element={<Dashboard/>} />
-            </Routes>
+          <div>
+            <div className={`sticky top-0 z-[300]`}>
+              <ReactNavbar />
+              {/* <PrimarySearchAppBar/> */}
+            </div>
+            <div className='bg-[#ffffff]'>
+              <Routes>
+                <Route index element={<Homepage />} />
+                <Route path='/newsletter' element={<NewsLetter />} />
+                <Route path='/support' element={<Support />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/signin' element={!isAuth ? <Signin /> : <Navigate to='/' />} />
+                <Route path='/buy-now' element={<BuyNow />} />
+                <Route path='/forum/*' element={<Reviews />} />
+                <Route path='/sidebar' element={<Sidebar />} />
+                <Route path='/chat' element={<Chat socket={socket.current} />} />
+                <Route path='/test' element={<Test />} />
+                <Route path='/admin' element={<AdminPost />} />
+                <Route path='/buy-now/Mycart' element={<MyCart />} />
+                <Route path='/product-page/:id' element={<HomeBuynow />} />
+                <Route path='/product-details/:id' element={<ProductDetails />} />
+                <Route path='/orders/me' element={<MyOrder />} />
+                {/* Protected Routes */}
+                <Route element={<ProtectedRoutes />}>
+                  <Route path='/profile/me/edit' element={<EditProfile />} />
+                  <Route path='/profile/me' element={<Profile />} />
+                  <Route path='/password/edit' element={<ChangePassword />} />
+                  <Route path='/dashboard' element={<Userdashboard />} />
+                  <Route path='/forgot-password' element={<ForgotPassword />} />
+                  <Route path='/reset-password/:id/:token' element={<Reset />} />
+                  <Route path='/forgot-password-email' element={<EmailLink />} />
+                  <Route path='/checkout' element={<Checkout />} />
+                  <Route path='/order/confirm' element={<ConfirmOrder />} />
+                  <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
+                  <Route path='/order/me' element={<MyOrder />} />
+                  <Route path='/order/details/:id' element={<OrderDetails />} />
+                </Route>
+                {/* Protected Routes */}
+                <Route path='/cart' element={<Carts />} />
+                <Route path='/order/detail' element={<order />} />
+                <Route path='/admin/dashboard' element={<Dashboard />} />
+              </Routes>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </section>
       </>
     </searchContext.Provider>
 

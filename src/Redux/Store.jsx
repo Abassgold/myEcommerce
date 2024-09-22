@@ -21,7 +21,7 @@ const store = configureStore({
         Cartslice,
         Slide,
         allOrders: OrderSlice,
-        MyOrderSlice
+        MyOrderSlice,
     }
 })
 export default store;

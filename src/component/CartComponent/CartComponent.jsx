@@ -41,7 +41,7 @@ const CartComponent = () => {
                                     <div className={`flex gap-[7.5rem]`}>
                                         <div>
                                             <p>{items?.product}</p>
-                                            <p>${items?.price}</p>
+                                            <p>₦{items?.price}</p>
                                             <div className={`flex items-center gap-2 text-[1.5rem]`}>
                                                 <span class="material-symbols-outlined cursor-pointer bg-yellow-700 text-white" onClick={() => decreaseQty(items)}>
                                                     remove
