@@ -33,6 +33,7 @@ const ProductDetails = () => {
         setPicArray(b)
     }
     useEffect(() => {
+        if(product) return;
         dispatch(fetchSingleProduct(URI))
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
@@ -126,7 +127,7 @@ const ProductDetails = () => {
                                         <h1 className='mb-[7px]'>{product.product}</h1>
                                         <p>Status: <span className={`font-[500]`}>{product.stock > 0 ? 'in Stock' : 'Out of Stock'}</span></p><br />
                                         <p>Sold by : <span className='font-[500]'>{product.seller}</span></p>
-                                        <p>₦{product.price.toLocaleString()}.00</p><br />
+                                        <p>₦{(Number(product.price)).toLocaleString()}.00</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
                                             <span class="material-symbols-outlined  bg-yellow-700 cursor-pointer text-white" onClick={() => decreaseQuantity(product?.stock)}>
