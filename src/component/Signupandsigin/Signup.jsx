@@ -8,6 +8,7 @@ const Signup = () => {
     let avatarUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttE9sxpEu1EoZgU2lUF_HtygNLCaz2rZYHg&usqp=CAU`
     const [message, setMessage] = useState('')
     const [isVisible, setIsVisible] = useState(false)
+    const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
     let URI = `${import.meta.env.VITE_URI}/user/signup`;
     const formik = useFormik({
@@ -19,6 +20,7 @@ const Signup = () => {
             confirmPassword: '',
         },
         onSubmit: (values) => {
+            setLoader(true)
             axios.post(URI, values)
                 .then((res) => {
                     if (res?.data?.success) {
@@ -29,6 +31,7 @@ const Signup = () => {
                     }
                 })
                 .catch(err => console.log(`There is an error while uploading ${err}`));
+                setLoader(false)
         },
         validationSchema: Yup.object({
             firstName: Yup.string().required('Please enter your first name'),
@@ -77,7 +80,11 @@ const Signup = () => {
                                     <label htmlFor="" className='mt-[1px] text-red-600'>{formik.touched.confirmPassword && formik.errors.confirmPassword}</label>
                                 </div>
                                 <div className="text-end mb-2 text-white">
-                                    <button type='submit' className=' transition-all duration-[500ms] bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>Submit</button>
+                                    <button disabled={loader} type='submit' className=' transition-all duration-[500ms] bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>
+                                    {loader ? (
+                                        <span>Loging In....</span>) : (
+                                        <span>Submit</span>
+                                    )}</button>
                                 </div>
                                 <div>
                                     <a href="" className='flex gap-3 ps-10 py-3 items-center bg-white rounded-[3px]'>

@@ -87,7 +87,8 @@ const Signin = () => {
                                 <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
                                 <div className="text-center mb-2 text-white">
                                     {/* {!loader && } */}
-                                    <button disabled={loader} type='submit' className=' w-full bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>{loader ? (<Spinner color="info" aria-label="Info spinner example" />) : (
+                                    <button disabled={loader} type='submit' className=' w-full bg-[#44dbbd] py-3 px-5 hover:bg-white border-[2px] border-[#44dbbd] hover:text-[#44dbbd] rounded-sm'>{loader ? (
+                                        <span>Loging In....</span>) : (
                                         <span>Submit</span>
                                     )}</button>
                                 </div>

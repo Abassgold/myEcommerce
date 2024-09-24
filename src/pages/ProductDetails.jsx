@@ -33,7 +33,7 @@ const ProductDetails = () => {
         setPicArray(b)
     }
     useEffect(() => {
-        if(product) return;
+        if(product?._id === id) return;
         dispatch(fetchSingleProduct(URI))
     }, [dispatch, URI])
     const { isLoading, product, error } = useSelector((state) => state.productSlice)
@@ -176,7 +176,7 @@ const ProductDetails = () => {
                                                 <Button className='transform duration-[500ms] bg-[#44dbbd] hover:bg-[#13322c] text-white' onClick={() => setOpenModal(true)}>Submit Your Review</Button>
                                             ) : (
                                                 <Alert color="failure" className='cursor-pointer' onClick={postReview}>
-                                                    <span className="font-medium text-[1.3rem] ">Login to post your review</span>
+                                                    <span className="font-medium text-[1.3rem] hover:underline underline-offset-[.2rem]">Login to post your review</span>
                                                 </Alert>
                                             )}
                                             <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>

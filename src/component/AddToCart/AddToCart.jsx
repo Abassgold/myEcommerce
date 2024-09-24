@@ -42,6 +42,7 @@ const AddToCart = () => {
         }, 200);
     }
     useEffect(() => {
+        if(allProduct?.result) return;
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword])
     const addCart = (product) => {
