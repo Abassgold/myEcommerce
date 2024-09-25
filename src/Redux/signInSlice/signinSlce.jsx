@@ -24,6 +24,7 @@ const signIn = createSlice({
     reducers: {
         logOut(state) {
             state.authToken = null;
+            state.isAuthenticated = false;
             localStorage.removeItem('userToken');
         },
         fetchUserInfo: (state, action) => {
@@ -32,6 +33,7 @@ const signIn = createSlice({
         },
         addUser: (state, action) => {
             state.user = action.payload;
+            state.isAuthenticated = true;
         },
         setPreviousUrl: (state, action) => {
             state.previousUrl = action.payload;

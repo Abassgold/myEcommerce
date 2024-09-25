@@ -17,8 +17,8 @@ const AddCartRequired = () => {
 
                 <div className='flex justify-center text-center'>
                     <div>
-                        <img src='https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt="" />
-                        <div>
+                        <img src='https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' alt="" className='w-[90%] mx-auto rounded-sm'/>
+                        <div className='w-[90%] mx-auto'>
                             <h1 className='text-[2rem] font-[500] my-2'>You are required to add cart</h1>
                             <p className='mb-6 text-[#F6510B] text-[1rem]'>Your cart is currently empty. Please add some items to continue shopping.</p>
                         </div>

@@ -10,6 +10,7 @@ import { GoDotFill, GoClockFill } from "react-icons/go";
 const MyOrder = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+  
     const { isLoading, error, myOrders } = useSelector(state => state.MyOrderSlice)
     const { user } = useSelector(state => state.signinSlce)
     const [checkedItems, setCheckedItems] = useState({});
@@ -149,7 +150,7 @@ const MyOrder = () => {
                         </section>
 
                     ) : (
-                        <div></div>
+                        <div className='text-center md:text-[3rem] text-[2rem]'>You have no orders</div>
                     )}
                 </div>
             </section>

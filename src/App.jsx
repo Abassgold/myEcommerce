@@ -128,15 +128,13 @@ const App = () => {
                   <Route path='/forgot-password' element={<ForgotPassword />} />
                   <Route path='/reset-password/:id/:token' element={<Reset />} />
                   <Route path='/forgot-password-email' element={<EmailLink />} />
-                  <Route path='/checkout' element={<Checkout />} />
-                  <Route path='/order/confirm' element={<ConfirmOrder />} />
-                  <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
-
+                  <Route path='/order/me' element={<MyOrder />} />
+                  <Route path='/order/details/:id' element={<OrderDetails />} />
                 </Route>
                 {/* Protected Routes */}
                 <Route element={<ProtectedOrderdetails />} >
-                  <Route path='/order/me' element={<MyOrder />} />
-                  <Route path='/order/details/:id' element={<OrderDetails />} />
+                  <Route path='/checkout' element={<Checkout />} />
+                  <Route path='/order/confirm' element={<ConfirmOrder />} />
                 </Route>
                 <Route path='/cart' element={<Carts />} />
                 <Route path='/order/detail' element={<order />} />
