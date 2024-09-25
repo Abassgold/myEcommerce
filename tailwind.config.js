@@ -14,7 +14,18 @@ export default {
     
   },
   plugins: [
-    // require('flowbite/plugin')
+    function ({ addBase, theme }) {
+      addBase({
+        'html': {
+          fontSize: '14px', // Default for small screens
+        },
+        '@screen lg': {
+          'html': {
+            fontSize: '16px', // Larger screens (e.g., 16px = 1rem)
+          },
+        },
+      });
+    },
   ],
 }
 

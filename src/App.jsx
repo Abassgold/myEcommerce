@@ -41,6 +41,7 @@ import MyOrder from './component/myOrder/MyOrder';
 import OrderDetails from './component/myOrder/OrderDetails';
 import PrimarySearchAppBar from './component/Navbar/Nabvvba';
 import Dashboard from './Admin/Dashboard';
+import ProtectedOrderdetails from './pages/protectedOrderDetails/ProtectedOrderdetails';
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
@@ -101,7 +102,7 @@ const App = () => {
               <ReactNavbar />
               {/* <PrimarySearchAppBar/> */}
             </div>
-            <div className='bg-[#ffffff]'>
+            <div className='bg-[#ffffff] text-[poppins]'>
               <Routes>
                 <Route index element={<Homepage />} />
                 <Route path='/newsletter' element={<NewsLetter />} />
@@ -130,10 +131,13 @@ const App = () => {
                   <Route path='/checkout' element={<Checkout />} />
                   <Route path='/order/confirm' element={<ConfirmOrder />} />
                   <Route path='/payment' element={<StripePayment stripeKey={stripeApiKey} />} />
+
+                </Route>
+                {/* Protected Routes */}
+                <Route element={<ProtectedOrderdetails />} >
                   <Route path='/order/me' element={<MyOrder />} />
                   <Route path='/order/details/:id' element={<OrderDetails />} />
                 </Route>
-                {/* Protected Routes */}
                 <Route path='/cart' element={<Carts />} />
                 <Route path='/order/detail' element={<order />} />
                 <Route path='/admin/dashboard' element={<Dashboard />} />

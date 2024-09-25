@@ -22,7 +22,6 @@ const ProtectedRoutes = () => {
     ) : (
       <SigninRequired />
     )
-    
   )
 }
 
