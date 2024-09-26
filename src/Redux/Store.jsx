@@ -9,6 +9,7 @@ import Cartslice from "./CartSlice/Cartslice.jsx";
 import Slide from "./SlideSlice/Slide.jsx";
 import OrderSlice from "./orderSlice/OrderSlice.jsx";
 import MyOrderSlice from "./orderSlice/MyOderslice.jsx";
+import AdminProductslice from "./Admin/AdminProductslice.jsx";
 
 const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
         Slide,
         allOrders: OrderSlice,
         MyOrderSlice,
+        AdminProductslice
     }
 })
 export default store;

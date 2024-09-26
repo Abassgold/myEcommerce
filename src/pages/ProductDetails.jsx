@@ -102,11 +102,9 @@ const ProductDetails = () => {
                                                 <div className={`border-[#484747] border-[1px] p-[1px]`}>
                                                     <img src={product?.images?.[0].url} alt="" className={`w-[50px] h-[3rem]`} onClick={e => changePic(0)} />
                                                 </div>
-                                                {product?.images?.length > 2 && (
                                                     <div className={`border-[#484747] border-[1px] p-[1px]`}>
                                                     <img src={product?.images?.[1].url} alt="" className={`w-[50px] h-[3rem]`} onClick={e => changePic(1)} />
                                                 </div>
-                                                )}
                                             </div>
                                         </div>
                                         <div className={`mb-[1rem]`}>

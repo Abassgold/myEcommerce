@@ -16,10 +16,10 @@ const Loader = ({ msg }) => {
                     <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
 
                         <div class="relative flex justify-center items-center">
-                            <div className="absolute border-gray-300 h-[6rem] w-[6rem] animate-spin rounded-full border-8 border-t-[#16a34a]"></div>
-                            <img src="https://res.cloudinary.com/abasskola/image/upload/v1724107912/Preview_b8xkcn.jpg" className="rounded-full h-[6rem] w-[6rem]  p-[0.8rem]" />
+                            <div className="absolute border-gray-300 md:h-[5rem] h-[4rem] w-[4rem] md:w-[5rem] animate-spin rounded-full border-8 border-t-[#16a34a]"></div>
+                            <img src="https://res.cloudinary.com/abasskola/image/upload/v1724107912/Preview_b8xkcn.jpg" className="rounded-full md:h-[5rem] md:w-[5rem] h-[4rem] w-[4rem]  p-[0.8rem]" />
                         </div>
-                        <div className=' text-[1.5rem] text-[#ffff] mt-1 italic'>
+                        <div className='text-[#ffff] mt-[0.1rem] italic'>
                             <h1>{msg}</h1>
                         </div>
                     </div>

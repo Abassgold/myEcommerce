@@ -3,8 +3,8 @@ import { useState } from "react"
 import { IoMdClose } from "react-icons/io";
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../../Redux/AllProductSlice/AllProductSlic';
 import axios from 'axios';
+import { fetchProductAdmin } from '../../Redux/Admin/AdminProductslice';
 const AddProductModal = ({ isOpen, onClose }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [Uploading, setUploading] = useState(false);
@@ -56,7 +56,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
       try {
         const { data } = await axios.post(`${import.meta.env.VITE_URI}/admin/product`, values)
         if (data?.success) {
-          dispatch(fetchProduct(URI))
+          dispatch(fetchProductAdmin(URI))
           setSelectedImages([])
           onClose()
         }

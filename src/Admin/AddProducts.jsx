@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import AddProductModal from "./Modal/AddProductModal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../Redux/AllProductSlice/AllProductSlic";
 import Loader from "../component/Loader/Loader";
+import { fetchProductAdmin } from "../Redux/Admin/AdminProductslice";
 const AddProducts = () => {
     const dispatch = useDispatch()
     const URI = `${import.meta.env.VITE_URI}/admin/products`
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { isLoading, allProduct, error } = useSelector((state) => state.products)
+    const { isLoading, allProduct, error } = useSelector((state) => state.AdminProductslice)
     useEffect(() => {
-        if (allProduct) return;
-        dispatch(fetchProduct(URI))
-    }, [allProduct])
+        if (!allProduct || allProduct.length === 0){
+            dispatch(fetchProductAdmin(URI))
+        };
+    }, [dispatch, URI])
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -41,9 +42,6 @@ const AddProducts = () => {
                                         Porudct image
                                     </th>
                                     <th scope="col" className="px-6 py-3">
-                                        product description
-                                    </th>
-                                    <th scope="col" className="px-6 py-3">
                                         Category name
                                     </th>
                                     <th scope="col" className="px-6 py-3">
@@ -59,7 +57,7 @@ const AddProducts = () => {
                                     <tr className="bg-white whitespace-normal border-b hover:bg-[#E4E5E7]">
                                         <td className="w-4 p-4">
                                             <div className="flex items-center">
-                                                <label className="">1</label>
+                                                <label className="">{index+1}</label>
                                             </div>
                                         </td>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 ">
@@ -67,9 +65,6 @@ const AddProducts = () => {
                                         </th>
                                         <td className="px-6 py-4 capitalize">
                                             <img src={items.images[0].url} alt="" className="w-[3rem] rounded-md object-cover" />
-                                        </td>
-                                        <td className="px-6 py-4 capitalize">
-                                            usdy
                                         </td>
                                         <td className="px-6 py-4">
                                             {items.category}
