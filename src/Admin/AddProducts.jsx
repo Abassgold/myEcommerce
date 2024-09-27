@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../component/Loader/Loader";
 import { fetchProductAdmin } from "../Redux/Admin/AdminProductslice";
+import CostumTitle from "../../CosutumTitle/CostumTitle";
 const AddProducts = () => {
     const dispatch = useDispatch()
     const URI = `${import.meta.env.VITE_URI}/admin/products`
@@ -23,6 +24,7 @@ const AddProducts = () => {
     };
     return (
         <>
+        <CostumTitle title='Admin' />
             <section>
                 {isLoading && <Loader/>}
                 <div className="mb-4">

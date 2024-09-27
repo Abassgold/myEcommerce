@@ -1,15 +1,13 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 
 const CostumTitle = ({ title }) => {
-
-    return (
-        <Helmet>
-            <title>
-                {title}
-            </title>
-        </Helmet>
-    )
+    const location = useLocation()
+    useEffect(() => {
+        document.title = title;
+    }, [location, title])
+    
+    return null;
 }
 
 export default CostumTitle

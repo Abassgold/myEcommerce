@@ -42,7 +42,7 @@ const AddToCart = () => {
         }, 200);
     }
     useEffect(() => {
-        if(allProduct?.result) return;
+        if (allProduct?.result) return;
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword])
     const addCart = (product) => {
@@ -92,6 +92,7 @@ const AddToCart = () => {
     })
     const searchFilterData = SearchFilter();
     return (
+    <>
         <section className={`relative`}>
             <Modal
                 open={openModal}
@@ -230,6 +231,7 @@ const AddToCart = () => {
                 )
             }
         </section>
+    </>
     );
 }
 

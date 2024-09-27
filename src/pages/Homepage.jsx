@@ -7,7 +7,7 @@ import CostumTitle from '../../CosutumTitle/CostumTitle';
 const Homepage = () => {
   return (
     <>
-    <CostumTitle title = 'My home'/>
+    <CostumTitle title = 'Home'/>
       <Shop />
       <div className=' pt-[10rem] pb-[5rem]'>
         <Service/>

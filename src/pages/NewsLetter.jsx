@@ -1,11 +1,13 @@
 import React from 'react';
 import Bethefirst from '../component/Bethfirst/Bethefirst';
+import CostumTitle from '../../CosutumTitle/CostumTitle';
 
 const NewsLetter = () => {
   return (
-    <div>
+    <>
+    <CostumTitle title='News-Letter'/>
     <Bethefirst/>
-    </div>
+    </>
   );
 }
 
