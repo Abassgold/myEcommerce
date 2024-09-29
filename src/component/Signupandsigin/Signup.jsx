@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import AlertComponent from '../Alert/AlertComponent';
+import CostumTitle from '../../../CosutumTitle/CostumTitle';
 const Signup = () => {
     let avatarUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttE9sxpEu1EoZgU2lUF_HtygNLCaz2rZYHg&usqp=CAU`
     const [message, setMessage] = useState('')
@@ -47,7 +48,8 @@ const Signup = () => {
     let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
     let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
     return (
-        <div>
+        <>
+        <CostumTitle title='SignUp'/>
             <div className='md:w-[70%] w-[90%] mx-auto mt-[5rem] mb-[3rem]'>
                 <div className='grid md:grid-cols-2 grid-cols-1 gap-10 justify-center'>
                     <div className='sm:block hidden '>
@@ -101,7 +103,7 @@ const Signup = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 export default Signup;

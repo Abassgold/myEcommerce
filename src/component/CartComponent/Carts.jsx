@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addToCart, decreaseQuantity, removeFromCart } from '../../Redux/CartSlice/Cartslice'
+import CostumTitle from '../../../CosutumTitle/CostumTitle'
 const Carts = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,11 +26,11 @@ const Carts = () => {
     }
     return (
         <div>
-
-            <div className="mx-auto md:w-[70%] w-[80%] text-[#606a7d] my-[3rem]">
+<CostumTitle title='My Cart'/>
+            <div className="mx-auto container md:p-[4rem] p-3 text-[#606a7d] my-[3rem]">
                 {cartItems?.length > 0 ? (
-                    <div className={`flex flex-col xl:flex-row justify-between`}>
-                        <div>
+                    <div className={`flex flex-col xl:flex-row justify-between gap-8`}>
+                        <div className='max-w-[60rem]'>
                             <div className={`py-[2rem] text-[1.3rem] border-b-[1px] border-[#a29d93]`}>
                                 <h1>My Cart</h1>
                             </div>
@@ -39,12 +40,12 @@ const Carts = () => {
                                         <div className={`flex justify-between gap-[4rem]`}>
                                             <div className={`flex md:justify-between md:flex-row flex-col md:gap-[10rem] gap-3`}>
                                                 <div className={`flex gap-4`}>
-                                                    <img className={`border-[1px] w-[7rem]`} src={items?.images[0].url} alt="" />
+                                                    <img className={`border-[1px] w-[7rem] h-[7rem] object-cover`} src={items?.images[0].url} alt="" />
                                                     <div>
-                                                        <h1 className={`text-[1.2rem] mb-2`}>
+                                                        <h1 className={`text-[1.2rem] mb-4`}>
                                                             {items?.product}
                                                         </h1>
-                                                        <p className={`text-[1rem]`}>₦{items?.price.toFixed(2)}</p>
+                                                        <p className={`text-[1rem]`}>₦{items?.price.toLocaleString()}.00</p>
                                                     </div>
                                                 </div>
                                                 <div>
@@ -59,7 +60,7 @@ const Carts = () => {
                                                             </span>
                                                         </div>
                                                         <div className={`text-[1rem]`}>
-                                                            <p>₦{items?.qtyPrice.toFixed(2)}</p>
+                                                            <p>₦{items?.qtyPrice.toLocaleString()}.00</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -76,7 +77,7 @@ const Carts = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className='flex-[0.8]'>
+                        <div className='md:flex-[1]'>
                             <div className={`py-[2rem] text-[1.2rem] border-b-[px]`}>
                                 <h1>Order Summary</h1>
                             </div>
@@ -88,7 +89,7 @@ const Carts = () => {
                                     </div>
                                     <div className={`flex justify-between items-center text-[1.3rem] font-[100]`}>
                                         <p>Est. total:</p>
-                                        <p>₦{cartTotalAmount.toFixed(2)}</p>
+                                        <p>₦{cartTotalAmount.toLocaleString()}.00</p>
                                     </div>
                                 </div>
 

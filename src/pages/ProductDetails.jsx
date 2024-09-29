@@ -11,6 +11,7 @@ import { addToCart } from '../Redux/CartSlice/Cartslice';
 import { fetchReviews } from '../Redux/reviewSlice/Reviewslice';
 import { Alert } from "flowbite-react";
 import axios from 'axios';
+import CostumTitle from '../../CosutumTitle/CostumTitle';
 
 const ProductDetails = () => {
     const { id } = useParams()
@@ -76,6 +77,8 @@ const ProductDetails = () => {
         authToken ? navigate('/buy-now') : navigate('/signin', { state: { previousUrl: `/product-details/${id}` } })
     }
     return (
+        <> 
+        <CostumTitle title='Product-Details'/>
         <div className='pt-[9rem]'>
             <div className={`mx-auto md:w-[60%] w-[90%]`}>
                 <div>
@@ -220,6 +223,7 @@ const ProductDetails = () => {
             </div>
 
         </div>
+        </>
     )
 }
 

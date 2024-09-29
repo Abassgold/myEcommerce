@@ -1,11 +1,13 @@
 import React from 'react';
 import ExpertReviews from '../component/ExpertReviews/ExpertReviews';
+import CostumTitle from '../../CosutumTitle/CostumTitle';
 
 const Reviews = () => {
   return (
-    <div>
+    <>
+    <CostumTitle title='Reviews'/>
         <ExpertReviews/>
-    </div>
+    </>
   );
 }
 

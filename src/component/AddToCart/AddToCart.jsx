@@ -18,6 +18,7 @@ import { motion } from 'framer-motion';
 
 const AddToCart = () => {
     const [openModal, setOpenModal] = useState(false);
+    const [loadingId, setLoadingId] = useState(null);
     const [loader, setLoader] = useState(false);
     const [input, setInput] = useState('')
     const { filter } = useContext(searchContext)
@@ -46,36 +47,36 @@ const AddToCart = () => {
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword])
     const addCart = (product) => {
-        dispatch(setSlide())
+        setLoadingId(product?._id);
         setTimeout(() => {
             dispatch(addToCart({ newItems: product, itemQuantity: 1, price: product.price }))
-            dispatch(setSlide())
-        }, 200);
+            setLoadingId(null);
+        }, 500);
         // if (isOpen) return;
     }
     const IncreaseQty = (product) => {
         const count = 1;
-        dispatch(setSlide())
+        setLoadingId(product?._id);
         console.log(loader);
         setTimeout(() => {
             dispatch(addToCart({ newItems: product, itemQuantity: Number(count), price: Number(product?.price) }))
-            dispatch(setSlide())
-        }, 200);
+            setLoadingId(null);
+        }, 500);
     }
     const decreaseQty = (product) => {
         const count = 1;
-        dispatch(setSlide())
+        setLoadingId(product?._id);
         setTimeout(() => {
             dispatch(decreaseQuantity({ newItems: product, itemQuantity: Number(count), price: Number(product?.price) }))
-            dispatch(setSlide());
-        }, 200);
+            setLoadingId(null);
+        }, 500);
     }
     const deleteCart = function (product) {
-        dispatch(setSlide())
+        setLoadingId(product?._id);
         setTimeout(() => {
             dispatch(removeFromCart(product))
-            dispatch(setSlide())
-        }, 200);
+            setLoadingId(null);
+        }, 500);
     }
     const style = {
         position: 'absolute',
@@ -153,7 +154,7 @@ const AddToCart = () => {
                                                             >
                                                                 <div className={`cursor-pointer`}>
                                                                     <img src={product?.images[0].url} alt="" className='w-full md:h-[20rem]  h-[10rem] object-cover' />
-                                                                    <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => operate(product)}>
+                                                                    <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => navigate(`/product-details/${product._id}`)}>
                                                                         Quick view
                                                                     </div>
                                                                 </div>
@@ -167,7 +168,7 @@ const AddToCart = () => {
                                                                 <input type="text" value='1' className={`hidden count`} />
                                                                 <div>
                                                                     {
-                                                                        isOpen ? (
+                                                                        loadingId === product._id ? (
                                                                             <div className=' text-center text-[1.5rem]'>
                                                                                 <Spinner color="info" aria-label="Info spinner example" />
                                                                             </div>
@@ -180,12 +181,11 @@ const AddToCart = () => {
                                                                                 <div>
                                                                                     <div className='flex text-center'>
                                                                                         <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
-
                                                                                             {
-                                                                                                cartQty !== 1 ? (<span class="material-symbols-outlined " onClick={() => decreaseQty(product)}>
+                                                                                                cartQty !== 1 ? (<span className=" h-full w-full material-symbols-outlined " onClick={() => decreaseQty(product)}>
                                                                                                     remove
                                                                                                 </span>) : (
-                                                                                                    <span class="material-symbols-outlined cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                                                    <span className="material-symbols-outlined w-full h-full cursor-pointer" onClick={() => deleteCart(product)}>
                                                                                                         remove
                                                                                                     </span>
                                                                                                 )
@@ -194,16 +194,14 @@ const AddToCart = () => {
                                                                                         <div className='flex-[1] py-3 text-[1.3rem]'>
                                                                                             {cartQty}</div>
                                                                                         <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
-                                                                                            <span class="material-symbols-outlined" onClick={() => IncreaseQty(product)}>
+                                                                                            <span className="material-symbols-outlined h-full w-full" onClick={() => IncreaseQty(product)}>
                                                                                                 add
                                                                                             </span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-
                                                                             )
                                                                     }
-
                                                                 </div>
                                                             </motion.div>
                                                         )

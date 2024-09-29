@@ -9,6 +9,7 @@ import { searchContext } from '../../App';
 import { fetchUserInfo } from '../../Redux/signInSlice/signinSlce';
 import { useDispatch } from 'react-redux';
 import Loader from '../Loader/Loader';
+import CostumTitle from '../../../CosutumTitle/CostumTitle';
 const Signin = () => {
     const dispatch = useDispatch()
     const context = useContext(searchContext)
@@ -53,8 +54,8 @@ const Signin = () => {
     let isValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-black bg-none`
     let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
     return (
-        <div>
-            
+        <>
+            <CostumTitle title='SignIn'/>
             {/* {loader && (
                 <section>
                     <Loader msg={message}/>
@@ -107,7 +108,7 @@ const Signin = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

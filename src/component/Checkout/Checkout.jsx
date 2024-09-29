@@ -4,6 +4,7 @@ import { addShippingInfo } from '../../Redux/CartSlice/Cartslice'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../CheckoutSteps/CheckoutSteps'
 import { useNavigate } from 'react-router-dom'
+import CostumTitle from '../../../CosutumTitle/CostumTitle'
 const countrylist = Object.values(countries)
 const Checkout = () => {
     const navigate = useNavigate()
@@ -22,7 +23,8 @@ const [name, steName] = useState(shippingInfo.name)
     }
 
     return (
-        <div className=''>
+        <>
+        <CostumTitle title='Checkout'/>
             <div className="mx-auto md:max-w-[50%]  text-[#606a7d]  p-6 rounded-[0.5rem] my-[2rem]">
                 <CheckoutSteps checkout />
                 <div className='rounded-[0.5rem]'>
@@ -65,8 +67,7 @@ const [name, steName] = useState(shippingInfo.name)
                     </div>
                 </div>
             </div>
-        </div>
-
+        </>
     )
 }
 

@@ -5,6 +5,7 @@ import CheckoutSteps from '../component/CheckoutSteps/CheckoutSteps'
 import { PaystackButton } from 'react-paystack';
 import axios from 'axios';
 import { clearCart } from '../Redux/CartSlice/Cartslice';
+import './Confirmorder.css'
 
 
 const ConfirmOrder = () => {
@@ -67,10 +68,10 @@ const ConfirmOrder = () => {
                                             <div className={`flex md:gap-[5rem] justify-between items-center `}>
                                                 <img className={`w-[5rem] p-1 border border-[RGB(210 210 210)]`} src={items?.images[0].url} alt="" />
                                                 <div className={`flex justify-between gap-[3rem]  lg:flex-row flex-col`}>
-                                                    <Link to={`/product-details/${items?._id}`} className={`underline text-[black] hover:text-[#606A7D]`}>
+                                                    <Link to={`/product-details/${items?._id}`} className='truncated-text'>
                                                         <p>{items?.product}</p>
                                                     </Link>
-                                                    <p className={`whitespace-nowrap`}>{items?.quantity} x ${items?.price.toFixed(2)} = <span className='font-[500]'>${items?.qtyPrice.toFixed(2)}</span></p>
+                                                    <p className={`whitespace-nowrap`}>{items?.quantity} x ${items?.price.toLocaleString()} = <span className='font-[500]'>${items?.qtyPrice.toLocaleString()}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,20 +87,20 @@ const ConfirmOrder = () => {
                         <div className={`text-[1.2rem] border-y border-[RGB(210 210 210)] p-3`}>
                             <div className={`flex justify-between items-center `}>
                                 <p>Subtotal:</p>
-                                <p className='font-[500]'>{cartTotalAmount.toFixed(0)}</p>
+                                <p className='font-[500]'>{cartTotalAmount.toLocaleString()}.00</p>
                             </div>
                             <div className={`flex justify-between items-center my-3`}>
                                 <p>Shipping:</p>
-                                <p className='font-[500]'>₦{shippingPrice}</p>
+                                <p className='font-[500]'>₦{shippingPrice.toLocaleString()}.00</p>
                             </div>
                             <div className={`flex justify-between items-center`}>
                                 <p>Tax:</p>
-                                <p className='font-[500]'>₦{taxPrice}</p>
+                                <p className='font-[500]'>₦{taxPrice.toLocaleString()}.00</p>
                             </div>
                         </div>
                         <div className={`flex justify-between text-[poppins]  items-center gap-[3rem] border-b border-[RGB(210 210 210)] p-3 mb-[1.2rem] text-[1.7rem] font-[500]`}>
-                            <p>Total:</p>
-                            <p className=''>₦{totalPrice.toFixed(0).toLocaleString()}.00</p>
+                            <p className='kol'>Total:</p>
+                            <p className=''>₦{totalPrice.toLocaleString()}.00</p>
                         </div>
                         <div className={`w-full transform duration-[500ms]   bg-[#44dbbd] hover:bg-[#13322c] text-white p-2  text-center text-[1.5rem] whitespace-nowrap rounded-md`}>
                             <PaystackButton {...componentProps} />

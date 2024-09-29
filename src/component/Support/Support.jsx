@@ -6,11 +6,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { BiLogoFacebookCircle, BiLogoLinkedinSquare, BiLink } from 'react-icons/bi'
 import { ImTwitter } from 'react-icons/im'
 import { Link } from 'react-router-dom';
+import CostumTitle from '../../../CosutumTitle/CostumTitle';
 
 
 export default function Support() {
   return (
-    <div>
+    <>
+    <CostumTitle title='Support'/>
       <div className='bg-[#f5f5f5] pt-[5rem] pb-[4rem]'>
         <div className='mx-auto md:w-[70%] w-[90%] text-[42px] font-[400] text-[#2f2e2e]'>
           <h1>Need Help with Your Order?</h1>
@@ -145,6 +147,6 @@ export default function Support() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
