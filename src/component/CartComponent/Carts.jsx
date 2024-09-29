@@ -42,7 +42,7 @@ const Carts = () => {
                                                 <div className={`flex gap-4`}>
                                                     <img className={`border-[1px] w-[7rem] h-[7rem] object-cover`} src={items?.images[0].url} alt="" />
                                                     <div>
-                                                        <h1 className={`text-[1.2rem] mb-4`}>
+                                                        <h1 className={`text-[1.2rem] cursor-pointer mb-4 underline`} onClick={()=>navigate(`/product-details/${items?._id}`)}>
                                                             {items?.product}
                                                         </h1>
                                                         <p className={`text-[1rem]`}>₦{items?.price.toLocaleString()}.00</p>

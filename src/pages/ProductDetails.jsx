@@ -127,7 +127,7 @@ const ProductDetails = () => {
                                     <div className={`flex-1 px-[1rem]`}>
                                         <h1 className='mb-[7px]'>{product.product}</h1>
                                         <p>Status: <span className={`font-[500]`}>{product.stock > 0 ? 'in Stock' : 'Out of Stock'}</span></p><br />
-                                        <p>Sold by : <span className='font-[500]'>{product.seller}</span></p>
+                                        <p>Seller : <span className='font-[500]'>{product.seller}</span></p>
                                         <p>₦{(Number(product.price)).toLocaleString()}.00</p><br />
                                         <small>Quantity</small>
                                         <div className={`flex items-center gap-2 text-[1.5rem]`}>
@@ -168,7 +168,7 @@ const ProductDetails = () => {
                                                     {show1 ? 'remove' : 'ADD'}
                                                 </span>
                                             </div>
-                                            <p className={`text-[13px] text-[#484747] transition duration-[5s] ${show1 ? 'block' : 'hidden'}`}>
+                                            <p className={`text-[13px] text-[#484747] transition duration-1000 ${show1 ? 'block' : 'hidden'}`}>
                                                 I’m a Return and Refund policy. I’m a great place to let your customers know what to do in case they are dissatisfied with their purchase. Having a straightforward refund or exchange policy is a great way to build trust and reassure your customers that they can buy with confidence.
                                             </p>
                                         </div>

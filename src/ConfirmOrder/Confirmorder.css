@@ -3,12 +3,9 @@
     overflow: hidden;          
     text-overflow: ellipsis;   
     width: 205px;        
-    color: red;   
+    color: #606a92;   
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
   }
-  truncated-text::after{
-    content: '...';
-    color: red;
-  }
-  .kol{
-    color: red !important;
-  }
+ 

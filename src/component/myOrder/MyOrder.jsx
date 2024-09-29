@@ -32,6 +32,9 @@ const MyOrder = () => {
         }
     }, [user, error])
     console.log(myOrders)
+    if(isLoading) return (
+        <Loader/>
+    )
     return (
         <>
             <section className=' py-[5rem] px-2'>
@@ -134,7 +137,7 @@ const MyOrder = () => {
                                                     {item?.user.email}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {item?.itemsPrice}
+                                                ₦{item?.itemsPrice.toLocaleString()}.00
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className='flex gap-2 items-center'>

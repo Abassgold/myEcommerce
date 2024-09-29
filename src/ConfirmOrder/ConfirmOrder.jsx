@@ -44,7 +44,7 @@ const ConfirmOrder = () => {
     };
     return (
         <div>
-            <div className='mx-auto md:w-[50%] w-[90%]'>
+            <div className='mx-auto md:w-[50%] w-[90%] '>
                 <CheckoutSteps checkout confirmOrder />
             </div>
             <div className={`container px-[1rem] mx-auto mb-[4rem]`}>
