@@ -69,6 +69,7 @@ const App = () => {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
+          withCredentials: true,
         });
         if (data?.success) {
           dispatch(addUser(data?.user));

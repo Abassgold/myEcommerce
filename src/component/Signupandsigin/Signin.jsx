@@ -27,7 +27,9 @@ const Signin = () => {
         onSubmit: async (values) => {
             setLoader(true)
             try {
-                const { data } = await axios.post(URI, values)
+                const { data } = await axios.post(URI, values,{
+                    withCredentials: true,
+                })
                 
                 if (data?.success) {
                     setTimeout(() => {
