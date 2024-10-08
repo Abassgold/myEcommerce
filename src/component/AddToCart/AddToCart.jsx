@@ -13,6 +13,7 @@ import { setSlide } from '../../Redux/SlideSlice/Slide';
 import { Box, Modal, Slide, Typography } from '@mui/material';
 import SearchFilter from '../utils/SearchFilter';
 import { motion } from 'framer-motion';
+import timeMoment from 'moment';
 
 // import { Button, Modal } from "flowbite-react";
 
@@ -31,7 +32,7 @@ const AddToCart = () => {
     const URI = `${import.meta.env.VITE_URI}/admin/all-products?page=${currentPage}&filter=${filter}`
     const navigate = useNavigate()
 
-    const { isLoading, allProduct, totalPages, error } = useSelector((state) => state.products)
+    const { isLoading, allProduct, totalPages, error, lastFetched } = useSelector((state) => state.products)
     const { cartItems } = useSelector(state => state.cartReducer)
     const { isOpen } = useSelector(state => state.Slide)
     const dispatch = useDispatch()
@@ -42,8 +43,9 @@ const AddToCart = () => {
             setOpenModal(!openModal)
         }, 200);
     }
+    const diffInMinutes = timeMoment().diff(timeMoment(lastFetched), 'minutes')
     useEffect(() => {
-        if (allProduct?.result) return;
+        if (diffInMinutes < 10) return;
         dispatch(fetchProduct(URI))
     }, [dispatch, currentPage, keyword])
     const addCart = (product) => {
@@ -93,143 +95,143 @@ const AddToCart = () => {
     })
     const searchFilterData = SearchFilter();
     return (
-    <>
-        <section className={`relative`}>
-            <Modal
-                open={openModal}
-                onClose={() => setOpenModal(!openModal)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <SingleCart gettingValue={selectedProduct} />
-                    </Typography>
-                </Box>
-            </Modal>
-            {
-                isLoading && <Loader msg='Fetching...' />
-            }
-            {
-                !isLoading && error && <h1 className='text-center text-[3rem]'>Error: {error}</h1>
-            }
-            {
-                !isLoading && !error && (
-                    (
-                        <div className='py-[3rem]'>
-                            <div className="mx-auto container px-2">
-                                {allProduct && allProduct.length <= 0 && (<div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
-                                    <p>We're restocking our shelves. Please check back soon!</p>
-                                </div>
-                                )}
-                                {
-                                    filteredProducts?.length > 0 ? (
-                                        <div>
-                                            <div className='flex gap-4 mb-4 justify-between items-center'>
-                                                <form class=" flex-1">
-                                                    <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
-                                                        <option selected>Chose Category</option>
-                                                        {searchFilterData?.filter.map((item, index) => (
-                                                            <option value={item} key={index}>{item}</option>
-                                                        ))}
-                                                    </select>
-                                                </form>
-                                                <form class=" flex-1">
-                                                    <select id="priceFilter" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
-                                                        <option selected>Price filter</option>
-                                                        {searchFilterData?.price.map((item, index) => (
-                                                            <option value={item} key={index}>{item}</option>
-                                                        ))}
-                                                    </select>
-                                                </form>
-                                            </div>
-                                            <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
-                                                {
-                                                    filteredProducts.map(product => {
-                                                        const cartItem = cartItems?.find((item) => item?._id === product._id);
-                                                        const cartQty = cartItem ? cartItem?.quantity : 0;
-                                                        return (
-                                                            <motion.div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] max-h-[34rem]  border-[0.5px] shadow-md rounded-md' key={product._id}
-                                                                whileHover={{ scale: 1.02 }}
-                                                            >
-                                                                <div className={`cursor-pointer`}>
-                                                                    <img src={product?.images[0].url} alt="" className='w-full md:h-[20rem]  h-[10rem] object-cover' />
-                                                                    <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => navigate(`/product-details/${product._id}`)}>
-                                                                        Quick view
+        <>
+            <section className={`relative`}>
+                <Modal
+                    open={openModal}
+                    onClose={() => setOpenModal(!openModal)}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <SingleCart gettingValue={selectedProduct} />
+                        </Typography>
+                    </Box>
+                </Modal>
+                {
+                    isLoading && <Loader msg='Fetching...' />
+                }
+                {
+                    !isLoading && error && <h1 className='text-center text-[3rem]'>Error: {error}</h1>
+                }
+                {
+                    !isLoading && !error && (
+                        (
+                            <div className='py-[3rem]'>
+                                <div className="mx-auto container px-2">
+                                    {allProduct && allProduct.length <= 0 && (<div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
+                                        <p>We're restocking our shelves. Please check back soon!</p>
+                                    </div>
+                                    )}
+                                    {
+                                        filteredProducts?.length > 0 ? (
+                                            <div>
+                                                <div className='flex gap-4 mb-4 justify-between items-center'>
+                                                    <form class=" flex-1">
+                                                        <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
+                                                            <option selected>Chose Category</option>
+                                                            {searchFilterData?.filter.map((item, index) => (
+                                                                <option value={item} key={index}>{item}</option>
+                                                            ))}
+                                                        </select>
+                                                    </form>
+                                                    <form class=" flex-1">
+                                                        <select id="priceFilter" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">
+                                                            <option selected>Price filter</option>
+                                                            {searchFilterData?.price.map((item, index) => (
+                                                                <option value={item} key={index}>{item}</option>
+                                                            ))}
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                                <div className={`grid md:grid-cols-3 xl:grid-cols-4 grid-cols-2  justify-center gap-4`}>
+                                                    {
+                                                        filteredProducts.map(product => {
+                                                            const cartItem = cartItems?.find((item) => item?._id === product._id);
+                                                            const cartQty = cartItem ? cartItem?.quantity : 0;
+                                                            return (
+                                                                <motion.div className='mb-[1rem] p-2 bg-[#ffff] border-[#d8dbe0] max-h-[34rem]  border-[0.5px] shadow-md rounded-md' key={product._id}
+                                                                    whileHover={{ scale: 1.02 }}
+                                                                >
+                                                                    <div className={`cursor-pointer`}>
+                                                                        <img src={product?.images[0].url} alt="" className='w-full md:h-[20rem]  h-[10rem] object-cover' />
+                                                                        <div className='text-white hidden md:block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center translate-y-[10px] transform hover:translate-y-0 duration-[500ms]' onClick={() => navigate(`/product-details/${product._id}`)}>
+                                                                            Quick view
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className='py-2'>
-                                                                    <p className=' truncate text-[18px] font-[600] text-[#2f2e2e]'>{product.product} </p>
-                                                                    <p className='text-[16px] font-[400] text-[#605e5e]'>₦{product.price.toLocaleString()}.00</p>
-                                                                </div>
-                                                                <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>
-                                                                    View details
-                                                                </div>
-                                                                <input type="text" value='1' className={`hidden count`} />
-                                                                <div>
-                                                                    {
-                                                                        loadingId === product._id ? (
-                                                                            <div className=' text-center text-[1.5rem]'>
-                                                                                <Spinner color="info" aria-label="Info spinner example" />
-                                                                            </div>
-                                                                        ) :
-                                                                            cartQty <= 0 ? (
-                                                                                <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
-                                                                                    Add to cart
+                                                                    <div className='py-2'>
+                                                                        <p className=' truncate text-[18px] font-[600] text-[#2f2e2e]'>{product.product} </p>
+                                                                        <p className='text-[16px] font-[400] text-[#605e5e]'>₦{product.price.toLocaleString()}.00</p>
+                                                                    </div>
+                                                                    <div className='mb-4 text-white md:hidden block hover:bg-[rgb(205,204,197,0.5)] bg-[rgb(205,204,197)] py-3 text-center' onClick={() => navigate(`/product-details/${product._id}`)}>
+                                                                        View details
+                                                                    </div>
+                                                                    <input type="text" value='1' className={`hidden count`} />
+                                                                    <div>
+                                                                        {
+                                                                            loadingId === product._id ? (
+                                                                                <div className=' text-center text-[1.5rem]'>
+                                                                                    <Spinner color="info" aria-label="Info spinner example" />
                                                                                 </div>
-                                                                            ) : (
-                                                                                <div>
-                                                                                    <div className='flex text-center'>
-                                                                                        <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
-                                                                                            {
-                                                                                                cartQty !== 1 ? (<span className=" h-full w-full material-symbols-outlined " onClick={() => decreaseQty(product)}>
-                                                                                                    remove
-                                                                                                </span>) : (
-                                                                                                    <span className="material-symbols-outlined w-full h-full cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                            ) :
+                                                                                cartQty <= 0 ? (
+                                                                                    <div className='cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3' onClick={() => addCart(product)}>
+                                                                                        Add to cart
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    <div>
+                                                                                        <div className='flex text-center'>
+                                                                                            <div className={`flex-[0.5] cursor-pointer transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3  text-[1rem] rounded-md`}>
+                                                                                                {
+                                                                                                    cartQty !== 1 ? (<span className=" h-full w-full material-symbols-outlined " onClick={() => decreaseQty(product)}>
                                                                                                         remove
-                                                                                                    </span>
-                                                                                                )
-                                                                                            }
-                                                                                        </div>
-                                                                                        <div className='flex-[1] py-3 text-[1.3rem]'>
-                                                                                            {cartQty}</div>
-                                                                                        <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
-                                                                                            <span className="material-symbols-outlined h-full w-full" onClick={() => IncreaseQty(product)}>
-                                                                                                add
-                                                                                            </span>
+                                                                                                    </span>) : (
+                                                                                                        <span className="material-symbols-outlined w-full h-full cursor-pointer" onClick={() => deleteCart(product)}>
+                                                                                                            remove
+                                                                                                        </span>
+                                                                                                    )
+                                                                                                }
+                                                                                            </div>
+                                                                                            <div className='flex-[1] py-3 text-[1.3rem]'>
+                                                                                                {cartQty}</div>
+                                                                                            <div className={`cursor-pointer rounded-md flex-[0.5] transform duration-[500ms] text-center bg-[#44dbbd] hover:bg-[#13322c] text-white py-3`}>
+                                                                                                <span className="material-symbols-outlined h-full w-full" onClick={() => IncreaseQty(product)}>
+                                                                                                    add
+                                                                                                </span>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            )
-                                                                    }
-                                                                </div>
-                                                            </motion.div>
-                                                        )
-                                                    })
-                                                }
+                                                                                )
+                                                                        }
+                                                                    </div>
+                                                                </motion.div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) :
-                                        (
-                                            <div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
-                                                <p>Unfortunately, we don't have that item in stock at the moment. Please check back later!</p>
-                                            </div>
-                                        )
-                                }
-                            </div>
-                            {filteredProducts?.length > 0 && (
-                                <div className="flex overflow-x-auto justify-center">
-                                    {
-                                        allProduct.totalPages && <Pagination currentPage={currentPage} totalPages={allProduct.totalPages} onPageChange={onPageChange} showIcons />
+                                        ) :
+                                            (
+                                                <div className={`text-center text-[2rem] py-[3rem] whitespace-normal`}>
+                                                    <p>Unfortunately, we don't have that item in stock at the moment. Please check back later!</p>
+                                                </div>
+                                            )
                                     }
                                 </div>
-                            )}
-                        </div>
+                                {filteredProducts?.length > 0 && (
+                                    <div className="flex overflow-x-auto justify-center">
+                                        {
+                                            allProduct.totalPages && <Pagination currentPage={currentPage} totalPages={allProduct.totalPages} onPageChange={onPageChange} showIcons />
+                                        }
+                                    </div>
+                                )}
+                            </div>
+                        )
                     )
-                )
-            }
-        </section>
-    </>
+                }
+            </section>
+        </>
     );
 }
 
