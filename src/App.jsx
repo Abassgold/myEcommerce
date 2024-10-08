@@ -32,7 +32,7 @@ import Reset from './component/ForgotPassword/Reset';
 import Carts from './component/CartComponent/Carts';
 import Checkout from './component/Checkout/Checkout';
 import ProtectedRoutes from './pages/ProtectedRoutes/ProtectedRoutes';
-import { addUser } from './Redux/signInSlice/signinSlce';
+import {  fetchUserInfo } from './Redux/signInSlice/signinSlce';
 import ConfirmOrder from './ConfirmOrder/ConfirmOrder';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -45,8 +45,7 @@ import ProtectedOrderdetails from './pages/protectedOrderDetails/ProtectedOrderd
 export const searchContext = createContext()
 const App = () => {
   const dispatch = useDispatch()
-  const { authToken } = useSelector(state => state.signinSlce)
-  // let URI = `http://localhost:5000`
+  const { isAuthenticated } = useSelector(state => state.signinSlce)
   const socket = useRef()
   const [stripeApiKey, setStripeApiKey] = useState('')
   const [user, setUser] = useState(null)
@@ -64,15 +63,10 @@ const App = () => {
     const fetchUserData = async () => {
       try {
         const { data } = await axios.get(`${import.meta.env.VITE_URI}/user/dashboard`, {
-          headers: {
-            "Authorization": `Bearer ${authToken}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
           withCredentials: true,
         });
         if (data?.success) {
-          dispatch(addUser(data?.user));
+          dispatch(fetchUserInfo(data?.user));
           setIsAuth(true)
           return;
         }
@@ -85,7 +79,7 @@ const App = () => {
     };
     fetchUserData();
     getSripeapiKey();
-  }, [authToken])
+  }, [])
 
   // const geninput = ()=>{
   // const fileInput = document.getElementById('file-input');

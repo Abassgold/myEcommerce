@@ -27,15 +27,13 @@ const Signin = () => {
         onSubmit: async (values) => {
             setLoader(true)
             try {
-                const { data } = await axios.post(URI, values,{
+                const { data } = await axios.post(URI, values, {
                     withCredentials: true,
                 })
-                
+
                 if (data?.success) {
-                    setTimeout(() => {
-                        dispatch(fetchUserInfo(data?.token))
-                        navigate(location?.state?.previousUrl ? location?.state?.previousUrl : '/');
-                    }, 100);
+                    dispatch(fetchUserInfo(data?.userInfo))
+                    navigate(location?.state?.previousUrl ? location?.state?.previousUrl : '/');
                     return;
                 }
                 setmessage(data?.msg)
@@ -57,7 +55,7 @@ const Signin = () => {
     let isInValid = `w-full ps-4 py-3 outline-none border-[1px] hover:border-[3px] border-red-600 bg-none`
     return (
         <>
-            <CostumTitle title='SignIn'/>
+            <CostumTitle title='SignIn' />
             {/* {loader && (
                 <section>
                     <Loader msg={message}/>

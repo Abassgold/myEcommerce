@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CartComponent from '../CartComponent/CartComponent';
 import { logOut } from '../../Redux/signInSlice/signinSlce';
+import axios from 'axios';
 const ReactNavbar = () => {
     const [Open, setOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
@@ -13,11 +14,19 @@ const ReactNavbar = () => {
     const { user } = useSelector(state => state.signinSlce)
     const { cartItems } = useSelector(state => state.cartReducer);
     const { isOpen } = useSelector(state => state.Slide)
-    const signOut = () => {
-        setTimeout(() => {
+    const signOut = async () => {
+        try {
+            const { data } = await axios.get(`${import.meta.env.VITE_URI}/user/logout`, {
+                withCredentials: true,
+            });
+            
+            if(!data?.success) return;
             dispatch(logOut())
             setDropdown(!dropdown)
-        }, (100));
+        } catch (error) {
+            console.log(error?.message);
+        }
+
     }
 
     return (
@@ -84,18 +93,18 @@ const ReactNavbar = () => {
                                                     <span className="block px-4 text-sm text-gray-700 font-medium">{user?.email}</span>
                                                 </div>
                                                 <div className='border-b mb-2'>
-                                                    <Link to="/profile/me" className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" onClick={e=>setDropdown(!dropdown)}>Profile </Link>
+                                                    <Link to="/profile/me" className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" onClick={e => setDropdown(!dropdown)}>Profile </Link>
                                                     {user?.role === 'admin' && (
-                                                        <Link className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" to='/admin/dashboard' onClick={e=>setDropdown(!dropdown)}>Dashboard</Link>
+                                                        <Link className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" to='/admin/dashboard' onClick={e => setDropdown(!dropdown)}>Dashboard</Link>
                                                     )}
-                                                    <Link to='/orders/me' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" onClick={e=>setDropdown(!dropdown)}>Orders</Link>
-                                                    <Link to='/settings' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1" onClick={e=>setDropdown(!dropdown)}>Settings</Link>
+                                                    <Link to='/orders/me' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" onClick={e => setDropdown(!dropdown)}>Orders</Link>
+                                                    <Link to='/settings' className="block hover:bg-[#757585] px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1" onClick={e => setDropdown(!dropdown)}>Settings</Link>
                                                 </div>
                                             </div>
                                         )}
                                         {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
 
-                                        {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700' onClick={e=>setDropdown(!dropdown)}>SignIn</Link>}
+                                        {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700' onClick={e => setDropdown(!dropdown)}>SignIn</Link>}
                                     </div>
                                 )}
                             </div>
@@ -107,10 +116,10 @@ const ReactNavbar = () => {
                 {Open && (
                     <div className="md:hidden" id="mobile-menu">
                         <div className="space-y-1 px-2 pb-3 pt-2">
-                            <Link to='/' className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page" onClick={e=>setOpen(false)}>Home</Link>
-                            <Link to='/newsletter' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e=>setOpen(false)}>News Letter</Link>
-                            <Link to='/support' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e=>setOpen(false)}>Support</Link>
-                            <Link to='/forum' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e=>setOpen(false)}>Expert Reviews</Link>
+                            <Link to='/' className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page" onClick={e => setOpen(false)}>Home</Link>
+                            <Link to='/newsletter' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e => setOpen(false)}>News Letter</Link>
+                            <Link to='/support' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e => setOpen(false)}>Support</Link>
+                            <Link to='/forum' className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white" onClick={e => setOpen(false)}>Expert Reviews</Link>
                         </div>
                     </div>
                 )}
