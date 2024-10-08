@@ -95,9 +95,6 @@ const App = () => {
     <searchContext.Provider value={{ filter, setFilter, isAuth, user }}>
       <>
         <section className=' relative'>
-          <div className='text-[1.1rem] font-[600] text-[red]'>
-            <marquee behavior="alternate" direction="left">Site under development</marquee>
-          </div>
           <div>
             <div className={`sticky top-0 z-[300]`}>
               <ReactNavbar />
