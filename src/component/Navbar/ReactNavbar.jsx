@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Navbar, Avatar, Dropdown, Badge } from "flowbite-react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CartComponent from '../CartComponent/CartComponent';
 import { logOut } from '../../Redux/signInSlice/signinSlce';
 import axios from 'axios';
 const ReactNavbar = () => {
+    const location = useLocation()
     const [Open, setOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     const dispatch = useDispatch()
@@ -19,8 +20,8 @@ const ReactNavbar = () => {
             const { data } = await axios.get(`${import.meta.env.VITE_URI}/user/logout`, {
                 withCredentials: true,
             });
-            
-            if(!data?.success) return;
+
+            if (!data?.success) return;
             dispatch(logOut())
             setDropdown(!dropdown)
         } catch (error) {
@@ -28,7 +29,9 @@ const ReactNavbar = () => {
         }
 
     }
-
+    useEffect(() => {
+        setDropdown(!dropdown)
+    }, [location])
     return (
         <div className='bg-[#2f2e2e] py-1'>
             <nav>

@@ -1,16 +1,33 @@
-import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const ScrolToTop = () => {
-    const location = useLocation()
-    useEffect(()=>{
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        })
-    },[location])
-  return null
-}
+const ScrollToTop = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const savedScrollPosition = sessionStorage.getItem(location.key);
+    if (savedScrollPosition) {
+      window.scrollTo({
+        top: parseInt(savedScrollPosition, 10),
+        behavior: 'auto',
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+    const saveScrollPosition = () => {
+      sessionStorage.setItem(location.key, window.scrollY);
+    };
+    window.addEventListener('beforeunload', saveScrollPosition);
+    return () => {
+      saveScrollPosition();
+      window.removeEventListener('beforeunload', saveScrollPosition);
+    };
+  }, [location]);
 
-export default ScrolToTop
+  return null;
+};
+
+export default ScrollToTop;
