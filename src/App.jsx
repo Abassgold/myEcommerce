@@ -66,7 +66,7 @@ const App = () => {
           withCredentials: true,
         });
         if (data?.success) {
-          dispatch(fetchUserInfo(data?.user));
+          dispatch(fetchUserInfo(data?.userInfo));
           setIsAuth(true)
           return;
         }
