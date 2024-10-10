@@ -87,7 +87,7 @@ const ReactNavbar = () => {
                                         <img className="h-8 w-8 rounded-full object-cover" src={user ? user?.photo?.url : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt="" />
                                     </button>
                                 </div>
-                                {dropdown && (
+                                {!dropdown && (
                                     <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         {user && (
                                             <div>
@@ -105,8 +105,6 @@ const ReactNavbar = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-
                                         {user ? <Link onClick={signOut} className='block px-4 hover:bg-[#757585] pb-2 text-sm text-gray-700 py-2'>SignOut</Link> : <Link to='/signin' className='block hover:bg-[#757585] px-4 py-2 text-sm  text-gray-700' onClick={e => setDropdown(!dropdown)}>SignIn</Link>}
                                     </div>
                                 )}
