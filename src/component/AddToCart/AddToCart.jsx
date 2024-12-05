@@ -126,7 +126,7 @@ const AddToCart = () => {
                                     )}
                                     {
                                         filteredProducts?.length > 0 ? (
-                                            <div>
+                                            <div className='container lg:p-10 md:p-5 p-2'>
                                                 <div className='flex gap-4 mb-4 justify-between items-center'>
                                                     <form class=" flex-1">
                                                         <select id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-4   text-[1.2rem]">

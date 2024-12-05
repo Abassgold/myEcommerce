@@ -79,11 +79,15 @@ const Signin = () => {
                         <form action="" onSubmit={formik.handleSubmit}>
                             <div>
                                 <div className="pb-2">
-                                    <input type="email" placeholder='Your  email...' className={formik.touched.email && formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
+                                    <input
+                                    value={formik.values.email}
+                                     type="email" placeholder='Your  email...' className={formik.touched.email && formik.errors.email ? isInValid : isValid} onChange={formik.handleChange} name='email' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.email}</label>
                                 <div className="pb-2">
-                                    <input type="password" placeholder='Your password...' className={formik.values.password && formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
+                                    <input
+                                    value={formik.values.password}
+                                     type="password" placeholder='Your password...' className={formik.values.password && formik.touched.password && formik.errors.password ? isInValid : isValid} onChange={formik.handleChange} name='password' onBlur={formik.handleBlur} />
                                 </div>
                                 <label htmlFor="" className='text-red-600'>{formik.errors.password}</label>
                                 <div className="text-center mb-2 text-white">
